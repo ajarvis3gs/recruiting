@@ -17,6 +17,7 @@ class Job(models.Model):
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE, related_name='jobs')
     title = models.CharField(max_length=100)
     employer_contact = models.ForeignKey(EmployerContact, related_name='jobs', null=True)
+    pricing_schedule = models.ForeignKey(EmployerPricingSchedule, related_name='jobs', null=True)
     agency = models.CharField(blank=True, null=True, max_length=100)
     location = models.CharField(blank=True, null=True, max_length=100)
     target_rate = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)

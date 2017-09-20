@@ -134,10 +134,10 @@ USE_TZ = True
 # Email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.3gsllc.com'
-EMAIL_HOST_USER = 'jobs@1x3i.com'
-EMAIL_HOST_PASSWORD = '!1x3i!'
-DEFAULT_FROM_EMAIL = 'jobs@1x3i.com'
-SERVER_EMAIL = 'jobs@1x3i.com'
+EMAIL_HOST_USER = 'mailer@3gsllc.com'
+EMAIL_HOST_PASSWORD = '1mail1'
+DEFAULT_FROM_EMAIL = 'careers@1x3i.com'
+SERVER_EMAIL = 'careers@1x3i.com'
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = ""
 

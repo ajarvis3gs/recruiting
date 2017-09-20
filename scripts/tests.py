@@ -48,7 +48,10 @@ def findDocumentName(text):
 
 
 def findTargetRate(text):
-    match = re.search('\$.*hour', text).group(0)
+    match = re.search('\$.*hour', text)
+    if not match:
+        return text
+    match = match.group(0)
     match = match.replace('$','')
     match = match.replace('/','')
     match = match.replace('hour','')
@@ -65,4 +68,4 @@ def findSubmissionDate(text):
             logger.error("Unable to parse date using format: %s" % pattern)
 
 def run():
-    employer = Employer.objects.get(id=1)
+    print findTargetRate('$70.00 / hour')

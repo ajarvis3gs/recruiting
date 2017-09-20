@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from campaigns.models import MailCampaign
-import logging
+import logging, os
+from django.contrib import messages
 from django.http import HttpResponse
 from django.template import Template, Context
 from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.conf import settings
+from django.http import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -11,32 +14,31 @@ def start_campaign(request, campaign_id):
     # load the campaign
     mailCampaign = MailCampaign.objects.get(id=campaign_id)
 
-    print "found campaign id %s" % mailCampaign
-
     messageBody = merge_template(mailCampaign.message_template.body, mailCampaign.job)
     messageSubject = merge_template(mailCampaign.message_template.subject, mailCampaign.job)
 
     # send to contacts
-    emailAddresses = ['ajarvis@3gsllc.com']
+    emailAddresses = []
     for vendorContact in mailCampaign.vendor_contacts.all():
         emailAddresses.append(vendorContact.user.email)
 
     email = EmailMultiAlternatives(
         messageSubject,
         messageBody,
-        'jobs@1x3i.com',
+        settings.DEFAULT_FROM_EMAIL,
         None,
         emailAddresses
     )
 
     for document in mailCampaign.job.documents.all():
-        email.attach(document.display_name, document.document.path, 'application/msword')
+        content = open(document.document.path, 'rb').read()
+        email.attach(document.display_name, content)
 
     email.send()
 
-    print "campaign started successfully"
+    messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % len(emailAddresses))
 
-    return HttpResponse(status=204)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def merge_template(template, job):
     # create the dataset

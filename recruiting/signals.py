@@ -11,6 +11,7 @@ from campaigns.models import MailCampaign, MessageTemplate
 import zipfile
 from decimal import Decimal
 from xml.etree.cElementTree import XML
+from django.core.exceptions import *
 
 WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
 PARA = WORD_NAMESPACE + 'p'
@@ -32,7 +33,7 @@ def message_received(sender, message, **args):
     # figure out what type of email this is.  for now we'll assume it's a job listing
 
     # extract job details from message body
-    title = message.subject
+    title = findJobTitle(message.subject)
     targetRate = findTargetRate(message.text)
     submissionDate = findSubmissionDate(message.text)
     vendorSubmissionDate = submissionDate - timedelta(days=2)
@@ -83,13 +84,6 @@ def message_received(sender, message, **args):
         if (parsedAttachment['formType'] == 'Task Order Form'):
             logger.error("parsing task order form...")
 
-            # try to determine the pricing schedule.  we still need the service group and region
-            pricingSchedule = findPricingSchedule(employer, parsedAttachment)
-
-            rateSpread = job.target_rate - pricingSchedule.hourly_wage
-            vendorRate = pricingSchedule.hourly_wage + (rateSpread / 2)
-
-            job.vendor_rate = vendorRate
             job.max_submissions = parsedAttachment['maxSubmissions']
             job.agency = parsedAttachment['agency']
             job.location = parsedAttachment['location']
@@ -98,10 +92,7 @@ def message_received(sender, message, **args):
             job.preferred_hardware = parsedAttachment['preferredHardware']
             job.preferred_software = parsedAttachment['preferredSoftware']
             job.work_hours = parsedAttachment['workHours']
-            job.save()
 
-            logger.error("pricingSchedule: %s" % pricingSchedule)
-            logger.error("vendorRate: %s" % vendorRate)
             logger.error("maxSubmissions: %s" % job.max_submissions)
             logger.error("agency: %s" % job.agency)
             logger.error("location: %s" % job.location)
@@ -109,6 +100,20 @@ def message_received(sender, message, **args):
             logger.error("preferredHardware: %s" % job.preferred_hardware)
             logger.error("preferredSoftware: %s" % job.preferred_software)
             logger.error("workHours: %s" % job.work_hours)
+
+            # try to determine the pricing schedule.  we still need the service group and region
+            pricingSchedule = findPricingSchedule(employer, parsedAttachment)
+            if pricingSchedule:
+                rateSpread = job.target_rate - pricingSchedule.hourly_wage
+                vendorRate = pricingSchedule.hourly_wage + (rateSpread / 2)
+
+                job.pricing_schedule = pricingSchedule
+                job.vendor_rate = vendorRate
+
+                logger.error("pricingSchedule: %s" % pricingSchedule)
+                logger.error("vendorRate: %s" % vendorRate)
+
+            job.save()
 
             # save mandatory requirements
             if parsedAttachment['mandatoryQualifications']:
@@ -141,18 +146,54 @@ def message_received(sender, message, **args):
     # finally, create the appropriate records in the database
     logger.error("message creation complete")
 
+def findJobTitle(text):
+    text = text.replace('URGENT REQUIREMENT', '')
+    text = text.replace('URGENT NEW REQUIREMENT', '')
+    text = text.replace('URGENT Requirement', '')
+    text = text.replace('NEW REQUIREMENT', '')
+    text = text.replace('New Requirement', '')
+    text = text.replace('REQUIREMENT', '')
+    text = text.replace('Requirement', '')
+    text = text.replace('; ', '')
+
+    return text
+
 def findDocumentName(text):
-    match = re.search('filename=\".*?\"', text).group(0)
+    match = re.search('filename=\".*?\"', text)
+    if not match:
+        return text
+
+    match = match.group(0)
     match = match.replace('filename=', '')
     match = match.replace('"', '')
     return match
 
 def findRegion(text):
-    match = re.search('(\d)+', text).group(0)
+    match = re.search('(\d)+', text)
+    if not match:
+        if 'one' in text:
+            return 1
+        elif 'two' in text:
+            return 2
+        elif 'three' in text:
+            return 3
+        else:
+            return text
+
+    match = match.group(0)
     return match
 
 def findServiceGroup(text):
-    match = re.search('(\d)+', text).group(0)
+    match = re.search('(\d)+', text)
+    if not match:
+        if 'one' in text:
+            return 1
+        elif 'two' in text:
+            return 2
+        else:
+            return text
+
+    match = match.group(0)
     return match
 
 def findReplyToContact(text):
@@ -161,7 +202,11 @@ def findReplyToContact(text):
     return EmployerContact.objects.get(user__email=match)
 
 def findSubmissionDate(text):
-    match = re.search('No later than:.*(\d)+/(\d)+/(\d)+', text).group(0)
+    match = re.search('No later than:.*(\d)+/(\d)+/(\d)+', text)
+    if not match:
+        return text
+
+    match = match.group(0)
     match = match.replace('No later than:','')
     patterns = ['%m/%d/%Y','%m/%d/%y','%m/%e/%Y','%m/%e/%y']
     for pattern in patterns:
@@ -171,27 +216,35 @@ def findSubmissionDate(text):
             logger.error("Unable to parse date using format: %s" % pattern)
 
 def findTargetRate(text):
-    match = re.search('\$.*hour', text).group(0)
+    match = re.search('\$.*hour', text)
+    if not match:
+        return text
+
+    match = match.group(0)
     match = match.replace('$','')
     match = match.replace('/','')
     match = match.replace('hour','')
+    match = match.replace('hr','')
     return Decimal(match.strip())
 
 def findPricingSchedule(employer, values):
     region = findRegion(values['region'])
     serviceGroup = findServiceGroup(values['serviceGroup'])
     demand = values['demand']
-    experienceLevel = values['experienceLevel']
+    experienceLevel = values['experienceLevel'].replace('-',' ')
     jobTitle = values['jobTitle']
 
-    return EmployerPricingSchedule.objects.get(
-        employer_id = employer.id,
-        region = region,
-        service_group = serviceGroup,
-        job_title = jobTitle,
-        experience_level = experienceLevel,
-        demand = demand
-    )
+    try:
+        return EmployerPricingSchedule.objects.get(
+            employer_id = employer.id,
+            region = region,
+            service_group = serviceGroup,
+            job_title = jobTitle,
+            experience_level = experienceLevel,
+            demand = demand
+        )
+    except ObjectDoesNotExist:
+        return None
 
 
 def parseAttachment(filename):
@@ -279,7 +332,7 @@ def parseAttachment(filename):
             elif 'Position Mandatory Qualifications' in currentText:
                 mandatoryQualificationsStart = i
                 parsedValues['mandatoryQualifications'] = ''
-            elif 'Pass/Fail'in currentText:
+            elif 'Qualifications cannot be changed' in currentText:
                 mandatoryQualificationsEnd = i
             elif 'Maximum Points Allowed for Exceeding Qualifications' in currentText:
                 requestedQualificationsStart = i
@@ -290,7 +343,7 @@ def parseAttachment(filename):
 
     # parse the mandatory qualifications
     if mandatoryQualificationsStart > 0:
-        for i in range (mandatoryQualificationsStart, mandatoryQualificationsEnd-1):
+        for i in range (mandatoryQualificationsStart, mandatoryQualificationsEnd-2):
             if texts[i]:
                 parsedValues['mandatoryQualifications'] += ''.join(texts[i+1]) + '\r\n'
 
