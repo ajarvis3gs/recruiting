@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load fontawesome %}
+
+{% block content %}
+<div class='row'>
+	<div class='col-xs-12 col-sm-6'>
+		<h2>Overview</h2>
+		<ul class="list-group">
+            <li class="list-group-item">
+                <a href='/jobs'>
+					<span class="badge">
+						{{ open_jobs }}
+					</span>
+                    Open Jobs
+                </a>
+            </li>
+			<li class="list-group-item">
+				<a href='#'>
+					<span class="badge">
+						{{ interviews_pending_confirmation }}
+					</span>
+					Interviews Pending Confirmation
+				</a>
+			</li>
+			<li class="list-group-item">
+				<a href='#'>
+					<span class="badge">
+						{{ interviews_pending_follow_up }}
+					</span>
+					Interviews Awaiting Follow Up
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class='col-xs-12 col-sm-6'>
+		<h2>Actions</h2>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<a href="#">
+                    {% fontawesome_icon 'plus' %} Add Job
+				</a>
+			</li>
+            <li class="list-group-item">
+                <a href="/jobs/fetch">
+                    {% fontawesome_icon 'envelope' %} Fetch Email
+                </a>
+            </li>
+			<li class="list-group-item">
+				<a href="/jobs">
+                    {% fontawesome_icon 'eye' %} View/Edit Jobs
+				</a>
+			</li>			
+			<li class="list-group-item">
+				<a href='#'>
+                    {% fontawesome_icon 'share' %} Notify Vendors
+				</a>
+			</li>
+			<li class="list-group-item">
+				<a href='#'>
+                    {% fontawesome_icon 'upload' %} Submit Candidate
+				</a>
+			</li>
+		</ul>		
+	</div>
+</div>
+
+{% endblock %}

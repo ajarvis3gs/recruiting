@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% load fontawesome %}
+
+{% block title %}
+{{ block.super }}
+ - {{ job.title }}
+{% endblock title %}
+
+{% block head %}
+<meta name="csrf-token" content="{{csrf_token}}">
+{% endblock head %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="{% url 'jobs'%}#{{ job.id }}">Jobs</a></li>
+  <li class="active">{{ job.title }}</li>
+</ol>
+
+<p class="navbar-text navbar-right">
+    {% fontawesome_icon 'edit' %} Edit</a>&nbsp;
+    {% fontawesome_icon 'share' %} Notify Vendors</a>
+    {% fontawesome_icon 'upload' %} Apply</a>&nbsp;
+    {% fontawesome_icon 'upload' %} Submit Candidate</a>&nbsp;
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Employer:</strong>
+        </div>
+        <div class="col">
+            {{ job.employer.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Employer Contact:</strong>
+        </div>
+        <div class="col">
+            {{ job.employer_contact }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Agency:</strong>
+        </div>
+        <div class="col">
+            {{ job.agency }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Location:</strong>
+        </div>
+        <div class="col">
+            {{ job.location }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Employer:</strong>
+        </div>
+        <div class="col">
+            ${{ job.target_rate }}/hour
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Vendor Rate:</strong>
+        </div>
+        <div class="col">
+            ${{ job.vendor_rate }}/hour
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Submission Date:</strong>
+        </div>
+        <div class="col">
+            {{ job.submission_date | date:"m/d/Y"}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Vendor Submission Date:</strong>
+        </div>
+        <div class="col">
+            {{ job.vendor_submission_date | date:"m/d/Y"}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Total Positions:</strong>
+        </div>
+        <div class="col">
+            {{ job.total_positions }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Max Submissions:</strong>
+        </div>
+        <div class="col">
+            {{ job.max_submissions }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Preferred Hardware:</strong>
+        </div>
+        <div class="col">
+            {{ job.preferred_hardware }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Preferred Software:</strong>
+        </div>
+        <div class="col">
+            {{ job.preferred_software }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Work Hours:</strong>
+        </div>
+        <div class="col">
+            {{ job.work_hours }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Description</strong></div>
+                <div class="panel-body">{{ job.description }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Mandatory Qualifications</strong></div>
+
+                <table class="table">
+                    <tbody>
+                    {% for qualification in job.mandatoryQualifications.all %}
+                        <tr>
+                            <td>{{ qualification.label }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Requested Qualifications</strong></div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Qualification Number</th>
+                            <th>Description</th>
+                            <th>Minimum Points</th>
+                            <th>Maximum Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for qualification in job.requestedQualifications.all %}
+                            <tr>
+                                <td>{{ qualification.qualification_number }}</td>
+                                <td>{{ qualification.label }}</td>
+                                <td>{{ qualification.minimum_points }}</td>
+                                <td>{{ qualification.maximum_points }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Additional Information Requests</strong></div>
+
+                <table class="table">
+                    <tbody>
+                    {% for requests in job.additionalInformationRequests.all %}
+                        <tr>
+                            <td><strong>{{ requests.label }}</strong></td>
+                            <td>{{ requests.value }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Documents</strong></div>
+
+                <table class="table">
+                    <tbody>
+                    {% for document in job.documents.all %}
+                        <tr>
+                            <td><strong>{{ document.display_name }}</strong></td>
+                            <td><a href="{{ document.document.url }}" download="{{ document.display_name }}">download</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+

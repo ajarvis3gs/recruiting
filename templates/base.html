@@ -1,0 +1,79 @@
+{% load bootstrap3 %}
+{% load fontawesome %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="{% static "fav.ico" %}" type="image/ico">
+		<title>{% block title %}Recruiting{% endblock %}</title>
+        {% bootstrap_css %}
+        {% fontawesome_stylesheet %}
+		{% block head %}
+
+		{% endblock %}
+		<style>
+			.footer {
+			  padding-top: 40px;
+			  padding-bottom: 40px;
+			  margin-top: 40px;
+			  border-top: 1px solid #eee;
+			}
+			#mainContainer {
+			  padding-top: 80px;
+			}
+		</style>
+	</head>
+	<body>
+		{% include "navbar.html" %}
+
+		<div id='mainContainer' class="container">
+
+			{% if messages %}
+
+			    {% for message in messages %}
+
+			    <div{% if message.tags %} role="alert" class="alert alert-{{ message.tags }}"{% endif %}>
+			
+				    <button type="button" class="close" data-dismiss="alert">&times;</button>
+				    {{ message }}
+			    </div>
+			    {% endfor %}
+
+			{% endif %}		
+
+			{% block content %}
+
+			{% endblock %}
+
+		</div>
+
+		<div class="container">
+			<footer class="footer">
+				<p>1x3 Innovations</p>
+			</footer>
+		</div>
+
+		{% block scripts %}
+			<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+			{% bootstrap_javascript %}
+			<script>
+			$(function() {
+			    var section = window.location.pathname.split('/')[1];
+			    if (section.length) {
+			    	$('.nav li').each(function() {
+			    		var text = this.innerText.trim();
+			    		if (text && text.toLowerCase() == section) {
+			    			$(this).closest('li').addClass('active');
+			    		}
+			    	})
+			    }
+			});
+			</script>
+		{% endblock %}
+
+	</body>
+</html>
+
