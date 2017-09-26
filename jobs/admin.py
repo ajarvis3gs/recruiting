@@ -26,7 +26,7 @@ class JobAdmin(admin.ModelAdmin):
     inlines = (JobMandatoryQualificationsInline, JobRequestedQualificationsInline, JobAdditionalInformationRequestsInline, JobDocumentsInline, )
     list_display = ('employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', 'preferred_software')
     list_filter = ('employer', 'agency', 'submission_date')
-    search_fields = ('title', 'agency')
+    search_fields = ('title', 'agency', 'preferred_software')
 
 class JobDocumentAdmin(admin.ModelAdmin):
     def download_link(self):
