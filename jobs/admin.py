@@ -24,7 +24,7 @@ class JobDocumentsInline(admin.StackedInline):
 
 class JobAdmin(admin.ModelAdmin):
     inlines = (JobMandatoryQualificationsInline, JobRequestedQualificationsInline, JobAdditionalInformationRequestsInline, JobDocumentsInline, )
-    list_display = ('employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate')
+    list_display = ('employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', 'preferred_software')
     list_filter = ('employer', 'agency', 'submission_date')
     search_fields = ('title', 'agency')
 
