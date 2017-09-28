@@ -28,7 +28,7 @@ class Job(models.Model):
     max_submissions = models.IntegerField(blank=True, null=True)
     preferred_hardware = models.CharField(blank=True, null=True, max_length=500)
     preferred_software = models.CharField(blank=True, null=True, max_length=500)
-    work_hours = models.CharField(blank=True, null=True, max_length=100)
+    work_hours = models.CharField(blank=True, null=True, max_length=255)
     description = models.TextField(null=True, blank=True,)
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
