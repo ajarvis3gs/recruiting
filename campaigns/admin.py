@@ -8,8 +8,14 @@ class MailCampaignAdmin(admin.ModelAdmin):
     def vendor_contact_count(self):
         return self.vendor_contacts.count()
 
+    def submission_date(self):
+        return self.job.submission_date
+
+    def vendor_submission_date(self):
+        return self.job.vendor_submission_date
+
     start_campaign_link.allow_tags = True
-    list_display = ('name', 'job', 'message_template', vendor_contact_count, 'is_active', start_campaign_link)
+    list_display = ('name', 'job', 'message_template', submission_date, vendor_submission_date, vendor_contact_count, 'is_active', start_campaign_link)
 
 class MessageTemplateAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active')
