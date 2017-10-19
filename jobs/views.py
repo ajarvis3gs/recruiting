@@ -37,7 +37,7 @@ def view_jobs(request):
     user = UserProfile.verify_token(key)
 
     if request.method == 'GET':
-        jobs = Job.objects.all()
+        jobs = Job.objects.all().order_by('-created')
         context = {'jobs': jobs}
 
     if request.method == 'POST':

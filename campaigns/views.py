@@ -19,8 +19,14 @@ def start_campaign(request, campaign_id):
 
     # send to contacts
     emailAddresses = []
+
+    # accumulate vendor contact email addresses (if existing)
     for vendorContact in mailCampaign.vendor_contacts.all():
         emailAddresses.append(vendorContact.user.email)
+
+    # accumulate candidate email addresses (if existing)
+    for candidate in mailCampaign.candidates.all():
+        emailAddresses.append(candidate.user.email)
 
     email = EmailMultiAlternatives(
         messageSubject,

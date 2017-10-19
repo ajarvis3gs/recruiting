@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from jobs.models import Job
 from vendors.models import VendorContact
+from candidates.models import Candidate
 from recruiting.choices import *
 
 class MessageTemplate(models.Model):
@@ -21,6 +22,7 @@ class MailCampaign(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='campaigns', null=True, blank=True)
     message_template = models.ForeignKey(MessageTemplate, on_delete=models.CASCADE, related_name='campaigns')
     vendor_contacts = models.ManyToManyField(VendorContact, blank=True)
+    candidates = models.ManyToManyField(Candidate, blank=True)
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

@@ -22,7 +22,7 @@ class Candidate(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     def __str__(self):
-        return '%s: %s' % (self.vendor.name, self.user.get_full_name())
+        return '%s' % (self.user.get_full_name())
 
 
 def update_user_profile(sender, instance, created, **kwargs):
