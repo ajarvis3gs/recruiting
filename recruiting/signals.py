@@ -24,127 +24,130 @@ def message_received(sender, message, **args):
     # let's figure out what email account this came in on
     from_address = message.from_address[0]
 
-    logger.error("searching for employer contact %s" % from_address)
-    employerContact = EmployerContact.objects.get(user__email=from_address)
-    employer = employerContact.employer
+    try:
+        logger.error("searching for employer contact %s" % from_address)
+        employerContact = EmployerContact.objects.get(user__email=from_address)
+        employer = employerContact.employer
 
-    # TODO:
-    # what should we do if we can't find a contact?
-    # figure out what type of email this is.  for now we'll assume it's a job listing
+        # TODO:
+        # what should we do if we can't find a contact?
+        # figure out what type of email this is.  for now we'll assume it's a job listing
 
-    # extract job details from message body
-    title = findJobTitle(message.subject)
-    targetRate = findTargetRate(message.text)
-    submissionDate = findSubmissionDate(message.text)
-    vendorSubmissionDate = submissionDate - timedelta(days=2)
-    replyToContact = findReplyToContact(message.text)
+        # extract job details from message body
+        title = findJobTitle(message.subject)
+        targetRate = findTargetRate(message.text)
+        submissionDate = findSubmissionDate(message.text)
+        vendorSubmissionDate = submissionDate - timedelta(days=2)
+        replyToContact = findReplyToContact(message.text)
 
-    logger.error("creating new job...")
-    logger.error("employer: %s" % employer.name)
-    logger.error("title: %s" % title)
-    logger.error("targetRate: %s" % targetRate)
-    logger.error("submissionDate: %s" % submissionDate)
-    logger.error("vendorSubmissionDate: %s" % vendorSubmissionDate)
-    logger.error("replyToContact: %s" % replyToContact)
+        logger.error("creating new job...")
+        logger.error("employer: %s" % employer.name)
+        logger.error("title: %s" % title)
+        logger.error("targetRate: %s" % targetRate)
+        logger.error("submissionDate: %s" % submissionDate)
+        logger.error("vendorSubmissionDate: %s" % vendorSubmissionDate)
+        logger.error("replyToContact: %s" % replyToContact)
 
-    # create the job
-    job = Job(
-        employer = employer,
-        title = title,
-        target_rate = targetRate,
-        submission_date = submissionDate,
-        vendor_submission_date = vendorSubmissionDate,
-        employer_contact=replyToContact
-    )
-    job.save()
+        # create the job
+        job = Job(
+            employer = employer,
+            title = title,
+            target_rate = targetRate,
+            submission_date = submissionDate,
+            vendor_submission_date = vendorSubmissionDate,
+            employer_contact=replyToContact
+        )
+        job.save()
 
-    # create the campaign but don't start it just yet
-    messageTemplate = MessageTemplate.objects.get(name__exact='Single HBITS Opportunity Template')
+        # create the campaign but don't start it just yet
+        messageTemplate = MessageTemplate.objects.get(name__exact='Single HBITS Opportunity Template')
 
-    campaign = MailCampaign(
-        name = '%s Campaign' % job.title,
-        job = job,
-        message_template = messageTemplate
-    )
-    campaign.save()
+        campaign = MailCampaign(
+            name = '%s Campaign' % job.title,
+            job = job,
+            message_template = messageTemplate
+        )
+        campaign.save()
 
-    # associate the attachments
-    attachments = MessageAttachment.objects.filter(message_id=message.id)
-    for attachment in attachments:
-        jobDocument = JobDocument(job=job, headers=attachment.headers, document=attachment.document)
-        jobDocument.display_name = findDocumentName(attachment.headers)
-        jobDocument.save()
+        # associate the attachments
+        attachments = MessageAttachment.objects.filter(message_id=message.id)
+        for attachment in attachments:
+            jobDocument = JobDocument(job=job, headers=attachment.headers, document=attachment.document)
+            jobDocument.display_name = findDocumentName(attachment.headers)
+            jobDocument.save()
 
-        # extract job details from attachments
-        parsedAttachment = parseAttachment(attachment.document.name)
+            # extract job details from attachments
+            parsedAttachment = parseAttachment(attachment.document.name)
 
-        jobDocument.file_type = parsedAttachment['formType']
-        jobDocument.save()
+            jobDocument.file_type = parsedAttachment['formType']
+            jobDocument.save()
 
-        if (parsedAttachment['formType'] == 'Task Order Form'):
-            logger.error("parsing task order form...")
+            if (parsedAttachment['formType'] == 'Task Order Form'):
+                logger.error("parsing task order form...")
 
-            job.max_submissions = parsedAttachment['maxSubmissions']
-            job.agency = parsedAttachment['agency']
-            job.location = parsedAttachment['location']
-            job.total_positions = parsedAttachment['totalPositions']
-            job.description = parsedAttachment['description']
-            job.preferred_hardware = parsedAttachment['preferredHardware']
-            job.preferred_software = parsedAttachment['preferredSoftware']
-            job.work_hours = parsedAttachment['workHours']
+                job.max_submissions = parsedAttachment['maxSubmissions']
+                job.agency = parsedAttachment['agency']
+                job.location = parsedAttachment['location']
+                job.total_positions = parsedAttachment['totalPositions']
+                job.description = parsedAttachment['description']
+                job.preferred_hardware = parsedAttachment['preferredHardware']
+                job.preferred_software = parsedAttachment['preferredSoftware']
+                job.work_hours = parsedAttachment['workHours']
 
-            logger.error("maxSubmissions: %s" % job.max_submissions)
-            logger.error("agency: %s" % job.agency)
-            logger.error("location: %s" % job.location)
-            logger.error("totalPositions: %s" % job.total_positions)
-            logger.error("preferredHardware: %s" % job.preferred_hardware)
-            logger.error("preferredSoftware: %s" % job.preferred_software)
-            logger.error("workHours: %s" % job.work_hours)
+                logger.error("maxSubmissions: %s" % job.max_submissions)
+                logger.error("agency: %s" % job.agency)
+                logger.error("location: %s" % job.location)
+                logger.error("totalPositions: %s" % job.total_positions)
+                logger.error("preferredHardware: %s" % job.preferred_hardware)
+                logger.error("preferredSoftware: %s" % job.preferred_software)
+                logger.error("workHours: %s" % job.work_hours)
 
-            # try to determine the pricing schedule.  we still need the service group and region
-            pricingSchedule = findPricingSchedule(employer, parsedAttachment)
-            if pricingSchedule:
-                rateSpread = job.target_rate - pricingSchedule.hourly_wage
-                vendorRate = pricingSchedule.hourly_wage + (rateSpread / 2)
+                # try to determine the pricing schedule.  we still need the service group and region
+                pricingSchedule = findPricingSchedule(employer, parsedAttachment)
+                if pricingSchedule:
+                    rateSpread = job.target_rate - pricingSchedule.hourly_wage
+                    vendorRate = pricingSchedule.hourly_wage + (rateSpread / 2)
 
-                job.pricing_schedule = pricingSchedule
-                job.vendor_rate = vendorRate
+                    job.pricing_schedule = pricingSchedule
+                    job.vendor_rate = vendorRate
 
-                logger.error("pricingSchedule: %s" % pricingSchedule)
-                logger.error("vendorRate: %s" % vendorRate)
+                    logger.error("pricingSchedule: %s" % pricingSchedule)
+                    logger.error("vendorRate: %s" % vendorRate)
 
-            job.save()
+                job.save()
 
-            # save mandatory requirements
-            if parsedAttachment['mandatoryQualifications']:
-                mandatory = JobMandatoryQualification(
+                # save mandatory requirements
+                if parsedAttachment['mandatoryQualifications']:
+                    mandatory = JobMandatoryQualification(
+                            job = job,
+                            label = parsedAttachment['mandatoryQualifications']
+                    )
+                    mandatory.save()
+
+                # save requested qualifications
+                for requestedQualification in parsedAttachment['requestedQualifications'].values():
+                    requested = JobRequestedQualification(
                         job = job,
-                        label = parsedAttachment['mandatoryQualifications']
-                )
-                mandatory.save()
+                        qualification_number = requestedQualification['qualificationNumber'],
+                        label = requestedQualification['label'],
+                        minimum_points = requestedQualification['minimumPoints'],
+                        maximum_points = requestedQualification['maximumPoints']
+                    )
+                    requested.save()
 
-            # save requested qualifications
-            for requestedQualification in parsedAttachment['requestedQualifications'].values():
-                requested = JobRequestedQualification(
-                    job = job,
-                    qualification_number = requestedQualification['qualificationNumber'],
-                    label = requestedQualification['label'],
-                    minimum_points = requestedQualification['minimumPoints'],
-                    maximum_points = requestedQualification['maximumPoints']
-                )
-                requested.save()
+                # save additional info
+                for additionalInformationRequest in parsedAttachment['additionalInformationRequests'].values():
+                    info = JobAdditionalInformationRequest(
+                        job = job,
+                        label = additionalInformationRequest['label'],
+                        value = additionalInformationRequest['value']
+                    )
+                    info.save()
 
-            # save additional info
-            for additionalInformationRequest in parsedAttachment['additionalInformationRequests'].values():
-                info = JobAdditionalInformationRequest(
-                    job = job,
-                    label = additionalInformationRequest['label'],
-                    value = additionalInformationRequest['value']
-                )
-                info.save()
-
-    # finally, create the appropriate records in the database
-    logger.error("message creation complete")
+        # finally, create the appropriate records in the database
+        logger.error("message creation complete")
+    except:
+        logger.error("error processing new message");
 
 def findJobTitle(text):
     text = text.replace('URGENT REQUIREMENT', '')
