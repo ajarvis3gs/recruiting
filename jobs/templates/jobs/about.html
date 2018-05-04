@@ -1,0 +1,75 @@
+{% extends "public/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ block.super }}
+    - Home
+{% endblock title %}
+
+{% block head %}{% endblock head %}
+
+{% block bodyclass %}page-template-default page page-id-5 desktop{% endblock %}
+
+{% block content %}
+    <div class="inside-page">
+        <hgroup class="inside-pg-intro">
+            <h1 class="ipi-h1">Who we are</h1>
+            <div class="ipi-p"><p>Our senior leadership has worked together since 1998 to design, build and deliver software solutions that help clients meet their strategic objectives. We founded 1x3 Innovations to fill a need in the marketplace for an agile and flexible development partner that can consistently deliver solid results. </p>
+            </div>
+        </hgroup>
+        <div class="inside-pg-content">
+            <section class="leadership-group">
+                <div class="headline-mod">
+                    <h2 class="gradient-headline">Our Leadership</h2>
+                </div>
+
+                <section class="people">
+                    <div class="content-wrapper">
+                        <section class="team-list-mod">
+                            <article class="team-list-item" id="mike-lawyea">
+                                <div class="team-member-mod">
+                                    <div class="headline-mod">
+                                        <h2 class="section-h1">Mike Lawyea</h2>
+                                    </div>
+                                    <article class="txt">
+                                        <p>Mr. Lawyea oversees the company’s support provided to its array of customers to include federal and state governments across this great country. His primary focus is on ensuring that 1X3 Innovations fulfills its promise of providing the customer the results they need to succeed in a professional manner, on time and performing at the highest level possible while searching out new markets and expanding the company’s core capabilities.</p>
+
+                                        <p>Prior to establishing Innovations, Mr. Lawyea served for almost 25 years in the military as an aviator, first with the US Navy and then finally with the US Air Force as a member of the NY Air National Guard. He has flown 5 different aircraft and amassed over 7500 flight hours, 1400+ combat hours, 350+ combat missions with 12 overseas deployments in support of Operation Desert Storm, Operation Iraqi Freedom and Operation Enduring Freedom. This combined with 16 years of providing airborne support for all forms of Law Enforcement Agencies from local and state level to the FBI, DEA and Secret Service, Mr. Lawyea has worked hand in hand with many of the federal and state agencies that which he established 1X3 Innovations to support after leaving the cockpit.</p>
+
+                                        <p>Mr. Lawyea received his Bachelors of Science degree in Electrical Engineering from North Carolina State University where he was commissioned into the US Navy in 1988.</p>
+                                    </article>
+                                </div>
+                            </article>
+                            <article class="team-list-item" id="york-bush">
+                                <div class="team-member-mod">
+                                    <div class="headline-mod">
+                                        <h2 class="section-h1">York Bush</h2>
+                                    </div>
+                                    <article class="txt">
+                                        <p>Mr. Bush brings extensive systems integration, product development, and management experience to Innovations. Prior to establishing Innovations, Mr. Bush founded Software Solutions International, Inc., a company that designed, developed, and implemented mission-critical, high volume transaction processing solutions for the retail, financial and banking industries. In this capacity, Mr. Bush managed and directed e-commerce-based order and supply chain management systems as well as EDI interface projects for major government and national customers. </p>
+                                        <p>Additionally, Mr. Bush directed product development for CommerceHub based in Albany, NY. Systems developed and deployed under his direction are now central to supply-chain and order management processes for QVC, Kmart, Sears and many other online retailers. </p>
+                                        <p>Earlier in his career, Mr. Bush worked in various programming and management capacities for Digital Equipment Corporation. </p>
+                                        <p>Mr. Bush received a Bachelor of Science degree in Mathematics with minor focus in Computer Science from the University at Albany. </p>
+                                    </article>
+                                </div>
+                            </article>
+                            <article class="team-list-item" id="aaron-jarvis">
+                                <div class="team-member-mod">
+                                    <div class="headline-mod">
+                                        <h2 class="section-h1">Aaron Jarvis</h2>
+                                    </div>
+                                    <article class="txt">
+                                        <p>Mr. Jarvis serves as a technical lead for research and development for Innovations. Prior to establishing Innovations, Mr. Jarvis was central to the architecture and development of the aforementioned supply-chain and order management system for CommerceHub. Mr. Jarvis was instrumental in providing analysis, design, and overall business specification support for the company's high-volume clients. </p>
+                                        <p>Mr. Jarvis has extensive programming and software design background on both Windows and Unix/Linux platforms. </p>
+                                        <p>Mr. Jarvis received a Master of Science in Computer Science from the University at Albany. </p>
+                                    </article>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+                </section>
+            </section>
+        </div>
+        {% include "jobs/page_teases.html" %}
+    </div>
+{% endblock content %}

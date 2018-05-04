@@ -1,0 +1,85 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% load fontawesome %}
+
+{% block title %}
+    {{ block.super }}
+    - Career {{ job.id }} Details
+{% endblock title %}
+
+{% block head %}
+    <style>
+        .checkBox {
+            display:inline-block;
+            margin-top:3em;
+        }
+    </style>
+{% endblock head %}
+
+{% block bodyclass %}page-template-default page page-id-441 page-parent page-products desktop{% endblock %}
+
+{% block content %}
+    <div class="inside-page">
+        <hgroup class="inside-pg-intro">
+            <h1 class="ipi-h1">Stand out from the crowd</h1>
+            <div class="ipi-p"><p>We’re passionate about technology. If you are, too, we’d like to hear from you. We are invested in building a community of creative technical thinkers. We offer highly competitive benefits and opportunities to grow.</p>
+        </hgroup>
+        <div class="inside-pg-content">
+            <div class="headline-mod">
+                <a href="{% url 'careers' %}">Careers</a> >
+                <h2 class="gradient-headline">Job Detail</h2>
+            </div>
+            <section class="leadership-group">
+                <div class="headline-mod">
+                    <a href="{% url 'careers'%}{{ job.id }}/apply" class="button-link">{% fontawesome_icon 'upload' %} Apply Now</a>
+                </div>
+
+                <section class="people">
+                    <div class="content-wrapper">
+                        <section class="team-list-mod">
+                            <article class="team-list-item">
+                                <div class="team-member-mod">
+                                    <div class="headline-mod">
+                                        <h2 class="section-h1">{{ job.title | title }}</h2>
+                                        <h3 class="person-title">{{ job.location | title }}</h3>
+                                    </div>
+                                    <article class="txt">
+                                        <p><strong>Rate:</strong> Based on experience</p>
+                                        <p><strong>Total Positions:</strong> {{ job.total_positions }}</p>
+                                        <p><strong>Preferred Hardware:</strong> {{ job.preferred_hardware }}</p>
+                                        <p><strong>Preferred Software:</strong> {{ job.preferred_software }}</p>
+                                        <p><strong>Work Hours:</strong> {{ job.work_hours }}</p>
+                                        <p><strong>Description</strong><br/>{{ job.description }}</p>
+                                        <p><strong>Mandatory Qualifications</strong><br/>
+                                        <ul style="list-style-type: circle; margin-left:50px;">
+                                                {% for qualification in job.mandatoryQualifications.all %}
+                                                    <li>{{ qualification.label }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </p>
+                                        <p><strong>Requested Qualifications</strong><br/>
+                                            <ul style="list-style-type: circle; margin-left:50px;">
+                                                {% for qualification in job.requestedQualifications.all %}
+                                                    <li>{{ qualification.label }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </p>
+                                        <p><strong>Additional Information Requests</strong><br/>
+                                            <ul style="list-style-type: circle; margin-left:50px;"">
+                                                {% for requests in job.additionalInformationRequests.all %}
+                                                    <li>{{ requests.label }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </p>
+                                    </article>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+                </section>
+            </section>
+            </section>
+        </div>
+        {% include "jobs/page_teases.html" %}
+    </div>
+{% endblock content %}

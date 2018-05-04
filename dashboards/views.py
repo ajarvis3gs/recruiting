@@ -6,7 +6,6 @@ from django.db.models import Q
 
 from interviews.models import InterviewInvitation, InterviewRequest
 from jobs.models import Job
-from jobs.models import Job
 
 @login_required
 def dashboards(request):
@@ -47,4 +46,4 @@ def dashboards(request):
 		if user_type == 'Employer':
 			return render(request, 'employers/dashboard.html')	
 
-	return render(request, 'home.html')	
+	return render(request, 'dashbaords/home.html')

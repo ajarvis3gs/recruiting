@@ -1,0 +1,63 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% load fontawesome %}
+
+{% block title %}
+    {{ block.super }}
+    - Careers
+{% endblock title %}
+
+{% block head %}
+    <style>
+        .checkBox {
+            display:inline-block;
+            margin-top:3em;
+        }
+    </style>
+{% endblock head %}
+
+{% block bodyclass %}page-template-default page page-id-441 page-parent page-products desktop{% endblock %}
+
+{% block content %}
+    <div class="inside-page">
+        <hgroup class="inside-pg-intro">
+            <h1 class="ipi-h1">Stand out from the crowd</h1>
+            <div class="ipi-p"><p>We’re passionate about technology. If you are, too, we’d like to hear from you. We are invested in building a community of creative technical thinkers. We offer highly competitive benefits and opportunities to grow.</p>
+            </div>
+        </hgroup>
+        <div class="inside-pg-content">
+            <div class="headline-mod">
+                <h2 class="gradient-headline"><a href="{% url 'careers' %}">Careers</a></h2>
+            </div>
+            {% for job in jobs %}
+            <section class="leadership-group">
+                <div class="headline-mod">
+                    <a href="{% url 'careers'%}{{ job.id }}/apply" class="button-link">{% fontawesome_icon 'upload' %} Apply Now</a>
+                </div>
+
+                <section class="people">
+                    <div class="content-wrapper">
+                        <section class="team-list-mod">
+                            <article class="team-list-item">
+                                <div class="team-member-mod">
+                                    <div class="headline-mod">
+                                        <h2 class="section-h1"><a href="{% url 'career_details' job.id %}">{{ job.title }}</a></h2>
+                                        <h3 class="person-title">{{ job.location | title }}</h3>
+                                    </div>
+                                    <article class="txt">
+                                        <p>{{ job.description | title }}</p>
+                                        <p><a href="{% url 'career_details' job.id %}">Learn more &gt;</a>
+                                    </article>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+                </section>
+            </section>
+            {% endfor %}
+        </div>
+        {% include "jobs/page_teases.html" %}
+    </div>
+{% endblock content %}
+
+

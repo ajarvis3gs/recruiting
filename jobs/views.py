@@ -1,17 +1,72 @@
-#!/usr/bin/python3
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Job
+from models import Job
 from candidates.models import Candidate
 from interviews.models import InterviewRequest
 from accounts.models import UserProfile
-from django.http import HttpResponse
 from django_mailbox.models import Mailbox
 from django.shortcuts import redirect
+from django.template.loader import get_template
+from django.template import Context
+import datetime as dt
+from datetime import date, datetime
 
+""" PUBLIC SITE VIEWS """
+def home(request):
+    context = {}
+    return render(request, 'jobs/home.html', context)
+
+def services(request):
+    context = {}
+    return render(request, 'jobs/services.html', context)
+
+def portfolio(request):
+    context = {}
+    return render(request, 'jobs/portfolio.html', context)
+
+def about(request):
+    context = {}
+    return render(request, 'jobs/about.html', context)
+
+def careers(request):
+    key = request.GET.get('key', None)
+    user = UserProfile.verify_token(key)
+
+    if request.method == 'GET':
+        jobs = Job.objects.filter(is_active__exact=True).filter(submission_date__lte=date.today()).order_by('-created')
+        context = {'jobs': jobs}
+
+    if request.method == 'POST':
+        jobs_ids = request.POST.getlist('requested_jobs[]')
+
+        if request.user.is_anonymous() and (not key or not user):
+            request.session['add_new_jobs_pending'] = True
+            request.session['requested_jobs'] = jobs_ids
+            request.session['redirect_to'] = reverse('jobs')
+            return HttpResponseRedirect(reverse('account_login'))
+
+        context = {}
+
+        if not user:
+            user = request.user
+
+        add_interview_requests(request, user, jobs_ids)
+
+    return render(request, 'jobs/careers.html', context)
+
+def career_details(request, job_id):
+    job = Job.objects.get(id=job_id)
+    context = {'job': job}
+    return render(request, 'jobs/career_details.html', context)
+
+def career_apply(request, job_id):
+    job = Job.objects.get(id=job_id)
+    context = {'job': job}
+    return render(request, 'jobs/career_apply.html', context)
+
+""" SECURE SITE VIEWS """
 
 def add_interview_requests(request, user, jobs_ids):
     try:
@@ -79,3 +134,21 @@ def fetch(request):
     messages.add_message(request, messages.SUCCESS, '%s jobs fetched from email' % msg_count)
 
     return redirect('/')
+
+
+# XML job feed.  Used by indeed.
+def xml_feed(request):
+    jobs = Job.objects.filter(is_active__exact=True)
+    context = {'jobs': jobs}
+
+    template = get_template('jobs/xml_feed.html')
+    context = Context(context)
+    xml = template.render(context)
+
+    return HttpResponse(xml, content_type='text/xml')
+
+
+def apply(request, job_id):
+    job = Job.objects.get(id=job_id)
+    context = {'job': job}
+    return render(request, 'jobs/apply.html', context)

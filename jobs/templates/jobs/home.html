@@ -1,0 +1,281 @@
+{% extends "public/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ block.super }}
+    - Home
+{% endblock title %}
+
+{% block head %}{% endblock head %}
+
+{% block bodyclass %}home blog desktop{% endblock %}
+
+{% block content %}
+        <section id="intro">
+            <div class="content-wrapper">
+                <div class="intro-txt-mod">
+                    <h1 class="page-h1 intro-txt">Providing software services that transform concepts into value.</h1>
+                    <div class="intro-logo-mod">
+                        <img class="intro-logo" src="{% static "public/img/1x3ilogo_white_tagline.png" %}">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="platform-intro scroll-sensitive" id="platform">
+            <div class="content-wrapper">
+                <div class="ui-block-2">
+                    <h4 class="section-kicker">What We Do</h4>
+                    <div class="txt">
+                        <p>Our senior leadership has worked together since 1998 to design, build and deliver software solutions that help clients meet their strategic objectives. We founded 1x3 Innovations to fill a need in the marketplace for an agile and flexible development partner able to consistently deliver solid results.</p>
+                        <p>Our team works within a single delivery process model that enables us to consistently fulfill client needs across multiple technology and vertical practice areas. </p>
+                        <p><strong>Our success is all about our team.</strong> We truly enjoy what we do and our project approach and results reflect that enjoyment. Our partners and consultants are an experienced team of professionals who bring integrity, skill, and true enjoyment of their jobs to every project we are a part of. </p>
+                        <p><a href="/services/">Learn more about our services &gt;</a>
+                        </p></div>
+                </div>
+                <div class="ui-block-1">
+                    <img src="{% static "public/img/NYS-Certified-Logo_0.png" %}" width="80%" height="auto;" style="float:right;">
+                </div>
+            </div>
+        </section>
+
+        <section id="platform_hospital" class="scroll-sensitive" style="background-color:white;">
+            <div class="content-wrapper" style="padding-top:5%;padding-bottom:0px;">
+                <h4 class="section-kicker" style="text-align:center;">How We're Different</h4>
+                <div class="platform-hospital-mod" style="padding-top:3%;">
+                    <ul class="platform-hospital-list">
+                        <li class="hospital-item clock-group">
+                            <div class="ui-block-2 info-group" style="text-align:center;">
+                                <img src="{% static "public/img/t-people.png" %}" style="height:60px;width:auto;"/>
+                                <h4 class="section-h3" style="padding-top:20px;"><strong>We're Experienced</strong></h4>
+                                <article class="txt" style="text-align:left;font-size:16px;padding-top:10px;">
+                                    <p>We combine deep skill in specific technologies with a broad understanding of how they work together. Because knowledge isn’t enough. Insight leads to exceptional results.</p>
+                                </article>
+                            </div>
+                        </li>
+
+                        <li class="hospital-item lock-group">
+                            <div class="ui-block-2 info-group" style="text-align:center;">
+                                <img src="{% static "public/img/choose_well.png" %}" style="height:60px;width:auto;"/>
+                                <h4 class="section-h3" style="padding-top:20px;"><strong>We Choose Well</strong></h4>
+                                <article class="txt" style="text-align:left;font-size:16px;padding-top:10px;">
+                                    <p>Our senior leadership has worked together since 1998. We leverage decades of experience to make the best decisions for you, even when the choices are difficult.</p>
+                                </article>
+                            </div>
+                        </li>
+
+                        <li class="hospital-item trophy-group">
+                            <div class="ui-block-2 info-group" style="text-align:center;">
+                                <img src="{% static "public/img/right_tool.png" %}" style="height:60px;width:auto;"/>
+                                <h4 class="section-h3" style="padding-top:20px;"><strong>We Use The Right Tools</strong></h4>
+                                <article class="txt" style="text-align:left;font-size:16px;padding-top:10px;">
+                                    <p>Our clients and their projects are all unique. Our exceptional technical range enables us to use the right tools for each job, in just the way they’re needed for remarkable outcomes.</p>
+                                </article>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="platform_hospital" class="scroll-sensitive platform-hospital" style="background-color:white;margin-bottom:0px;">
+            <div class="content-wrapper">
+                <div class="platform-hospital-mod">
+                    <ul class="platform-hospital-list">
+                        <li class="hospital-item clock-group">
+                            <div class="ui-block-2 info-group" style="text-align:center;">
+                                <img src="{% static "public/img/versatile.png" %}" style="height:60px;width:auto;"/>
+                                <h4 class="section-h3" style="padding-top:20px;"><strong>We’re Versatile</strong></h4>
+                                <article class="txt" style="text-align:left;font-size:16px;padding-top:10px;">
+                                    <p>We build front-ends, back-ends, mobile apps, and the glue that ties them together. Our ability to work across these boundaries enables us to rapidly develop new capabilities.</p>
+                                </article>
+                            </div>
+                        </li>
+
+                        <li class="hospital-item lock-group">
+                            <div class="ui-block-2 info-group" style="text-align:center;">
+                                <img src="{% static "public/img/play_well.png" %}" style="height:60px;width:auto;"/>
+                                <h4 class="section-h3" style="padding-top:20px;"><strong>We Play Well With Others</strong></h4>
+                                <article class="txt" style="text-align:left;font-size:16px;padding-top:10px;">
+                                    <p>Technical mastery is essential, but our soft skills — awareness, judgment, communication, and collaboration — are the difference between being merely skillful and truly effective.</p>
+                                </article>
+                            </div>
+                        </li>
+
+                        <li class="hospital-item trophy-group">
+                            <div class="ui-block-2 info-group" style="text-align:center;">
+                                <img src="{% static "public/img/relentless.png" %}" style="height:60px;width:auto;"/>
+                                <h4 class="section-h3" style="padding-top:20px;"><strong>We're Relentless</strong></h4>
+                                <article class="txt" style="text-align:left;font-size:16px;padding-top:10px;">
+                                    <p>Every day we have to earn tomorrow’s breakfast. We like it that way. Because that direct accountability makes us relentless about demanding the best from ourselves.</p>
+                                </article>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+<!--
+        <section class="platform-software">
+            <div class="content-wrapper">
+
+                <div class="platform-software-img fadeable">
+                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-placeholder.png" %}" class="fader-placeholder">
+                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-bg.png" %}" class="fader-bg">
+                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer2.png" %}" class="fader up">
+                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-21.png" %}" class="fader">
+                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-31.png" %}" class="fader">
+                </div>
+                <div class="group-text">
+                    <hgroup class="headline-mod-alt">
+                        <h2 class="section-h1">Making data work for you</h2>
+                    </hgroup>
+                    <ul class="platform-software-list">
+                        <li class="software-item">
+                            <h4 class="section-kicker">INTUITIVE</h4>
+                            <article class="txt">
+                                <p>We turn complexity into clarity. Our algorithms accommodate inconsistencies and synthesize data, regardless of nomenclatures, data sources, and operating systems. The interface is simple and visual, so it's easy to use and easy to like.</p>
+                            </article>
+                        </li>
+                        <li class="software-item">
+                            <h4 class="section-kicker">Iterative</h4>
+                            <article class="txt">
+                                <p>Our solution unlocks data in all its depth and complexity. Clinicians pose queries and refine parameters until they pinpoint an actionable insight.</p>
+                            </article>
+                        </li>
+                        <li class="software-item">
+                            <h4 class="section-kicker">Immediate</h4>
+                            <article class="txt">
+                                <p>Proprietary algorithms work rapidly behind the scenes, navigating through dense data so that clinicians can focus on problem-solving and patient care.</p>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+-->
+<!--
+        <section class="scroll-sensitive hp-customers" id="alliances">
+            <div class="content-wrapper">
+                <hgroup class="logo-group">
+                    <div class="inner">
+                        <div class="customer-map">
+                            <img src="{% static "wp-content/themes/rgi_web/_img/customer-map-mobile.jpg" %}" class="customer-map-mobile">
+                        </div>
+                    </div>
+                </hgroup>
+
+                <div class="text-group">
+                    <h2 class="section-h1">Robust analytics, real change</h2>
+                    <div class="txt">
+                        <p>The Veterans Health Administration (VA) is America’s largest integrated healthcare system. Each year, it serves 8.3 million veterans at over 150 sites in 21 regions.</p>
+                        <p>In 2002, a committee of VA anesthesiologists recognized the potential in analyzing data from ICU and OR patients. In 2004, one of the VA’s regional networks began using RGI’s Healthcare Analytics Solution<b><sup>®</sup></b>. As a result of this initial effort, the VA adopted the RGI analytics as a “critical component” of a VA-wide critical care and anesthesia clinical information system initiative and the development of a <a href="http://www.asaabstracts.com/strands/asaabstracts/abstract.htm;jsessionid=088F245866F30A013A2E2D72ECD8DE3E?year=2014&amp;index=14&amp;absnum=4756" target="_blank">“Comprehensive Anesthesia Quality Improvement Program.”</a></p>
+                        <p>&nbsp;</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+-->
+
+        <section id="platform_hospital" class="scroll-sensitive platform-hospital">
+            <div class="content-wrapper" style="padding-top:5%;padding-bottom:5%;">
+                <h4 class="section-kicker">Our Approach</h4>
+                <div class="platform-hospital-mod" style="padding-top:3%;">
+                    <ul class="platform-hospital-list">
+                        <li class="hospital-item clock-group">
+                            <div class="ui-block-1 icon-group">
+                                <div class=" icon-mod">
+                                    <img class="list-icons base-clock" src="{% static "wp-content/themes/rgi_web/_img/icon-clock-1.png" %}">
+                                    <img class="list-icons top-clock spin" src="{% static "wp-content/themes/rgi_web/_img/icon-clock-2.png" %}">
+                                    <div class="icon-bg"></div>
+                                </div>
+                                <div class="icon-mod-alt">
+                                    <img class="list-icons icon-img" src="{% static "wp-content/themes/rgi_web/_img/icon-clock.gif" %}">
+                                    <div class="icon-bg"></div>
+                                </div>
+                            </div>
+                            <div class="ui-block-2 info-group">
+                                <h4 class="section-h3">Right People</h4>
+                                <article class="txt">
+                                    <p>Our people pair technical mastery with superior soft skills, bringing both knowledge and wisdom to their work, and making us remarkably effective in today’s collaborative software development environment.</p>
+                                </article>
+                            </div>
+                        </li>
+
+                        <li class="hospital-item lock-group">
+                            <div class="icon-group ui-block-1">
+                                <div class="icon-mod">
+                                    <img class="list-icons base-lock" src="{% static "wp-content/themes/rgi_web/_img/icon-lock-1.png" %}">
+                                    <img class="list-icons top-lock lock-slide" src="{% static "wp-content/themes/rgi_web/_img/icon-lock-2.png" %}">
+                                    <div class="icon-bg"></div>
+                                </div>
+                                <div class="icon-mod-alt">
+                                    <img class="list-icons icon-img" src="{% static "wp-content/themes/rgi_web/_img/icon-lock.gif" %}">
+                                    <div class="icon-bg"></div>
+                                </div>
+                            </div>
+                            <div class="ui-block-2 info-group">
+                                <h4 class="section-h3">Right Way</h4>
+                                <article class="txt">
+                                    <p>Lightweight, adaptive processes, unwavering accountability and relentless improvement ensure we deliver on our commitments and get better all the time.</p>
+                                </article>
+                            </div>
+                        </li>
+
+                        <li class="hospital-item trophy-group">
+                            <div class="ui-block-1 icon-group">
+                                <div class="icon-mod">
+                                    <img class="list-icons base-trophy" src="{% static "wp-content/themes/rgi_web/_img/icon-trophy-1.png" %}">
+                                    <img class="list-icons top-trophy spin-2" src="{% static "wp-content/themes/rgi_web/_img/icon-trophy-2.png" %}">
+                                    <div class="icon-bg"></div>
+                                </div>
+                                <div class="icon-mod-alt">
+                                    <img class="list-icons icon-img" src="{% static "wp-content/themes/rgi_web/_img/icon-trophy.gif" %}">
+                                    <div class="icon-bg"></div>
+                                </div>
+                            </div>
+                            <div class="ui-block-2 info-group">
+                                <h4 class="section-h3">Right Choice</h4>
+                                <article class="txt">
+                                    <p>Direct engagement in our development processes means our clients are never surprised, we’re always held accountable, and the entire team is consistently focused on creating maximum value.</p>
+                                </article>
+                            </div>
+                        </li>
+                    </ul><!-- /platform-hospital-list -->
+                </div><!-- /platform-hospital-mod -->
+            </div><!-- /content-wrapper -->
+        </section> <!-- /platform-hospital -->
+
+        <section class="contact-break scroll-sensitive" id="contact">
+            <div class="content-wrapper">
+                <div class="headline-mod">
+                    <h2 class="section-h1">Want to learn more? Contact us.</h2>
+                </div>
+                <div class="contact-form ">
+
+                    <div role="form" class="wpcf7" id="wpcf7-f44-o1" dir="ltr">
+                        <div class="screen-reader-response"></div>
+                        <form action="/#wpcf7-f44-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+                            <div style="display: none;">
+                                <input type="hidden" name="_wpcf7" value="44">
+                                <input type="hidden" name="_wpcf7_version" value="4.8">
+                                <input type="hidden" name="_wpcf7_locale" value="">
+                                <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f44-o1">
+                                <input type="hidden" name="_wpcf7_container_post" value="0">
+                                <input type="hidden" name="_wpcf7_nonce" value="21fec18ee2">
+                            </div>
+                            <fieldset><label>Name (required)</label><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Email (required)</label><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset class="addl-info"><label>Additional Info (optional)</label><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </fieldset>
+                            <fieldset class="fieldset-submit"><input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
+                            <input type="hidden" id="ct_checkjs_cf7_3cef96dcc9b8035d23f69e30bb19218a" name="ct_checkjs_cf7" value="958839405"><script type="text/javascript">setTimeout(function(){    var ct_input_name = 'ct_checkjs_cf7_3cef96dcc9b8035d23f69e30bb19218a';    if (document.getElementById(ct_input_name) !== null) {        var ct_input_value = document.getElementById(ct_input_name).value;        document.getElementById(ct_input_name).value = document.getElementById(ct_input_name).value.replace(ct_input_value, '958839405');     }}, 1000);</script><div class="wpcf7-response-output wpcf7-display-none"></div></form></div>
+                    <div class="form-message txt">
+                        <p>We’d love to talk about getting you the software outcomes you need. You can also email us directly at <a href="mailto:info@1x3i.com">info@1x3i.com</a>.</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% include "jobs/page_teases.html" %}
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% load fontawesome %}
+
+{% block title %}
+    {{ block.super }}
+    - Career {{ job.id }} Apply
+{% endblock title %}
+
+{% block head %}
+    <style>
+        .checkBox {
+            display:inline-block;
+            margin-top:3em;
+        }
+    </style>
+{% endblock head %}
+
+{% block bodyclass %}page-template-default page page-id-31 desktop{% endblock %}
+
+{% block content %}
+    <div class="inside-page">
+        <hgroup class="inside-pg-intro">
+            <h1 class="ipi-h1">Stand out from the crowd</h1>
+            <div class="ipi-p"><p>We’re passionate about technology. If you are, too, we’d like to hear from you. We are invested in building a community of creative technical thinkers. We offer highly competitive benefits and opportunities to grow.</p>
+        </hgroup>
+        <div class="inside-pg-content">
+            <div class="headline-mod">
+                <a href="{% url 'careers' %}">Careers</a> > <a href="{% url 'career_details' job.id %}">{{ job.title | title }}</a> >
+                <h2 class="gradient-headline">Apply Now</h2>
+            </div>
+            <div class="contact-form ">
+
+                <div class="form-message txt">
+                    <p>Fill out the following form and we will contact you regarding this career opportunity. You can also email us directly at <a href="mailto:jobs@ix3i.com">jobs@ix3i.com</a></p>
+                </div>
+                <div role="form" class="wpcf7" id="wpcf7-f45-o1" dir="ltr">
+                    <div class="screen-reader-response"></div>
+                    <form action="/careers/#wpcf7-f45-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+                        <div style="display: none;">
+                            <input type="hidden" name="_wpcf7" value="45">
+                            <input type="hidden" name="_wpcf7_version" value="4.8">
+                            <input type="hidden" name="_wpcf7_locale" value="">
+                            <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f45-o1">
+                            <input type="hidden" name="_wpcf7_container_post" value="0">
+                            <input type="hidden" name="_wpcf7_nonce" value="1cd3418ce1">
+                        </div>
+                        <fieldset><label>Name (required)</label><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span> </fieldset>
+                        <fieldset><label>Email (required)</label><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span> </fieldset>
+                        <fieldset><label>Phone (required)</label><span class="wpcf7-form-control-wrap your-phone"><input type="text" name="your-phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-phone wpcf7-validates-as-required wpcf7-validates-as-phone" aria-required="true" aria-invalid="false"></span> </fieldset>
+                        <fieldset><label>Cover Letter (optional)</label><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </fieldset>
+                        <fieldset><label>Resume/CV (required)</label><label class="button-link" style="text-align:center;">Upload File<span class="wpcf7-form-control-wrap your-resume"><input type="file" style="display:none;" name="your-resume" class="wpcf7-form-control" aria-invalid="false"></span></label></fieldset>
+                        <fieldset class="fieldset-submit"><input type="submit" value="Apply Now" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
+                        <input type="hidden" id="ct_checkjs_cf7_0b8aff0438617c055eb55f0ba5d226fa" name="ct_checkjs_cf7" value="1879579589"><script type="text/javascript">setTimeout(function(){    var ct_input_name = 'ct_checkjs_cf7_0b8aff0438617c055eb55f0ba5d226fa';    if (document.getElementById(ct_input_name) !== null) {        var ct_input_value = document.getElementById(ct_input_name).value;        document.getElementById(ct_input_name).value = document.getElementById(ct_input_name).value.replace(ct_input_value, '1879579589');     }}, 1000);</script><div class="wpcf7-response-output wpcf7-display-none"></div></form></div>
+            </div>
+        </div>
+        {% include "jobs/page_teases.html" %}
+    </div>
+{% endblock content %}

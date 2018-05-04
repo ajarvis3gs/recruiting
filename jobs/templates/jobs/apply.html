@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load fontawesome %}
+
+{% block title %}
+{{ block.super }}
+ - {{ job.title }}
+{% endblock title %}
+
+{% block head %}
+<meta name="csrf-token" content="{{csrf_token}}">
+{% endblock head %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="{% url 'jobs'%}#{{ job.id }}">Jobs</a></li>
+  <li><a href="{% url 'jobs'%}{{ job.id }}">{{ job.title }}</a></li>
+  <li class="active">Apply Now</li>
+</ol>
+
+    <div class="container">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone">
+            </div>
+            <div class="form-group">
+                <label for="resume">Resume/CV</label>
+                <input type="file" name="resume" id="resume">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+    </div>
+{% endblock content %}

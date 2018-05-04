@@ -19,10 +19,10 @@
 </ol>
 
 <p class="navbar-text navbar-right">
-    {% fontawesome_icon 'edit' %} Edit</a>&nbsp;
-    {% fontawesome_icon 'share' %} Notify Vendors</a>
-    {% fontawesome_icon 'upload' %} Apply</a>&nbsp;
-    {% fontawesome_icon 'upload' %} Submit Candidate</a>&nbsp;
+    <!--{% fontawesome_icon 'edit' %} Edit</a>&nbsp;-->
+    <!--{% fontawesome_icon 'share' %} Notify Vendors</a>-->
+    <a href="{% url 'jobs'%}{{ job.id }}/apply" class="btn btn-primary" role="button">{% fontawesome_icon 'upload' %} Apply Now</a></button>
+    <!--{% fontawesome_icon 'upload' %} Submit Candidate</a>&nbsp;-->
 </p>
 
 <div class="container">
@@ -167,9 +167,8 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                </div>
             </div>
-            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">
