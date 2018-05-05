@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <source>
-<publisher>1x3 Innovations</publisher>
-<publisherurl>http://www.1x3i.com</publisherurl>
+<publisher>{{ siteDetail.company_name }}</publisher>
+<publisherurl>http://www.{{ site.domain }}</publisherurl>
 <lastBuildDate>{% now "r" %}</lastBuildDate>
 {% for job in jobs %}
     <job>
         <title><![CDATA[{{ job.title }}]]></title>
         <date><![CDATA[{{ job.created | date:"r" }}]]></date>
         <referencenumber><![CDATA[{{ job.id }}]]></referencenumber>
-        <url><![CDATA[http://www.1x3i.com/careers/{{ job.id }}]]></url>
-        <company><![CDATA[1x3 Innovations]]></company>
+        <url><![CDATA[http://www.{{ site.domain }}/careers/{{ job.id }}]]></url>
+        <company><![CDATA[{{ siteDetail.company_name }}]]></company>
         <city><![CDATA[{{ job.location }}]]></city>
         <state><![CDATA[]]></state>
         <country><![CDATA[]]></country>

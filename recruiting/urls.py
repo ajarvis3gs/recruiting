@@ -6,19 +6,21 @@ from django.conf.urls.static import static
 
 from interviews import views as interviewsViews
 from jobs import views as jobsViews
+from publicsite import views as publicViews
 from candidates import views as candidatesViews
 from recruiters import views as recruitersViews
 from dashboards import views as dashboardViews
 from campaigns import views as campaignViews
 
 urlpatterns = [
-    url(r'^$', jobsViews.home, name='home'),
-    url(r'^services/$', jobsViews.services, name='services'),
-    url(r'^portfolio/$', jobsViews.portfolio, name='portfolio'),
-    url(r'^about/$', jobsViews.about, name='about'),
-    url(r'^careers/$', jobsViews.careers, name='careers'),
-    url(r'^careers/(?P<job_id>\d+)/$', jobsViews.career_details, name='career_details'),
-    url(r'^careers/(?P<job_id>\d+)/apply/$', jobsViews.career_apply, name='career_apply'),
+    url(r'^$', publicViews.home, name='home'),
+    url(r'^home/$', publicViews.home, name='home'),
+    url(r'^services/$', publicViews.services, name='services'),
+    url(r'^portfolio/$', publicViews.portfolio, name='portfolio'),
+    url(r'^about/$', publicViews.about, name='about'),
+    url(r'^careers/$', publicViews.careers, name='careers'),
+    url(r'^careers/(?P<job_id>\d+)/$', publicViews.career_details, name='career_details'),
+    url(r'^careers/(?P<job_id>\d+)/apply/$', publicViews.career_apply, name='career_apply'),
     url(r'^dashboards/$', dashboardViews.dashboards, name='dashboards'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),

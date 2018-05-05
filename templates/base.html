@@ -36,13 +36,13 @@
 			    {% for message in messages %}
 
 			    <div{% if message.tags %} role="alert" class="alert alert-{{ message.tags }}"{% endif %}>
-			
+
 				    <button type="button" class="close" data-dismiss="alert">&times;</button>
 				    {{ message }}
 			    </div>
 			    {% endfor %}
 
-			{% endif %}		
+			{% endif %}
 
 			{% block content %}
 

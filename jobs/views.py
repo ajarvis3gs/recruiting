@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from models import Job
-from candidates.models import Candidate, CandidateDocument
+from candidates.models import Candidate
 from interviews.models import InterviewRequest
 from accounts.models import UserProfile
 from django_mailbox.models import Mailbox
@@ -12,86 +12,8 @@ from django.template.loader import get_template
 from django.template import Context
 import datetime as dt
 from datetime import date, datetime
-from candidates.forms import ApplyNowForm
-from django.contrib.auth.models import User
-
-
-""" PUBLIC SITE VIEWS """
-
-
-def home(request):
-    context = {}
-    return render(request, 'jobs/home.html', context)
-
-
-def services(request):
-    context = {}
-    return render(request, 'jobs/services.html', context)
-
-
-def portfolio(request):
-    context = {}
-    return render(request, 'jobs/portfolio.html', context)
-
-
-def about(request):
-    context = {}
-    return render(request, 'jobs/about.html', context)
-
-
-def careers(request):
-    jobs = Job.objects.filter(is_active__exact=True).filter(submission_date__gte=date.today()).order_by('-created')
-    context = {'jobs': jobs}
-    return render(request, 'jobs/careers.html', context)
-
-
-def career_details(request, job_id):
-    job = Job.objects.get(id=job_id)
-    context = {'job': job}
-    return render(request, 'jobs/career_details.html', context)
-
-
-def career_apply(request, job_id):
-    job = Job.objects.get(id=job_id)
-
-    # make sure this is a post
-    if request.method == 'POST':
-        # create the new document
-        form = ApplyNowForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
-                user = User.objects.create_user(form.cleaned_data['firstName'], 'job%s-%s' % (job.id, form.cleaned_data['email']), 'changeme')
-                user.first_name = form.cleaned_data['firstName']
-                user.last_name = form.cleaned_data['lastName']
-                user.save()
-
-                userProfile = UserProfile()
-                userProfile.user = user
-                userProfile.phone_number = form.cleaned_data['phone']
-                userProfile.save()
-
-                candidate = Candidate()
-                candidate.user = user
-                candidate.save()
-
-                interviewRequest = InterviewRequest()
-                interviewRequest.candidate = candidate
-                interviewRequest.job = job
-                interviewRequest.save()
-
-                doc = CandidateDocument(document=request.FILES['resume'])
-                doc.display_name = form.cleaned_data['resume']
-                doc.candidate = candidate
-                doc.save()
-            except:
-                return render(request, 'jobs/career_apply.html', {'job': job, 'status': 'error'})
-
-        return render(request, 'jobs/career_apply.html', {'job': job, 'status': 'success'})
-    else:
-        return render(request, 'jobs/career_apply.html', {'job': job, 'status': 'new'})
-
-
-""" SECURE SITE VIEWS """
+from django.contrib.sites.models import Site
+from publicsite.models import SiteDetail, SiteArticle
 
 
 def add_interview_requests(request, user, jobs_ids):
@@ -164,8 +86,11 @@ def fetch(request):
 
 # XML job feed.  Used by indeed.
 def xml_feed(request):
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(id=site.id)
+
     jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True).filter(submission_date__gte=date.today()).order_by('-id')
-    context = {'jobs': jobs}
+    context = {'jobs': jobs, 'site': site, 'siteDetail': siteDetail}
 
     template = get_template('jobs/xml_feed.html')
     context = Context(context)

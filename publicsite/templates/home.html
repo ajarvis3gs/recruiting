@@ -16,7 +16,7 @@
                 <div class="intro-txt-mod">
                     <h1 class="page-h1 intro-txt">Providing software services that transform concepts into value.</h1>
                     <div class="intro-logo-mod">
-                        <img class="intro-logo" src="{% static "public/img/1x3ilogo_white_tagline.png" %}">
+                        <img class="intro-logo" src="{% static "public/img/" %}{{ siteDetail.logo }}_white_tagline.png">
                     </div>
                 </div>
             </div>
@@ -115,68 +115,6 @@
                 </div>
             </div>
         </section>
-<!--
-        <section class="platform-software">
-            <div class="content-wrapper">
-
-                <div class="platform-software-img fadeable">
-                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-placeholder.png" %}" class="fader-placeholder">
-                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-bg.png" %}" class="fader-bg">
-                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer2.png" %}" class="fader up">
-                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-21.png" %}" class="fader">
-                    <img src="{% static "wp-content/themes/rgi_web/_img/platform-computer-31.png" %}" class="fader">
-                </div>
-                <div class="group-text">
-                    <hgroup class="headline-mod-alt">
-                        <h2 class="section-h1">Making data work for you</h2>
-                    </hgroup>
-                    <ul class="platform-software-list">
-                        <li class="software-item">
-                            <h4 class="section-kicker">INTUITIVE</h4>
-                            <article class="txt">
-                                <p>We turn complexity into clarity. Our algorithms accommodate inconsistencies and synthesize data, regardless of nomenclatures, data sources, and operating systems. The interface is simple and visual, so it's easy to use and easy to like.</p>
-                            </article>
-                        </li>
-                        <li class="software-item">
-                            <h4 class="section-kicker">Iterative</h4>
-                            <article class="txt">
-                                <p>Our solution unlocks data in all its depth and complexity. Clinicians pose queries and refine parameters until they pinpoint an actionable insight.</p>
-                            </article>
-                        </li>
-                        <li class="software-item">
-                            <h4 class="section-kicker">Immediate</h4>
-                            <article class="txt">
-                                <p>Proprietary algorithms work rapidly behind the scenes, navigating through dense data so that clinicians can focus on problem-solving and patient care.</p>
-                            </article>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
--->
-<!--
-        <section class="scroll-sensitive hp-customers" id="alliances">
-            <div class="content-wrapper">
-                <hgroup class="logo-group">
-                    <div class="inner">
-                        <div class="customer-map">
-                            <img src="{% static "wp-content/themes/rgi_web/_img/customer-map-mobile.jpg" %}" class="customer-map-mobile">
-                        </div>
-                    </div>
-                </hgroup>
-
-                <div class="text-group">
-                    <h2 class="section-h1">Robust analytics, real change</h2>
-                    <div class="txt">
-                        <p>The Veterans Health Administration (VA) is America’s largest integrated healthcare system. Each year, it serves 8.3 million veterans at over 150 sites in 21 regions.</p>
-                        <p>In 2002, a committee of VA anesthesiologists recognized the potential in analyzing data from ICU and OR patients. In 2004, one of the VA’s regional networks began using RGI’s Healthcare Analytics Solution<b><sup>®</sup></b>. As a result of this initial effort, the VA adopted the RGI analytics as a “critical component” of a VA-wide critical care and anesthesia clinical information system initiative and the development of a <a href="http://www.asaabstracts.com/strands/asaabstracts/abstract.htm;jsessionid=088F245866F30A013A2E2D72ECD8DE3E?year=2014&amp;index=14&amp;absnum=4756" target="_blank">“Comprehensive Anesthesia Quality Improvement Program.”</a></p>
-                        <p>&nbsp;</p>
-
-                    </div>
-                </div>
-            </div>
-        </section>
--->
 
         <section id="platform_hospital" class="scroll-sensitive platform-hospital">
             <div class="content-wrapper" style="padding-top:5%;padding-bottom:5%;">
@@ -256,26 +194,36 @@
 
                     <div role="form" class="wpcf7" id="wpcf7-f44-o1" dir="ltr">
                         <div class="screen-reader-response"></div>
-                        <form action="/#wpcf7-f44-o1" method="post" class="wpcf7-form" novalidate="novalidate">
-                            <div style="display: none;">
-                                <input type="hidden" name="_wpcf7" value="44">
-                                <input type="hidden" name="_wpcf7_version" value="4.8">
-                                <input type="hidden" name="_wpcf7_locale" value="">
-                                <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f44-o1">
-                                <input type="hidden" name="_wpcf7_container_post" value="0">
-                                <input type="hidden" name="_wpcf7_nonce" value="21fec18ee2">
-                            </div>
-                            <fieldset><label>Name (required)</label><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span> </fieldset>
-                            <fieldset><label>Email (required)</label><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span> </fieldset>
-                            <fieldset class="addl-info"><label>Additional Info (optional)</label><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </fieldset>
-                            <fieldset class="fieldset-submit"><input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
-                            <input type="hidden" id="ct_checkjs_cf7_3cef96dcc9b8035d23f69e30bb19218a" name="ct_checkjs_cf7" value="958839405"><script type="text/javascript">setTimeout(function(){    var ct_input_name = 'ct_checkjs_cf7_3cef96dcc9b8035d23f69e30bb19218a';    if (document.getElementById(ct_input_name) !== null) {        var ct_input_value = document.getElementById(ct_input_name).value;        document.getElementById(ct_input_name).value = document.getElementById(ct_input_name).value.replace(ct_input_value, '958839405');     }}, 1000);</script><div class="wpcf7-response-output wpcf7-display-none"></div></form></div>
+                        <form action="{% url "home" %}" method="post" class="wpcf7-form" novalidate="novalidate">
+                            {% csrf_token %}
+                            <fieldset><label>Name (required)</label><span class="wpcf7-form-control-wrap name"><input type="text" name="name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Email (required)</label><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset class="addl-info"><label>Additional Info (optional)</label><span class="wpcf7-form-control-wrap comments"><textarea name="comments" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </fieldset>
+                            <fieldset class="fieldset-submit"><input type="submit" id="contact_submit" value="Send" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
+                        </form>
+                    </div>
                     <div class="form-message txt">
-                        <p>We’d love to talk about getting you the software outcomes you need. You can also email us directly at <a href="mailto:info@1x3i.com">info@1x3i.com</a>.</p>
+                        <p>We’d love to talk about getting you the software outcomes you need. You can also email us directly at <a href="mailto:{{ siteDetail.info_email }}">{{ siteDetail.info_email }}</a>.</p>
 
                     </div>
                 </div>
             </div>
         </section>
-        {% include "jobs/page_teases.html" %}
+        {% include "page_teases.html" %}
 {% endblock content %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#contact_submit').on('click', function(e) {
+                var $name = $('[name="name"]').val(),
+                    $email = $('[name="email"]').val();
+
+                if ($name === '' || $email === '') {
+                    alert('Please fill in all required fields');
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

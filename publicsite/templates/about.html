@@ -14,7 +14,7 @@
     <div class="inside-page">
         <hgroup class="inside-pg-intro">
             <h1 class="ipi-h1">Who we are</h1>
-            <div class="ipi-p"><p>Our senior leadership has worked together since 1998 to design, build and deliver software solutions that help clients meet their strategic objectives. We founded 1x3 Innovations to fill a need in the marketplace for an agile and flexible development partner that can consistently deliver solid results. </p>
+            <div class="ipi-p"><p>Our senior leadership has worked together since 1998 to design, build and deliver software solutions that help clients meet their strategic objectives. We founded {{ siteDetail.company_name }} to fill a need in the marketplace for an agile and flexible development partner that can consistently deliver solid results. </p>
             </div>
         </hgroup>
         <div class="inside-pg-content">
@@ -26,20 +26,22 @@
                 <section class="people">
                     <div class="content-wrapper">
                         <section class="team-list-mod">
-                            <article class="team-list-item" id="mike-lawyea">
-                                <div class="team-member-mod">
-                                    <div class="headline-mod">
-                                        <h2 class="section-h1">Mike Lawyea</h2>
+                            {% if site.name == '1x3i' %}
+                                <article class="team-list-item" id="mike-lawyea">
+                                    <div class="team-member-mod">
+                                        <div class="headline-mod">
+                                            <h2 class="section-h1">Mike Lawyea</h2>
+                                        </div>
+                                        <article class="txt">
+                                            <p>Mr. Lawyea oversees the company’s support provided to its array of customers to include federal and state governments across this great country. His primary focus is on ensuring that {{ siteDetail.company_name }} fulfills its promise of providing the customer the results they need to succeed in a professional manner, on time and performing at the highest level possible while searching out new markets and expanding the company’s core capabilities.</p>
+
+                                            <p>Prior to establishing Innovations, Mr. Lawyea served for almost 25 years in the military as an aviator, first with the US Navy and then finally with the US Air Force as a member of the NY Air National Guard. He has flown 5 different aircraft and amassed over 7500 flight hours, 1400+ combat hours, 350+ combat missions with 12 overseas deployments in support of Operation Desert Storm, Operation Iraqi Freedom and Operation Enduring Freedom. This combined with 16 years of providing airborne support for all forms of Law Enforcement Agencies from local and state level to the FBI, DEA and Secret Service, Mr. Lawyea has worked hand in hand with many of the federal and state agencies that which he established {{ siteDetail.company_name }} to support after leaving the cockpit.</p>
+
+                                            <p>Mr. Lawyea received his Bachelors of Science degree in Electrical Engineering from North Carolina State University where he was commissioned into the US Navy in 1988.</p>
+                                        </article>
                                     </div>
-                                    <article class="txt">
-                                        <p>Mr. Lawyea oversees the company’s support provided to its array of customers to include federal and state governments across this great country. His primary focus is on ensuring that 1X3 Innovations fulfills its promise of providing the customer the results they need to succeed in a professional manner, on time and performing at the highest level possible while searching out new markets and expanding the company’s core capabilities.</p>
-
-                                        <p>Prior to establishing Innovations, Mr. Lawyea served for almost 25 years in the military as an aviator, first with the US Navy and then finally with the US Air Force as a member of the NY Air National Guard. He has flown 5 different aircraft and amassed over 7500 flight hours, 1400+ combat hours, 350+ combat missions with 12 overseas deployments in support of Operation Desert Storm, Operation Iraqi Freedom and Operation Enduring Freedom. This combined with 16 years of providing airborne support for all forms of Law Enforcement Agencies from local and state level to the FBI, DEA and Secret Service, Mr. Lawyea has worked hand in hand with many of the federal and state agencies that which he established 1X3 Innovations to support after leaving the cockpit.</p>
-
-                                        <p>Mr. Lawyea received his Bachelors of Science degree in Electrical Engineering from North Carolina State University where he was commissioned into the US Navy in 1988.</p>
-                                    </article>
-                                </div>
-                            </article>
+                                </article>
+                            {% endif %}
                             <article class="team-list-item" id="york-bush">
                                 <div class="team-member-mod">
                                     <div class="headline-mod">
@@ -70,6 +72,6 @@
                 </section>
             </section>
         </div>
-        {% include "jobs/page_teases.html" %}
+        {% include "page_teases.html" %}
     </div>
 {% endblock content %}

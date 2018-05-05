@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # Project apps
+    'publicsite',
     'accounts',
     'employers',
     'jobs',
@@ -68,6 +69,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware'
 ]
 
 ROOT_URLCONF = 'recruiting.urls'
@@ -137,8 +139,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.3gsllc.com'
 EMAIL_HOST_USER = 'mailer@3gsllc.com'
 EMAIL_HOST_PASSWORD = '1mail1'
-DEFAULT_FROM_EMAIL = 'careers@1x3i.com'
-SERVER_EMAIL = 'careers@1x3i.com'
+DEFAULT_FROM_EMAIL = 'career.opps@1x3i.com'
+SERVER_EMAIL = 'career.opps@1x3i.com'
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = ""
 
