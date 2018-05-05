@@ -12,7 +12,7 @@ from models import SiteDetail, SiteArticle
 from django.core.mail import send_mail
 
 def home(request):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
     context = {'site': site, 'siteDetail': siteDetail}
     if request.method == 'POST':
@@ -37,7 +37,7 @@ def home(request):
 
 
 def services(request):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
 
     context = {'site': site, 'siteDetail': siteDetail}
@@ -45,7 +45,7 @@ def services(request):
 
 
 def portfolio(request):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
 
     context = {'site': site, 'siteDetail': siteDetail}
@@ -53,7 +53,7 @@ def portfolio(request):
 
 
 def about(request):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
 
     context = {'site': site, 'siteDetail': siteDetail}
@@ -61,7 +61,7 @@ def about(request):
 
 
 def careers(request):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
     jobs = Job.objects.filter(is_active__exact=True).filter(submission_date__gte=date.today()).order_by('-created')
 
@@ -70,7 +70,7 @@ def careers(request):
 
 
 def career_details(request, job_id):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
     job = Job.objects.get(id=job_id)
 
@@ -79,7 +79,7 @@ def career_details(request, job_id):
 
 
 def career_apply(request, job_id):
-    site = Site.objects.get_current()
+    site = Site.objects.get(id=1)
     siteDetail = SiteDetail.objects.get(id=site.id)
     job = Job.objects.get(id=job_id)
 
