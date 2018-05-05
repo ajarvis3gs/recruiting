@@ -34,7 +34,9 @@
                         </p></div>
                 </div>
                 <div class="ui-block-1">
-                    <img src="{% static "public/img/NYS-Certified-Logo_0.png" %}" width="80%" height="auto;" style="float:right;">
+                    {% if site.name == '1x3i' %}
+                        <img src="{% static "public/img/NYS-Certified-Logo_0.png" %}" width="80%" height="auto;" style="float:right;">
+                    {% endif %}
                 </div>
             </div>
         </section>
