@@ -86,8 +86,8 @@ def fetch(request):
 
 # XML job feed.  Used by indeed.
 def xml_feed(request):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
 
     jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True).filter(submission_date__gte=date.today()).order_by('-id')
     context = {'jobs': jobs, 'site': site, 'siteDetail': siteDetail}

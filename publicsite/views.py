@@ -12,8 +12,8 @@ from models import SiteDetail, SiteArticle
 from django.core.mail import send_mail
 
 def home(request):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
     context = {'site': site, 'siteDetail': siteDetail}
     if request.method == 'POST':
         form = ContactUsForm(request.POST, request.FILES)
@@ -37,32 +37,32 @@ def home(request):
 
 
 def services(request):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
 
     context = {'site': site, 'siteDetail': siteDetail}
     return render(request, 'services.html', context)
 
 
 def portfolio(request):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
 
     context = {'site': site, 'siteDetail': siteDetail}
     return render(request, 'portfolio.html', context)
 
 
 def about(request):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
 
     context = {'site': site, 'siteDetail': siteDetail}
     return render(request, 'about.html', context)
 
 
 def careers(request):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
     jobs = Job.objects.filter(is_active__exact=True).filter(submission_date__gte=date.today()).order_by('-created')
 
     context = {'jobs': jobs, 'site': site, 'siteDetail': siteDetail}
@@ -70,8 +70,8 @@ def careers(request):
 
 
 def career_details(request, job_id):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
     job = Job.objects.get(id=job_id)
 
     context = {'job': job, 'site': site, 'siteDetail': siteDetail}
@@ -79,8 +79,8 @@ def career_details(request, job_id):
 
 
 def career_apply(request, job_id):
-    site = Site.objects.get(id=1)
-    siteDetail = SiteDetail.objects.get(id=site.id)
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
     job = Job.objects.get(id=job_id)
 
     # make sure this is a post
