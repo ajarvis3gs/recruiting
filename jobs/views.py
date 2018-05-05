@@ -178,3 +178,21 @@ def apply(request, job_id):
     job = Job.objects.get(id=job_id)
     context = {'job': job}
     return render(request, 'jobs/apply.html', context)
+
+
+def unpublish(request, job_id):
+    job = Job.objects.get(id=job_id)
+
+    job.is_featured = False
+    job.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def publish(request, job_id):
+    job = Job.objects.get(id=job_id)
+
+    job.is_featured = True
+    job.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
