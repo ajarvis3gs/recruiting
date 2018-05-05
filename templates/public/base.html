@@ -11,65 +11,14 @@
         <title>{% block title %}1x3 Innovations{% endblock %}</title>
 		<link rel="icon" href="{% static "fav.ico" %}" type="image/ico">
         <link rel="stylesheet" href="{% static "public/css/main.css" %}" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-        <!-- register projects with sites -->
-        <!--<link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/83d9d878-3ccf-49e1-84c7-547dfaf6657d.css">-->
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript" async=""></script>-->
-        <!--<script type="text/javascript" src="/wp-content/themes/rgi_web/_js/libs/modernizr-2.6.1.min.js"></script>-->
-        <!--
-        <script type="text/javascript">
-            WebFontConfig = {
-                monotype: {
-                    projectId: '1fab9b64-8318-4ffd-b56e-f5ab9e254510'
-                }
-            };
-            (function() {
-                var wf = document.createElement('script');
-                wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-                        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-                wf.type = 'text/javascript';
-                wf.async = 'true';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(wf, s);
-            })();
-        </script>
-        -->
-
-        <!-- ie 8 and 9 support goes here -->
-
-        <!-- what is this for? -->
-        <!--<link rel="dns-prefetch" href="//s.w.org">-->
-
-        <!--<script src="http://rgi-informatics.com/wp-includes/js/wp-emoji-release.min.js?ver=4.7.10" type="text/javascript" defer=""></script>-->
-        <!--
-            <style type="text/css">
-            img.wp-smiley,
-            img.emoji {
-                display: inline !important;
-                border: none !important;
-                box-shadow: none !important;
-                height: 1em !important;
-                width: 1em !important;
-                margin: 0 .07em !important;
-                vertical-align: -0.1em !important;
-                background: none !important;
-                padding: 0 !important;
-            }
-            </style>
-        -->
-
-        <!--<link rel="stylesheet" id="contact-form-7-css" href="http://rgi-informatics.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.8" type="text/css" media="all">-->
-        <!-- saved as contact-form.css -->
-
-        <!-- include jquery -->
-
-        <!--<link id="MonoTypeFontApiFontTracker" type="text/css" rel="stylesheet" href="http://fast.fonts.net/t/1.css?apiType=js&amp;projectid=1fab9b64-8318-4ffd-b56e-f5ab9e254510">-->
+        {% block scripts %}{% endblock %}
 
         <!-- include tags bootstrap_css -->
         {% fontawesome_stylesheet %}
 
-        {% block head %}
-		{% endblock %}
+        {% block head %}{% endblock %}
 	</head>
 	<body class="{% block bodyclass %}{% endblock %}">
 		<div id="container" class="container">
@@ -121,9 +70,6 @@
 
             </div>
         </div>
-
-        {% block scripts %}
-        {% endblock %}
 	</body>
 </html>
 

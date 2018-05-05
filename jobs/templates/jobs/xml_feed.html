@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <source>
-<publisher>3GS LLC</publisher>
-<publisherurl>http://www.3gsllc.com</publisherurl>
+<publisher>1x3 Innovations</publisher>
+<publisherurl>http://www.1x3i.com</publisherurl>
 <lastBuildDate>{% now "r" %}</lastBuildDate>
 {% for job in jobs %}
     <job>
         <title><![CDATA[{{ job.title }}]]></title>
         <date><![CDATA[{{ job.created | date:"r" }}]]></date>
         <referencenumber><![CDATA[{{ job.id }}]]></referencenumber>
-        <url><![CDATA[http://www.3gsllc.com.com/jobs/{{ job.id }}]]></url>
-        <company><![CDATA[3GS LLC]]></company>
+        <url><![CDATA[http://www.1x3i.com/careers/{{ job.id }}]]></url>
+        <company><![CDATA[1x3 Innovations]]></company>
         <city><![CDATA[{{ job.location }}]]></city>
         <state><![CDATA[]]></state>
         <country><![CDATA[]]></country>
         <postalcode><![CDATA[]]></postalcode>
         <description><![CDATA[ {{ job.description }}]]></description>
-        <salary><![CDATA[]]></salary>
+        <salary><![CDATA[Based on experience]]></salary>
         <education><![CDATA[]]></education>
         <jobtype><![CDATA[{{ job.work_hours }}]]></jobtype>
         <category><![CDATA[]]></category>
-        <experience><![CDATA[]]></experience>
+        <experience><![CDATA[
+            <p>
+            <span>Mandatory Qualifications</span>
+            <ul>
+                {% for qualification in job.mandatoryQualifications.all %}
+                    <li>{{ qualification.label }}</li>
+                {% endfor %}
+            </ul>
+            </p>
+            <p>
+            <span>Requested Qualifications</span>
+            <ul>
+                {% for qualification in job.requestedQualifications.all %}
+                    <li>{{ qualification.label }}</li>
+                {% endfor %}
+            </ul>
+            </p>
+         ]]></experience>
     </job>
 {% endfor %}
 </source>

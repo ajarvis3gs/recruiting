@@ -51,7 +51,7 @@
                                         <p><strong>Work Hours:</strong> {{ job.work_hours }}</p>
                                         <p><strong>Description</strong><br/>{{ job.description }}</p>
                                         <p><strong>Mandatory Qualifications</strong><br/>
-                                        <ul style="list-style-type: circle; margin-left:50px;">
+                                            <ul style="list-style-type: circle; margin-left:50px;">
                                                 {% for qualification in job.mandatoryQualifications.all %}
                                                     <li>{{ qualification.label }}</li>
                                                 {% endfor %}
