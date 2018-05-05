@@ -7,20 +7,24 @@ class JobMandatoryQualificationsInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'Job Mandatory Qualifications'
 
+
 class JobRequestedQualificationsInline(admin.StackedInline):
     model = JobRequestedQualification
     can_delete = False
     verbose_name_plural = 'Job Requested Qualifications'
+
 
 class JobAdditionalInformationRequestsInline(admin.StackedInline):
     model = JobAdditionalInformationRequest
     can_delete = False
     verbose_name_plural = 'Job Additional Information Requests'
 
+
 class JobDocumentsInline(admin.StackedInline):
     model = JobDocument
     can_delete = True
     verbose_name_plural = 'Job Documents'
+
 
 class JobAdmin(admin.ModelAdmin):
     def job_actions(self):
@@ -35,6 +39,7 @@ class JobAdmin(admin.ModelAdmin):
     search_fields = ('title', 'agency', 'preferred_software')
     job_actions.allow_tags = True
 
+
 class JobDocumentAdmin(admin.ModelAdmin):
     def download_link(self):
         if self.document:
@@ -46,6 +51,7 @@ class JobDocumentAdmin(admin.ModelAdmin):
 
     list_display = ('job', 'display_name', 'file_type', download_link)
     verbose_name_plural = 'Job Documents'
+
 
 admin.site.register(Job, JobAdmin)
 admin.site.register(JobDocument, JobDocumentAdmin)
