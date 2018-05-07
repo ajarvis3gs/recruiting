@@ -1074,9 +1074,6 @@ em{
     }
 }
 #intro{
-    padding-bottom: 3%;
-    padding-top: 10%;
-    background:url("../../public/img/background.jpg") no-repeat center center;
     -moz-background-size:cover;
     -o-background-size:cover;
     -webkit-background-size:cover;
@@ -1086,6 +1083,7 @@ em{
 #intro .content-wrapper,#intro #footer{
     padding:0%
 }
+/*
 @media (min-width: 401px) and (max-width: 768px){
     #intro{
         margin-top:67px
@@ -1102,9 +1100,12 @@ em{
     padding-top:2%;
     margin-top:0px
 }
+*/
 .intro-txt-mod{
     max-width:960px;
-    margin:0 auto
+    margin:0 auto;
+    padding-top: 10%;
+    padding-bottom: 3%;
 }
 .intro-txt{
     animation:fadein 1.5s;
@@ -2253,7 +2254,6 @@ html.ie8 .careers-txt-mod{
 */
 .inside-pg-intro {
     padding: 10% 5% 15%;
-    background: url("../../public/img/background4.jpg") no-repeat center center;
     -moz-background-size: cover;
     -o-background-size: cover;
     -webkit-background-size: cover;
