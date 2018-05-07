@@ -63,7 +63,12 @@
                                 <li class="contact-link-item"><a href="mailto:{{ siteDetail.support_email }}" target="_blank">{{ siteDetail.support_email }}</a></li>
                             </ul>
                             <div class="ftr-copyright">
-                                © {% now 'Y' %}, {{ siteDetail.company_name }}. All right reserved
+                                <ul class="contact-link-mod">
+                                    <li class="contact-link-item">© {% now 'Y' %}, {{ siteDetail.company_name }}. All right reserved</li>
+                                    {% if site.name == '1x3i' %}
+                                        <li class="contact-link-item"><a href="http://documents.1x3i.com/sites/default/files/policies/" target="_blank">Policies</a></li>
+                                    {% endif %}
+                                </ul>
                             </div>
                         </div>
                     </div>
