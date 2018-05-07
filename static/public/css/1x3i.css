@@ -4,3 +4,46 @@
 .inside-pg-intro {
     background: url("../../public/img/1x3ibackground4.jpg") no-repeat center center;
 }
+.text>a,.rm-text>a,.text>p>a,.rm-text>p>a,.txt>a,.txt>p>a,.text-m>a,.text-m>p>a,.text-med>a,.text-med>p>a,.txt-m>a,.txt-m>p>a,.txt-med>a,.txt-med>p>a{
+    color:#a42224
+}
+.text>a:hover,.rm-text>a:hover,.text>p>a:hover,.rm-text>p>a:hover,.txt>a:hover,.txt>p>a:hover,.text-m>a:hover,.text-m>p>a:hover,.text-med>a:hover,.text-med>p>a:hover,.txt-m>a:hover,.txt-m>p>a:hover,.txt-med>a:hover,.txt-med>p>a:hover{
+    color:#ba1d24
+}
+.section-kicker{
+    color:#a42224;
+}
+.gradient-headline{
+    color:#a42224;
+}
+.page-tease-kicker{
+    color:#a42224;
+}
+.button-link{
+    background-color:#a42224;
+    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ba1d24),color-stop(100%, #a42224));
+    background-image:-moz-linear-gradient(#ba1d24,#a42224);
+    background-image:-webkit-linear-gradient(#ba1d24,#a42224);
+    background-image:linear-gradient(#ba1d24,#a42224);
+}
+.button-link:hover{
+    color:white;
+    background-size:100%;
+    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ba1d24),color-stop(100%, #a42224));
+    background-image:-moz-linear-gradient(#ba1d24,#a42224);
+    background-image:-webkit-linear-gradient(#ba1d24,#a42224);
+    background-image:linear-gradient(#ba1d24,#a42224)
+}
+.contact-form input[type=submit] {
+    background-color:#a42224;
+    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ba1d24),color-stop(100%, #a42224));
+    background-image:-moz-linear-gradient(#ba1d24,#a42224);
+    background-image:-webkit-linear-gradient(#ba1d24,#a42224);
+    background-image:linear-gradient(#ba1d24,#a42224);
+}
+.contact-form input[type=submit]:hover{
+    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ba1d24),color-stop(100%, #a42224));
+    background-image:-moz-linear-gradient(#ba1d24,#a42224);
+    background-image:-webkit-linear-gradient(#ba1d24,#a42224);
+    background-image:linear-gradient(#ba1d24,#a42224)
+}

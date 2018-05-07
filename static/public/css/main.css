@@ -402,10 +402,6 @@ button{
     -o-transition:all ease-in;
     -webkit-transition:all ease-in;
     transition:all ease-in;
-    color:#2290a7
-}
-.text>a:hover,.rm-text>a:hover,.text>p>a:hover,.rm-text>p>a:hover,.txt>a:hover,.txt>p>a:hover,.text-m>a:hover,.text-m>p>a:hover,.text-med>a:hover,.text-med>p>a:hover,.txt-m>a:hover,.txt-m>p>a:hover,.txt-med>a:hover,.txt-med>p>a:hover{
-    color:#2ea5d4
 }
 .text>p,.rm-text>p,.txt>p,.text-m>p,.text-med>p,.txt-m>p,.txt-med>p{
     margin-bottom:14px
@@ -788,7 +784,6 @@ em{
     font-style:italic
 }
 .section-kicker{
-    color:#2290a7;
     text-transform:uppercase;
     font-size:18px;
     margin-bottom:5px;
@@ -2225,7 +2220,6 @@ html.ie8 .careers-txt-mod{
     }
 }
 .gradient-headline{
-    color:#2290a7;
     font-family:"OfficinaSansITCW01-Bold",Arial,Helvetica,Verdana,sans-serif;
     font-size:44px;
     font-weight:normal
@@ -2405,7 +2399,6 @@ html.ie8 .careers-txt-mod{
     float:right
 }
 .page-tease-kicker{
-    color:#2290a7;
     text-transform:uppercase;
     font-size:18px;
     margin-bottom:5px;
@@ -2466,12 +2459,7 @@ html.ie8 .careers-txt-mod{
     margin-right:20px
 }
 .button-link{
-    background-color:#2290a7;
     background-size:100%;
-    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #82c9e6),color-stop(100%, #2ea5d4));
-    background-image:-moz-linear-gradient(#82c9e6,#2ea5d4);
-    background-image:-webkit-linear-gradient(#82c9e6,#2ea5d4);
-    background-image:linear-gradient(#82c9e6,#2ea5d4);
     color:#fff;
     display:inline-block;
     text-shadow:0 -1px 0 rgba(0,0,0,0.25);
@@ -2488,10 +2476,6 @@ html.ie8 .careers-txt-mod{
 .button-link:hover{
     color:white;
     background-size:100%;
-    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #82c9e6),color-stop(100%, #2290a7));
-    background-image:-moz-linear-gradient(#82c9e6,#2290a7);
-    background-image:-webkit-linear-gradient(#82c9e6,#2290a7);
-    background-image:linear-gradient(#82c9e6,#2290a7)
 }
 .hp-customers{
     background-color:white
@@ -2693,12 +2677,7 @@ html.ie8 .careers-txt-mod{
     max-height:100px
 }
 .contact-form input[type=submit] {
-    background-color:#2290a7;
     background-size:100%;
-    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #82c9e6),color-stop(100%, #2ea5d4));
-    background-image:-moz-linear-gradient(#82c9e6,#2ea5d4);
-    background-image:-webkit-linear-gradient(#82c9e6,#2ea5d4);
-    background-image:linear-gradient(#82c9e6,#2ea5d4);
     color:#fff;
     display:inline-block;
     text-shadow:0 -1px 0 rgba(0,0,0,0.25);
@@ -2715,10 +2694,6 @@ html.ie8 .careers-txt-mod{
 .contact-form input[type=submit]:hover{
     color:white;
     background-size:100%;
-    background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #82c9e6),color-stop(100%, #2290a7));
-    background-image:-moz-linear-gradient(#82c9e6,#2290a7);
-    background-image:-webkit-linear-gradient(#82c9e6,#2290a7);
-    background-image:linear-gradient(#82c9e6,#2290a7)
 }
 .contact-form .wpcf7-form-control-wrap{
     width:75%
