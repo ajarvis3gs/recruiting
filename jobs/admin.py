@@ -1,4 +1,5 @@
 from django.contrib import admin
+from datetime import date, datetime
 
 from .models import Job, JobAdditionalInformationRequest, JobMandatoryQualification, JobRequestedQualification, JobDocument
 
@@ -33,11 +34,18 @@ class JobAdmin(admin.ModelAdmin):
         else:
             return "<a href='/jobs/%s/publish'>publish</a>" % self.id
 
+    def is_open(self):
+        if self.submission_date >= date.today():
+            return u'<img src="/static/admin/img/icon-yes.svg" alt="True">'
+        else:
+            return u'<img src="/static/admin/img/icon-no.svg" alt="False">'
+
     inlines = (JobMandatoryQualificationsInline, JobRequestedQualificationsInline, JobAdditionalInformationRequestsInline, JobDocumentsInline, )
-    list_display = ('employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', 'preferred_software', job_actions)
+    list_display = ('employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, job_actions)
     list_filter = ('employer', 'agency', 'submission_date', 'is_featured')
     search_fields = ('title', 'agency', 'preferred_software')
     job_actions.allow_tags = True
+    is_open.allow_tags = True
 
 
 class JobDocumentAdmin(admin.ModelAdmin):
