@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from recruiting import signals
 from interviews import views as interviewsViews
 from jobs import views as jobsViews
 from publicsite import views as publicViews

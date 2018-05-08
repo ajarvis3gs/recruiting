@@ -147,7 +147,7 @@ def message_received(sender, message, **args):
         # finally, create the appropriate records in the database
         logger.error("message creation complete")
     except:
-        logger.error("error processing new message");
+        logger.error("error processing new message")
 
 def findJobTitle(text):
     text = text.replace('URGENT REQUIREMENT', '')
