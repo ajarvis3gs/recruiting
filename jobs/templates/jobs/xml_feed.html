@@ -15,14 +15,16 @@
         <country><![CDATA[]]></country>
         <postalcode><![CDATA[]]></postalcode>
         <description><![CDATA[
-            <h1>About {{ siteDetail.company_name }}</h1>
+            <b>About {{ siteDetail.company_name }}</b>
                 {{ siteDetail.company_name }} is a professional services firm backed by over 30 years of experience in software consulting and professional services.
                 We pride ourselves on providing exemplary Professional Staffing Services, Software and Systems Consulting, Application Services, and Hosting Capabilities.
-            <h1>What we offer</h1>
+            <br/><br/>
+            <b>What we offer</b>
                 {{ siteDetail.company_name }} is managed by technologists but also by people who can relate to you, the work environment and the task at hand.
                 What this means to you is that we get it. We offer superior pay for superior work. You will have access to health benefits, retirement plans,
                 paid time off, exciting travel and challenging assignments.
-            <h1>Job Details</h1>
+            <br/><br/>
+            <b>Job Details</b>
             {{ job.description| safe }}
         ]]></description>
         <salary><![CDATA[Compensation is dependent upon qualifications.]]></salary>
@@ -30,13 +32,15 @@
         <jobtype><![CDATA[{{ job.work_hours }}]]></jobtype>
         <category><![CDATA[]]></category>
         <experience><![CDATA[
-            <h1>Mandatory Qualifications</h1>
+            <br/><br/>
+            <b>Mandatory Qualifications</b>
             <ul>
                 {% for qualification in job.mandatoryQualifications.all %}
                     <li>{{ qualification.label| safe }}</li>
                 {% endfor %}
             </ul>
-            <h1>Requested Qualifications</h1>
+            <br/><br/>
+            <b>Requested Qualifications</b>
             <ul>
                 {% for qualification in job.requestedQualifications.all %}
                     <li>{{ qualification.label| safe }}</li>
