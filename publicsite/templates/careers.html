@@ -45,7 +45,7 @@
                                         <h3 class="person-title">{{ job.location | title }}</h3>
                                     </div>
                                     <article class="txt">
-                                        <p>{{ job.description | safe }}</p>
+                                        {{ job.description | safe }}
                                         <p><a href="{% url 'career_details' job.id %}">Learn more &gt;</a>
                                     </article>
                                 </div>
