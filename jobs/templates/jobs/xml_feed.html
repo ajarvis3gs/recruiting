@@ -16,13 +16,13 @@
         <postalcode><![CDATA[]]></postalcode>
         <description><![CDATA[
             <b>About {{ siteDetail.company_name }}</b>
-                {{ siteDetail.company_name }} is a professional services firm backed by over 30 years of experience in software consulting and professional services.
-                We pride ourselves on providing exemplary Professional Staffing Services, Software and Systems Consulting, Application Services, and Hosting Capabilities.
+            <p>{{ siteDetail.company_name }} is a professional services firm backed by over 30 years of experience in software consulting and professional services.
+            We pride ourselves on providing exemplary Professional Staffing Services, Software and Systems Consulting, Application Services, and Hosting Capabilities.</p>
             <br/><br/>
             <b>What we offer</b>
-                {{ siteDetail.company_name }} is managed by technologists but also by people who can relate to you, the work environment and the task at hand.
-                What this means to you is that we get it. We offer superior pay for superior work. You will have access to health benefits, retirement plans,
-                paid time off, exciting travel and challenging assignments.
+            <p>{{ siteDetail.company_name }} is managed by technologists but also by people who can relate to you, the work environment and the task at hand.
+            What this means to you is that we get it. We offer superior pay for superior work. You will have access to health benefits, retirement plans,
+            paid time off, exciting travel and challenging assignments.</p>
             <br/><br/>
             <b>Job Details</b>
             {{ job.description| safe }}
@@ -34,19 +34,16 @@
         <experience><![CDATA[
             <br/><br/>
             <b>Mandatory Qualifications</b>
-            <ul>
-                {% for qualification in job.mandatoryQualifications.all %}
-                    <li>{{ qualification.label| safe }}</li>
-                {% endfor %}
-            </ul>
-            <br/><br/>
+            <br/>
+            {% for qualification in job.mandatoryQualifications.all %}
+                {{ qualification.label| safe }}<br/>
+            {% endfor %}
+            <br/>
             <b>Requested Qualifications</b>
-            <ul>
-                {% for qualification in job.requestedQualifications.all %}
-                    <li>{{ qualification.label| safe }}</li>
-                {% endfor %}
-            </ul>
-            </p>
+            <br/>
+            {% for qualification in job.requestedQualifications.all %}
+                {{ qualification.label| safe }}<br/>
+            {% endfor %}
          ]]></experience>
     </job>
 {% endfor %}

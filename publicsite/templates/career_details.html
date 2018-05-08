@@ -50,27 +50,18 @@
                                         <p><strong>Preferred Software:</strong> {{ job.preferred_software }}</p>
                                         <p><strong>Work Hours:</strong> {{ job.work_hours }}</p>
                                         <p><strong>Description</strong><br/>{{ job.description| safe }}</p>
-                                        <p><strong>Mandatory Qualifications</strong><br/>
-                                            <ul style="list-style-type: circle; margin-left:50px;">
-                                                {% for qualification in job.mandatoryQualifications.all %}
-                                                    <li>{{ qualification.label| safe }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        </p>
-                                        <p><strong>Requested Qualifications</strong><br/>
-                                            <ul style="list-style-type: circle; margin-left:50px;">
-                                                {% for qualification in job.requestedQualifications.all %}
-                                                    <li>{{ qualification.label| safe }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        </p>
-                                        <p><strong>Additional Information Requests</strong><br/>
-                                            <ul style="list-style-type: circle; margin-left:50px;"">
-                                                {% for requests in job.additionalInformationRequests.all %}
-                                                    <li>{{ requests.label| safe }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        </p>
+                                        <p><strong>Mandatory Qualifications</strong></p>
+                                        {% for qualification in job.mandatoryQualifications.all %}
+                                            <p>{{ qualification.label| safe }}</p>
+                                        {% endfor %}
+                                        <p><strong>Requested Qualifications</strong></p>
+                                        {% for qualification in job.requestedQualifications.all %}
+                                            <p>{{ qualification.label| safe }}</p>
+                                        {% endfor %}
+                                        <p><strong>Additional Information Requests</strong></p>
+                                        {% for requests in job.additionalInformationRequests.all %}
+                                            <p>{{ requests.label| safe }}</p>
+                                        {% endfor %}
                                     </article>
                                 </div>
                             </article>
