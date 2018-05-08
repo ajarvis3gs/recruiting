@@ -5,7 +5,7 @@
 <lastBuildDate>{% now "r" %}</lastBuildDate>
 {% for job in jobs %}
     <job>
-        <title><![CDATA[{{ job.title }}]]></title>
+        <title><![CDATA[{{ job.pricing_schedule.job_title }}]]></title>
         <date><![CDATA[{{ job.created | date:"r" }}]]></date>
         <referencenumber><![CDATA[{{ job.id }}]]></referencenumber>
         <url><![CDATA[http://www.{{ site.domain }}/careers/{{ job.id }}]]></url>
@@ -14,22 +14,29 @@
         <state><![CDATA[]]></state>
         <country><![CDATA[]]></country>
         <postalcode><![CDATA[]]></postalcode>
-        <description><![CDATA[ {{ job.description }}]]></description>
-        <salary><![CDATA[Based on experience]]></salary>
+        <description><![CDATA[
+            <h1>About {{ siteDetail.company_name }}</h1>
+                {{ siteDetail.company_name }} is a professional services firm backed by over 30 years of experience in software consulting and professional services.
+                We pride ourselves on providing exemplary Professional Staffing Services, Software and Systems Consulting, Application Services, and Hosting Capabilities.
+            <h1>What we offer</h1>
+                {{ siteDetail.company_name }} is managed by technologists but also by people who can relate to you, the work environment and the task at hand.
+                What this means to you is that we get it. We offer superior pay for superior work. You will have access to health benefits, retirement plans,
+                paid time off, exciting travel and challenging assignments.
+            <h1>Job Details</h1>
+            {{ job.description }}
+        ]]></description>
+        <salary><![CDATA[Compensation is dependent upon qualifications.]]></salary>
         <education><![CDATA[]]></education>
         <jobtype><![CDATA[{{ job.work_hours }}]]></jobtype>
         <category><![CDATA[]]></category>
         <experience><![CDATA[
-            <p>
-            <span>Mandatory Qualifications</span>
+            <h1>Mandatory Qualifications</h1>
             <ul>
                 {% for qualification in job.mandatoryQualifications.all %}
                     <li>{{ qualification.label }}</li>
                 {% endfor %}
             </ul>
-            </p>
-            <p>
-            <span>Requested Qualifications</span>
+            <h1>Requested Qualifications</h1>
             <ul>
                 {% for qualification in job.requestedQualifications.all %}
                     <li>{{ qualification.label }}</li>
