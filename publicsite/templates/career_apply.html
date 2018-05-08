@@ -26,7 +26,7 @@
         </hgroup>
         <div class="inside-pg-content">
             <div class="headline-mod">
-                <a href="{% url 'careers' %}">Careers</a> > <a href="{% url 'career_details' job.id %}">{{ job.title | title }}</a> >
+                <a href="{% url 'careers' %}">Careers</a> > <a href="{% url 'career_details' job.id %}">{{ job.pricing_schedule.job_title | title }}</a> >
                 <h2 class="gradient-headline">Apply Now</h2>
             </div>
             <div class="contact-form ">
