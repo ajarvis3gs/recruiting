@@ -1,9 +1,17 @@
 {% extends "admin/base.html" %}
 
+{% block extrahead %}
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+{% endblock %}
+
 {% block extrastyle %}
 <style>
     .dashboard #content {
         width: 75%;
+    }
+    .change-form .field-description div label,
+    .change-form .field-label div label {
+        float: none;
     }
 </style>
 {% endblock %}
@@ -15,3 +23,11 @@
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+{% block footer %}
+
+    <div id="footer"></div>
+    <script>
+        CKEDITOR.replaceClass = 'vLargeTextField';
+    </script>
+{% endblock %}

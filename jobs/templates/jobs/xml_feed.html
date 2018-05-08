@@ -23,7 +23,7 @@
                 What this means to you is that we get it. We offer superior pay for superior work. You will have access to health benefits, retirement plans,
                 paid time off, exciting travel and challenging assignments.
             <h1>Job Details</h1>
-            {{ job.description }}
+            {{ job.description| safe }}
         ]]></description>
         <salary><![CDATA[Compensation is dependent upon qualifications.]]></salary>
         <education><![CDATA[]]></education>
@@ -33,13 +33,13 @@
             <h1>Mandatory Qualifications</h1>
             <ul>
                 {% for qualification in job.mandatoryQualifications.all %}
-                    <li>{{ qualification.label }}</li>
+                    <li>{{ qualification.label| safe }}</li>
                 {% endfor %}
             </ul>
             <h1>Requested Qualifications</h1>
             <ul>
                 {% for qualification in job.requestedQualifications.all %}
-                    <li>{{ qualification.label }}</li>
+                    <li>{{ qualification.label| safe }}</li>
                 {% endfor %}
             </ul>
             </p>

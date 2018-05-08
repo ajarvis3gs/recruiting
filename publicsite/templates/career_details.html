@@ -49,25 +49,25 @@
                                         <p><strong>Preferred Hardware:</strong> {{ job.preferred_hardware }}</p>
                                         <p><strong>Preferred Software:</strong> {{ job.preferred_software }}</p>
                                         <p><strong>Work Hours:</strong> {{ job.work_hours }}</p>
-                                        <p><strong>Description</strong><br/>{{ job.description }}</p>
+                                        <p><strong>Description</strong><br/>{{ job.description| safe }}</p>
                                         <p><strong>Mandatory Qualifications</strong><br/>
                                             <ul style="list-style-type: circle; margin-left:50px;">
                                                 {% for qualification in job.mandatoryQualifications.all %}
-                                                    <li>{{ qualification.label }}</li>
+                                                    <li>{{ qualification.label| safe }}</li>
                                                 {% endfor %}
                                             </ul>
                                         </p>
                                         <p><strong>Requested Qualifications</strong><br/>
                                             <ul style="list-style-type: circle; margin-left:50px;">
                                                 {% for qualification in job.requestedQualifications.all %}
-                                                    <li>{{ qualification.label }}</li>
+                                                    <li>{{ qualification.label| safe }}</li>
                                                 {% endfor %}
                                             </ul>
                                         </p>
                                         <p><strong>Additional Information Requests</strong><br/>
                                             <ul style="list-style-type: circle; margin-left:50px;"">
                                                 {% for requests in job.additionalInformationRequests.all %}
-                                                    <li>{{ requests.label }}</li>
+                                                    <li>{{ requests.label| safe }}</li>
                                                 {% endfor %}
                                             </ul>
                                         </p>
