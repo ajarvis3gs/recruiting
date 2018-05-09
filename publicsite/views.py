@@ -131,7 +131,11 @@ def career_apply(request, job_id):
             except BaseException as e:
                 send_mail(
                     'Error submitting application for job %s' % (job.id),
-                    'Please check error logs for more detail. %s' % (e.message),
+                    'Error submitting an application from %s %s (%s). %s' % (
+                        form.cleaned_data['firstName'],
+                        form.cleaned_data['lastName'],
+                        form.cleaned_data['email'],
+                        e.message),
                     siteDetail.support_email,
                     [siteDetail.support_email],
                     fail_silently=True
