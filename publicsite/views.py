@@ -108,7 +108,7 @@ def career_apply(request, job_id):
                 interviewRequest.job = job
                 interviewRequest.save()
 
-                if request.FILES['resume']:
+                if form.cleaned_data['resume']:
                     doc = CandidateDocument(document=request.FILES['resume'])
                     doc.display_name = form.cleaned_data['resume']
                     doc.candidate = candidate
