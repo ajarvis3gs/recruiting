@@ -117,7 +117,10 @@ def career_apply(request, job_id):
 
                 send_mail(
                     'New Job Application for job %s - %s' % (job.id, cgi.escape(job.title)),
-                    'A new application was submitted for job %s - %s.  Please login to the portal to view the application detail.' % (
+                    '%s %s (%s) has submitted new application for job %s - %s.  Please login to the portal to view the application detail.' % (
+                        form.cleaned_data['firstName'],
+                        form.cleaned_data['lastName'],
+                        form.cleaned_data['email'],
                         job.id,
                         cgi.escape(job.title)
                     ),
