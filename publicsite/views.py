@@ -108,10 +108,11 @@ def career_apply(request, job_id):
                 interviewRequest.job = job
                 interviewRequest.save()
 
-                doc = CandidateDocument(document=request.FILES['resume'])
-                doc.display_name = form.cleaned_data['resume']
-                doc.candidate = candidate
-                doc.save()
+                if request.FILES['resume']:
+                    doc = CandidateDocument(document=request.FILES['resume'])
+                    doc.display_name = form.cleaned_data['resume']
+                    doc.candidate = candidate
+                    doc.save()
 
                 send_mail(
                     'New Job Application for job %s - %s' % (job.id, job.title),
