@@ -88,43 +88,43 @@ def career_apply(request, job_id):
         # create the new document
         form = ApplyNowForm(request.POST, request.FILES)
         if form.is_valid():
-            #try:
-            user = User.objects.create_user(form.cleaned_data['firstName'], 'job%s-%s' % (job.id, form.cleaned_data['email']), 'changeme')
-            user.first_name = form.cleaned_data['firstName']
-            user.last_name = form.cleaned_data['lastName']
-            user.save()
+            try:
+                user = User.objects.create_user(form.cleaned_data['firstName'], 'job%s-%s' % (job.id, form.cleaned_data['email']), 'changeme')
+                user.first_name = form.cleaned_data['firstName']
+                user.last_name = form.cleaned_data['lastName']
+                user.save()
 
-            userProfile = UserProfile()
-            userProfile.user = user
-            userProfile.phone_number = form.cleaned_data['phone']
-            userProfile.save()
+                userProfile = UserProfile()
+                userProfile.user = user
+                userProfile.phone_number = form.cleaned_data['phone']
+                userProfile.save()
 
-            candidate = Candidate()
-            candidate.user = user
-            candidate.save()
+                candidate = Candidate()
+                candidate.user = user
+                candidate.save()
 
-            interviewRequest = InterviewRequest()
-            interviewRequest.candidate = candidate
-            interviewRequest.job = job
-            interviewRequest.save()
+                interviewRequest = InterviewRequest()
+                interviewRequest.candidate = candidate
+                interviewRequest.job = job
+                interviewRequest.save()
 
-            doc = CandidateDocument(document=request.FILES['resume'])
-            doc.display_name = form.cleaned_data['resume']
-            doc.candidate = candidate
-            doc.save()
+                doc = CandidateDocument(document=request.FILES['resume'])
+                doc.display_name = form.cleaned_data['resume']
+                doc.candidate = candidate
+                doc.save()
 
-            send_mail(
-                'New Job Application for job %s - %s' % (job.id, job.title),
-                'A new application was submitted for job %s - %s.  Please login to the portal to view the application detail.' % (
-                    job.id,
-                    job.title
-                ),
-                siteDetail.jobs_email,
-                [siteDetail.jobs_email],
-                fail_silently=True
-            )
-            #except:
-            #    return render(request, 'career_apply.html', {'job': job, 'status': 'error', 'site': site, 'siteDetail': siteDetail})
+                send_mail(
+                    'New Job Application for job %s - %s' % (job.id, job.title),
+                    'A new application was submitted for job %s - %s.  Please login to the portal to view the application detail.' % (
+                        job.id,
+                        job.title
+                    ),
+                    siteDetail.jobs_email,
+                    [siteDetail.jobs_email],
+                    fail_silently=True
+                )
+            except:
+                return render(request, 'career_apply.html', {'job': job, 'status': 'error', 'site': site, 'siteDetail': siteDetail})
 
         return render(request, 'career_apply.html', {'job': job, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
     else:

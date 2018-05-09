@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2=ku0+4tao156g2k$u*1^ikdjvxb&ewf42frdkxf82j2f*(9&e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -139,8 +139,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.3gsllc.com'
 EMAIL_HOST_USER = 'mailer@3gsllc.com'
 EMAIL_HOST_PASSWORD = '1mail1'
-DEFAULT_FROM_EMAIL = 'career.opps@1x3i.com'
-SERVER_EMAIL = 'career.opps@1x3i.com'
+DEFAULT_FROM_EMAIL = 'support@3gsllc.com'
+SERVER_EMAIL = 'support@3gsllc.com'
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = ""
 
