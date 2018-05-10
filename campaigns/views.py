@@ -20,20 +20,17 @@ def start_candidate_campaign(request, campaign_id):
     # load the campaign
     mailCampaign = MailCampaign.objects.get(id=campaign_id)
 
-    tagless = re.compile(r'(<!--.*?-->|<[^>]*>)')
-    textBody = tagless.sub('', mailCampaign.message_template.body)
-
-    messageBody = merge_template(textBody, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
+    messageBody = merge_template(mailCampaign.message_template.body, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
     messageSubject = merge_template(mailCampaign.message_template.subject, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
 
     # send to contacts
-    emailAddresses = []
+    emailAddresses = [siteDetail.jobs_email]
 
     # accumulate candidate email addresses (if existing)
     for candidate in mailCampaign.candidates.all():
         emailAddresses.append(candidate.user.email)
 
-    email = EmailMultiAlternatives(
+    email = EmailMessage(
         messageSubject,
         messageBody,
         settings.DEFAULT_FROM_EMAIL,
@@ -41,6 +38,7 @@ def start_candidate_campaign(request, campaign_id):
         emailAddresses
     )
 
+    email.content_subtype = "html"
     email.send()
 
     messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % len(emailAddresses))
