@@ -33,7 +33,7 @@ def start_candidate_campaign(request, campaign_id):
     email = EmailMessage(
         messageSubject,
         messageBody,
-        settings.jobs_email,
+        siteDetail.jobs_email,
         None,
         emailAddresses
     )
