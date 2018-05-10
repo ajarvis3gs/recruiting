@@ -130,7 +130,7 @@ def career_apply(request, job_id):
                 )
             except BaseException as e:
                 send_mail(
-                    'Error submitting application for job %s' % (job.id),
+                    'Error submitting application for job %s - %s' % (job.id, cgi.escape(job.title)),
                     'Error submitting an application from %s %s (%s). %s' % (
                         form.cleaned_data['firstName'],
                         form.cleaned_data['lastName'],
