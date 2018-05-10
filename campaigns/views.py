@@ -7,15 +7,59 @@ from django.template import Template, Context
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.contrib.sites.models import Site
+from publicsite.models import SiteDetail
+import re, cgi
 
 logger = logging.getLogger(__name__)
 
-def start_campaign(request, campaign_id):
+def start_candidate_campaign(request, campaign_id):
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
+
     # load the campaign
     mailCampaign = MailCampaign.objects.get(id=campaign_id)
 
-    messageBody = merge_template(mailCampaign.message_template.body, mailCampaign.job)
-    messageSubject = merge_template(mailCampaign.message_template.subject, mailCampaign.job)
+    tagless = re.compile(r'(<!--.*?-->|<[^>]*>)')
+    textBody = tagless.sub('', mailCampaign.message_template.body)
+
+    messageBody = merge_template(textBody, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
+    messageSubject = merge_template(mailCampaign.message_template.subject, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
+
+    # send to contacts
+    emailAddresses = []
+
+    # accumulate candidate email addresses (if existing)
+    for candidate in mailCampaign.candidates.all():
+        emailAddresses.append(candidate.user.email)
+
+    email = EmailMultiAlternatives(
+        messageSubject,
+        messageBody,
+        settings.DEFAULT_FROM_EMAIL,
+        None,
+        emailAddresses
+    )
+
+    email.send()
+
+    messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % len(emailAddresses))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def start_vendor_campaign(request, campaign_id):
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
+
+    # load the campaign
+    mailCampaign = MailCampaign.objects.get(id=campaign_id)
+
+    tagless = re.compile(r'(<!--.*?-->|<[^>]*>)')
+    textBody = tagless.sub('', mailCampaign.message_template.body)
+
+    messageBody = merge_template(textBody, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
+    messageSubject = merge_template(mailCampaign.message_template.subject, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
 
     # send to contacts
     emailAddresses = []
@@ -23,10 +67,6 @@ def start_campaign(request, campaign_id):
     # accumulate vendor contact email addresses (if existing)
     for vendorContact in mailCampaign.vendor_contacts.all():
         emailAddresses.append(vendorContact.user.email)
-
-    # accumulate candidate email addresses (if existing)
-    for candidate in mailCampaign.candidates.all():
-        emailAddresses.append(candidate.user.email)
 
     email = EmailMultiAlternatives(
         messageSubject,
@@ -46,11 +86,9 @@ def start_campaign(request, campaign_id):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-def merge_template(template, job):
-    # create the dataset
-    data = {}
-    data['job'] = job
 
+def merge_template(template, data):
+    # create the dataset
     template = Template(template)
     context = Context(data)
     return template.render(context)
