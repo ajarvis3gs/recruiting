@@ -24,7 +24,7 @@ def start_candidate_campaign(request, campaign_id):
     messageSubject = merge_template(mailCampaign.message_template.subject, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
 
     # send to contacts
-    emailAddresses = [siteDetail.jobs_email]
+    emailAddresses = [siteDetail.support_email]
 
     # accumulate candidate email addresses (if existing)
     for candidate in mailCampaign.candidates.all():
@@ -33,7 +33,7 @@ def start_candidate_campaign(request, campaign_id):
     email = EmailMessage(
         messageSubject,
         messageBody,
-        settings.DEFAULT_FROM_EMAIL,
+        settings.jobs_email,
         None,
         emailAddresses
     )
