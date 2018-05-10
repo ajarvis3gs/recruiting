@@ -24,8 +24,8 @@ class CandidateAdmin(admin.ModelAdmin):
     def user_phone_number(obj):
         return obj.user.userprofile.phone_number
 
-    list_filter = ('gender',)
-    list_display = (name, email, user_phone_number)
+    list_filter = ('gender', 'initial_contact_date',)
+    list_display = (name, email, user_phone_number, 'initial_contact_date')
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
     search_fields = ('date_of_birth', 'user__email', 'user__first_name', 'user__last_name',)

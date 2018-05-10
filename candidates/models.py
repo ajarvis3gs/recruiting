@@ -20,6 +20,7 @@ class Candidate(models.Model):
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    initial_contact_date = models.DateTimeField(auto_now_add=False, auto_now=False, blank=True, null=True)
 
     def __str__(self):
         return '%s' % (self.user.get_full_name())
