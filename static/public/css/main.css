@@ -2646,7 +2646,7 @@ html.ie8 .careers-txt-mod{
 @media (min-width: 750px){
     .contact-form label{
         float:left;
-        width:20%
+        width:30%
     }
 }
 .contact-form input[type="text"],.contact-form input[type="email"],.contact-form textarea{
@@ -2696,7 +2696,7 @@ html.ie8 .careers-txt-mod{
     background-size:100%;
 }
 .contact-form .wpcf7-form-control-wrap{
-    width:75%
+    width:65%
 }
 @media (min-width: 750px){
     .contact-form .wpcf7-form-control-wrap{

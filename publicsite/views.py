@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from jobs.models import Job
-from candidates.models import Candidate, CandidateDocument
+from candidates.models import Candidate, CandidateDocument, CandidateApplication
 from interviews.models import InterviewRequest
 from accounts.models import UserProfile
 from datetime import date, datetime
@@ -90,24 +90,19 @@ def career_apply(request, job_id):
         form = ApplyNowForm(request.POST, request.FILES)
         if form.is_valid():
             try:
-                user = User.objects.create_user(form.cleaned_data['firstName'], 'job%s-%s' % (job.id, form.cleaned_data['email']), 'changeme')
-                user.first_name = form.cleaned_data['firstName']
-                user.last_name = form.cleaned_data['lastName']
-                user.save()
-
-                userProfile = UserProfile()
-                userProfile.user = user
-                userProfile.phone_number = form.cleaned_data['phone']
-                userProfile.save()
-
                 candidate = Candidate()
-                candidate.user = user
+                candidate.first_name = form.cleaned_data['firstName']
+                candidate.last_name = form.cleaned_data['lastName']
+                candidate.email = form.cleaned_data['email']
+                candidate.preferred_communication_method = form.cleaned_data['preferredCommunicationMethod']
+                candidate.best_contact_time = form.cleaned_data['bestContactTime']
+                candidate.phone_number = form.cleaned_data['phone']
                 candidate.save()
 
-                interviewRequest = InterviewRequest()
-                interviewRequest.candidate = candidate
-                interviewRequest.job = job
-                interviewRequest.save()
+                candidateApplication = CandidateApplication()
+                candidateApplication.candidate = candidate
+                candidateApplication.job = job
+                candidateApplication.save()
 
                 if request.FILES.get('resume', False):
                     doc = CandidateDocument(document=request.FILES['resume'])

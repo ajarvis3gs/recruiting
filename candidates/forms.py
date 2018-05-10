@@ -24,5 +24,7 @@ class ApplyNowForm(forms.Form):
     lastName = forms.CharField(max_length=100, required=True)
     email = forms.CharField(max_length=100, required=True)
     phone = forms.CharField(max_length=20, required=True)
+    preferredCommunicationMethod = forms.CharField(max_length=100, required=True)
+    bestContactTime = forms.CharField(max_length=250, required=True)
     message = forms.CharField(max_length=1000, required=False)
     resume = forms.FileField(required=False)

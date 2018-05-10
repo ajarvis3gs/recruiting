@@ -7,12 +7,14 @@ class EmployerContactsInline(admin.StackedInline):
     model = EmployerContact
     can_delete = True
     verbose_name_plural = 'Employer Contacts'
+    extra = 1
 
 
 class EmployerDocumentsInline(admin.StackedInline):
     model = EmployerDocument
     can_delete = True
     verbose_name_plural = 'Employer Documents'
+    extra = 1
 
 
 class EmployerAdmin(admin.ModelAdmin):

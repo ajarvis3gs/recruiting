@@ -28,7 +28,7 @@ def start_candidate_campaign(request, campaign_id):
 
     # accumulate candidate email addresses (if existing)
     for candidate in mailCampaign.candidates.all():
-        emailAddresses.append(candidate.user.email)
+        emailAddresses.append(candidate.email)
 
     email = EmailMessage(
         messageSubject,
