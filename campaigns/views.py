@@ -16,33 +16,31 @@ logger = logging.getLogger(__name__)
 def start_candidate_campaign(request, campaign_id):
     site = Site.objects.get_current()
     siteDetail = SiteDetail.objects.get(site=site)
+    messageCount = 0
 
     # load the campaign
     mailCampaign = MailCampaign.objects.get(id=campaign_id)
 
-    messageBody = merge_template(mailCampaign.message_template.body, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
-    messageSubject = merge_template(mailCampaign.message_template.subject, {'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
-
     # send to contacts
-    emailAddresses = [siteDetail.support_email]
-
-    # accumulate candidate email addresses (if existing)
     for candidate in mailCampaign.candidates.all():
-        emailAddresses.append(candidate.email)
+        emailAddresses = [siteDetail.support_email, candidate.email]
+        messageBody = merge_template(mailCampaign.message_template.body, {'candidate': candidate, 'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
+        messageSubject = merge_template(mailCampaign.message_template.subject, {'candidate': candidate, 'job': mailCampaign.job, 'site': site, 'siteDetail': siteDetail})
 
-    email = EmailMessage(
-        messageSubject,
-        messageBody,
-        siteDetail.jobs_email,
-        None,
-        emailAddresses
-    )
+        email = EmailMessage(
+                messageSubject,
+                messageBody,
+                siteDetail.jobs_email,
+                None,
+                emailAddresses
+        )
 
-    email.content_subtype = "html"
-    email.send()
+        email.content_subtype = "html"
+        email.send()
 
-    messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % len(emailAddresses))
+        messageCount = messageCount + 1
 
+    messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % messageCount)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

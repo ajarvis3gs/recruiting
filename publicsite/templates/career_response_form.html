@@ -1,0 +1,159 @@
+{% extends "public/base.html" %}
+{% load static %}
+{% load fontawesome %}
+
+{% block title %}
+    {{ block.super }}
+    - Career {{ job.id }} Apply
+{% endblock title %}
+
+{% block head %}
+    <style>
+        .checkBox {
+            display:inline-block;
+            margin-top:3em;
+        }
+    </style>
+{% endblock head %}
+
+{% block bodyclass %}page-template-default page page-id-31 desktop{% endblock %}
+
+{% block content %}
+    <div class="inside-page">
+        <hgroup class="inside-pg-intro">
+            <h1 class="ipi-h1">Stand out from the crowd</h1>
+            <div class="ipi-p"><p>We’re passionate about technology. If you are, too, we’d like to hear from you. We are invested in building a community of creative technical thinkers. We offer highly competitive benefits and opportunities to grow.</p></div>
+        </hgroup>
+        <div class="inside-pg-content">
+            <div class="headline-mod">
+                <a href="{% url 'careers' %}">Careers</a> > <a href="{% url 'career_details' job.id %}">{{ job.pricing_schedule.job_title | title }}</a> >
+                <h2 class="gradient-headline">Verification</h2>
+            </div>
+            <div class="contact-form">
+
+                <div class="form-message txt">
+                    <p>
+                        As part of our verification process we have a few questions to ask you before we can consider submitting you for this position.  Please take a moment to complete the following form.
+                    </p>
+                </div>
+                <div role="form" class="wpcf7" id="wpcf7-f45-o1" dir="ltr">
+                    {% if status == 'step1' %}
+                        <div class="headline-mod">
+                            <h2 class="section-h2">Step 1 - General Information</h2>
+                            <p>Please verify the following information is correct. Click 'Next' to continue the verification process.</p>
+                        </div>
+
+                        <form action="{% url "career_response_form" job.id candidate.id  %}" method="post" class="wpcf7-form" enctype="multipart/form-data">
+                            <input type="hidden" name="step" value="1">
+                            {% csrf_token %}
+                            <fieldset><label>First Name</label><span class="wpcf7-form-control-wrap firstName"><input type="text" name="firstName" value="{{ candidate.first_name }}" size="40" maxlength="30" class="required wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Last Name</label><span class="wpcf7-form-control-wrap lastName"><input type="text" name="lastName" value="{{ candidate.last_name }}" size="40" maxlength="100" class="required wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Email</label><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="{{ candidate.email }}" size="40" maxlength="100" class="required wpcf7-form-control wpcf7-text wpcf7-email" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Phone</label><span class="wpcf7-form-control-wrap phone"><input type="text" name="phone" value="{{ candidate.phone_number }}" size="40" class="required wpcf7-form-control wpcf7-text wpcf7-phone " aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>How are you legally authorized to work in the US?</label>
+                                <span class="wpcf7-form-control-wrap phone">
+                                <select name="authorized">
+                                    <option value="citizen">US Citizen</option>
+                                    <option value="greenCard">Green Card</option>
+                                    <option value="h1bVisa">H1B Visa</option>
+                                    <option value="studentVisa">Student Visa</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                </span>
+                            </fieldset>
+
+                            <fieldset class="fieldset-submit"><input type="submit" id="next" value="Next" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
+                        </form>
+                    {% elif status == 'step2' %}
+                        <div class="headline-mod">
+                            <h2 class="section-h2">Step 2 - Mandatory Requirements</h2>
+                            <p>Please tell us how you meet each of the following mandatory requirements.  Reference specific work experience that you feel satisfies each requirement.</p>
+                        </div>
+
+                        <form action="{% url "career_response_form" job.id candidate.id  %}" method="post" class="wpcf7-form" enctype="multipart/form-data">
+                            <input type="hidden" name="step" value="2">
+                            {% csrf_token %}
+
+                            {% for qualification in job.mandatoryQualifications.all %}
+                                <fieldset>
+                                    <label style="width:80%;">{{ qualification.label | safe }}</label>
+                                    <input type="hidden" name="mandatoryQualification_{{ forloop.counter0 }}_id" value="{{ qualification.id }}"/>
+                                    <textarea name="mandatoryQualification_{{ forloop.counter0 }}_response" class="required"></textarea>
+                                </fieldset>
+                            {% endfor %}
+
+                            <fieldset class="fieldset-submit"><input type="submit" id="next" value="Next" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
+                        </form>
+                    {% elif status == 'step3' %}
+                        <div class="headline-mod">
+                            <h2 class="section-h2">Step 3 - Recommended Requirements</h2>
+                            <p>Please tell us how you meet each of the following recommended requirements.  Reference specific work experience that you feel satisfies each requirement.</p>
+                        </div>
+
+                        <form action="{% url "career_response_form" job.id candidate.id  %}" method="post" class="wpcf7-form" enctype="multipart/form-data">
+                            <input type="hidden" name="step" value="3">
+                            {% csrf_token %}
+
+                            {% for qualification in job.requestedQualifications.all %}
+                                <fieldset>
+                                    <label style="width:80%;">{{ qualification.label | safe }}</label>
+                                    <input type="hidden" name="requestedQualification_{{ forloop.counter0 }}_id" value="{{ qualification.id }}"/>
+                                    <textarea name="requestedQualification_{{ forloop.counter0 }}_response"></textarea>
+                                </fieldset>
+                            {% endfor %}
+
+                            <fieldset class="fieldset-submit"><input type="submit" id="next" value="Submit" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
+                        </form>
+                    {% elif status == 'error' %}
+                        <div class="headline-mod">
+                            <h2 class="section-h2" style="color:red;">Oops! An error occurred</h2>
+                            <p>We were unable to complete the verification process. Please try again. If the problem persists, please email us directly at <a href="mailto:{{ siteDetail.jobs_email }}">{{ siteDetail.jobs_email }}</a>.</p>
+                        </div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+
+                    {% else %}
+                        <div class="headline-mod">
+                            <h2 class="section-h2" style="color:green;">Verification Complete!</h2>
+                            <p>A job specialist will contact you shortly regarding this career opportunity.</p>
+                        </div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% include "page_teases.html" %}
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#next').on('click', function(e) {
+            var required = $('.required').filter(function(){
+                return !$(this).val();
+            }).length;
+
+            if (required > 0) {
+                alert('Please fill in all required fields');
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+{% endblock %}

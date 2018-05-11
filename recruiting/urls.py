@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^careers/$', publicViews.careers, name='careers'),
     url(r'^careers/(?P<job_id>\d+)/$', publicViews.career_details, name='career_details'),
     url(r'^careers/(?P<job_id>\d+)/apply/$', publicViews.career_apply, name='career_apply'),
+    url(r'^careers/(?P<job_id>\d+)/(?P<candidate_id>\d+)/responseForm/$', publicViews.career_response_form, name='career_response_form'),
     url(r'^dashboards/$', dashboardViews.dashboards, name='dashboards'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),

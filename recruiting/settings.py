@@ -139,7 +139,7 @@ USE_TZ = True
 
 # Email
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.3gsllc.com'
+EMAIL_HOST = 'mail1.3gscloud.com'
 EMAIL_HOST_USER = 'mailer@3gsllc.com'
 EMAIL_HOST_PASSWORD = '1mail1'
 DEFAULT_FROM_EMAIL = 'support@3gsllc.com'

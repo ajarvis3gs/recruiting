@@ -92,7 +92,16 @@ def career_response_form(request, job_id, candidate_id):
     except:
         return redirect('careers')
 
-    return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'new', 'site': site, 'siteDetail': siteDetail})
+    if request.method == 'POST':
+        step = request.POST['step']
+        if step == '1':
+            return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step2', 'site': site, 'siteDetail': siteDetail})
+        if step == '2':
+            return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step3', 'site': site, 'siteDetail': siteDetail})
+        if step == '3':
+            return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
+
+    return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step1', 'site': site, 'siteDetail': siteDetail})
 
 
 def career_apply(request, job_id):

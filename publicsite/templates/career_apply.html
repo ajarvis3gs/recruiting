@@ -39,17 +39,17 @@
                     {% if status == 'new' %}
                         <form action="{% url "career_apply" job.id  %}" method="post" class="wpcf7-form" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <fieldset><label>First Name</label><span class="wpcf7-form-control-wrap firstName"><input type="text" name="firstName" value="" size="40" maxlength="30" class="wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
-                            <fieldset><label>Last Name</label><span class="wpcf7-form-control-wrap lastName"><input type="text" name="lastName" value="" size="40" maxlength="100" class="wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
-                            <fieldset><label>Email</label><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="" size="40" maxlength="100" class="wpcf7-form-control wpcf7-text wpcf7-email" aria-required="true" aria-invalid="false"></span> </fieldset>
-                            <fieldset><label>Phone</label><span class="wpcf7-form-control-wrap phone"><input type="text" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-phone " aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>First Name</label><span class="wpcf7-form-control-wrap firstName"><input type="text" name="firstName" value="" size="40" maxlength="30" class="required wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Last Name</label><span class="wpcf7-form-control-wrap lastName"><input type="text" name="lastName" value="" size="40" maxlength="100" class="required wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Email</label><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="" size="40" maxlength="100" class="required wpcf7-form-control wpcf7-text wpcf7-email" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Phone</label><span class="wpcf7-form-control-wrap phone"><input type="text" name="phone" value="" size="40" class="required wpcf7-form-control wpcf7-text wpcf7-phone " aria-required="true" aria-invalid="false"></span> </fieldset>
                             <fieldset><label>Preferred Communication Method</label>
                                 <span class="wpcf7-form-control-wrap preferredCommunicationMethod">
                                     <label><input type="radio" name="preferredCommunicationMethod" value="email" checked="checked">&nbsp;Email</label>
                                     <label><input type="radio" name="preferredCommunicationMethod" value="phone" >&nbsp;Phone</label>
                                 </span>
                             </fieldset>
-                            <fieldset><label>Best Time To Contact</label><span class="wpcf7-form-control-wrap bestContactTime"><input type="text" name="bestContactTime" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-bestContactTime" aria-required="true" aria-invalid="false"></span> </fieldset>
+                            <fieldset><label>Best Time To Contact</label><span class="wpcf7-form-control-wrap bestContactTime"><input type="text" name="bestContactTime" value="" size="40" class="required wpcf7-form-control wpcf7-text wpcf7-bestContactTime" aria-required="true" aria-invalid="false"></span> </fieldset>
                             <fieldset><label>Resume/CV</label><label class="button-link" style="text-align:center;">Upload File<span class="wpcf7-form-control-wrap your-resume"><input type="file" style="display:none;" name="resume" class="wpcf7-form-control" aria-invalid="false"></span></label></fieldset>
                             <fieldset class="fieldset-submit"><input type="submit" id="apply_submit" value="Apply Now" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></fieldset>
                         </form>
@@ -62,7 +62,10 @@
                         <br/>
                         <p>We look forward to working with you on this opportunity!</p>
                     {% elif status == 'error' %}
-                        <h3 style="color:red; font-size:18px;">Oops! we were unable to process your application.  If the problem persists, please email your resume directly at <a href="mailto:{{ siteDetail.jobs_email }}">{{ siteDetail.jobs_email }}</a>.</h3>
+                        <div class="headline-mod">
+                            <h2 class="section-h2" style="color:red;">Oops! An Error Occurred</h2>
+                            <p>Please try again. If the problem persists, please email us directly at <a href="mailto:{{ siteDetail.jobs_email }}">{{ siteDetail.jobs_email }}</a>.</p>
+                        </div>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
@@ -74,7 +77,10 @@
                         <p>&nbsp;</p>
 
                     {% else %}
-                        <h3 style="color:green; font-size:18px;">Your application was successfully submitted!  A job specialist will contact you shortly regarding this career opportunity.</h3>
+                        <div class="headline-mod">
+                            <h2 class="section-h2" style="color:green;">Application Complete!</h2>
+                            <p>Your application was successfully submitted. A job specialist will contact you shortly regarding this career opportunity.</p>
+                        </div>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
@@ -96,13 +102,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#apply_submit').on('click', function(e) {
-            var $firstName = $('[name="firstName"]').val(),
-                $lastName = $('[name="lastName"]').val(),
-                $email = $('[name="email"]').val(),
-                $bestContactTime = $('[name="bestContactTime"]').val(),
-                $phone = $('[name="phone"]').val();
+            var required = $('.required').filter(function(){
+                return !$(this).val();
+            }).length;
 
-            if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $bestContactTime === '') {
+            if (required > 0) {
                 alert('Please fill in all required fields');
                 e.preventDefault();
             }

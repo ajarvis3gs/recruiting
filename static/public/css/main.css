@@ -2649,6 +2649,12 @@ html.ie8 .careers-txt-mod{
         width:30%
     }
 }
+.contact-form select {
+    font-size: 19px;
+    line-height: 26px;
+    height: 45px;
+    width: 100%;
+}
 .contact-form input[type="text"],.contact-form input[type="email"],.contact-form textarea{
     padding:9px 12px;
     -moz-border-radius:2px;
@@ -2961,4 +2967,16 @@ html.ie8 .careers-txt-mod{
     .stat-num{
         font-size:32px
     }
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #efefef;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #efefef;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #efefef;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #efefef;
 }
