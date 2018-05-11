@@ -58,10 +58,6 @@
                                         {% for qualification in job.requestedQualifications.all %}
                                             <p>{{ qualification.label| safe }}</p>
                                         {% endfor %}
-                                        <p><strong>Additional Information Requests</strong></p>
-                                        {% for requests in job.additionalInformationRequests.all %}
-                                            <p>{{ requests.label| safe }}</p>
-                                        {% endfor %}
                                     </article>
                                 </div>
                             </article>
