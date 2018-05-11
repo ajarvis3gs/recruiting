@@ -44,8 +44,11 @@ class JobAdmin(admin.ModelAdmin):
         else:
             return u'<img src="/static/admin/img/icon-no.svg" alt="False">'
 
+    def applications_count(self):
+        return self.applications.count()
+
     inlines = (JobMandatoryQualificationsInline, JobRequestedQualificationsInline, JobAdditionalInformationRequestsInline, JobDocumentsInline, )
-    list_display = ('id', 'employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, job_actions)
+    list_display = ('id', 'employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, applications_count, job_actions)
     list_filter = ('employer', 'agency', 'submission_date', 'is_featured')
     search_fields = ('title', 'agency', 'preferred_software')
     job_actions.allow_tags = True
