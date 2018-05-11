@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from models import SiteDetail, SiteArticle
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 import cgi
 from django.shortcuts import redirect
 from django_mailbox.models import MessageAttachment

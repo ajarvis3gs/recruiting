@@ -8,6 +8,12 @@ from accounts.models import UserProfile
 from .models import Candidate, CandidateDocument
 from .forms import UserApplyStep1Form, UserApplyStep2Form
 
+def view_candidates(request):
+    candidates = Candidate.objects.all()
+
+    context = {'candidates': candidates}
+    return render(request, 'candidates/candidates.html', context)
+
 def apply(request):
 
 	key = request.GET.get('key', None)

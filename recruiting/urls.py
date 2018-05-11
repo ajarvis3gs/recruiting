@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^jobs/fetch/$', jobsViews.fetch, name='fetch'),
     url(r'^campaigns/mailcampaign/(?P<campaign_id>\d+)/startVendor/$', campaignViews.start_vendor_campaign, name='start_campaign'),
     url(r'^campaigns/mailcampaign/(?P<campaign_id>\d+)/startCandidate/$', campaignViews.start_candidate_campaign, name='start_campaign'),
+    url(r'^candidates/$', candidatesViews.view_candidates, name='candidates'),
     url(r'^candidates/apply/$', candidatesViews.apply, name='candidate_apply'),
     url(r'^candidates/apply/success/$', candidatesViews.apply_success, name='candidate_apply_success'),
     url(r'^recruiters/', recruitersViews.view_recruiters, name='recruiters'),
