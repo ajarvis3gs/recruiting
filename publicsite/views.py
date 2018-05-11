@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from models import SiteDetail, SiteArticle
 from django.core.mail import send_mail
 import cgi
+from django.shortcuts import redirect
 
 def home(request):
     site = Site.objects.get_current()
@@ -73,16 +74,34 @@ def careers(request):
 def career_details(request, job_id):
     site = Site.objects.get_current()
     siteDetail = SiteDetail.objects.get(site=site)
-    job = Job.objects.get(id=job_id)
+    try:
+        job = Job.objects.get(id=job_id)
+        context = {'job': job, 'site': site, 'siteDetail': siteDetail}
+    except:
+        return redirect('careers')
 
-    context = {'job': job, 'site': site, 'siteDetail': siteDetail}
     return render(request, 'career_details.html', context)
+
+
+def career_response_form(request, job_id, candidate_id):
+    site = Site.objects.get_current()
+    siteDetail = SiteDetail.objects.get(site=site)
+    try:
+        job = Job.objects.get(id=job_id)
+        candidate = Candidate.objects.get(id=candidate_id)
+    except:
+        return redirect('careers')
+
+    return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'new', 'site': site, 'siteDetail': siteDetail})
 
 
 def career_apply(request, job_id):
     site = Site.objects.get_current()
     siteDetail = SiteDetail.objects.get(site=site)
-    job = Job.objects.get(id=job_id)
+    try:
+        job = Job.objects.get(id=job_id)
+    except:
+        return redirect('careers')
 
     # make sure this is a post
     if request.method == 'POST':
