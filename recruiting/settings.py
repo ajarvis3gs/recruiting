@@ -27,7 +27,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 ADMINS = (
-    ('3GS', 'ajarvis@3gsllc.com'),
+    ('3GS', 'ajarvis@1x3i.com'),
 )
 
 # Application definition
