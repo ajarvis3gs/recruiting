@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.sites.models import Site
 from publicsite.models import SiteDetail
 import re, cgi
+from datetime import date, datetime
 from campaigns.models import MailCampaign, MessageTemplate
 
 logger = logging.getLogger(__name__)
