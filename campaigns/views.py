@@ -52,7 +52,7 @@ def start_vendor_campaign(request, campaign_id):
     email = EmailMultiAlternatives(
         messageSubject,
         messageBody,
-        settings.DEFAULT_FROM_EMAIL,
+        siteDetail.jobs_email,
         None,
         emailAddresses
     )
