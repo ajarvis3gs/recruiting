@@ -24,9 +24,6 @@ def start_candidate_campaign(request, campaign_id):
     # send to contacts
     for candidate in mailCampaign.candidates.all():
         job = mailCampaign.job
-        if job is None and candidate.applications.count() > 0:
-            job = candidate.applications.all()[0].job
-
         emailAddresses = [siteDetail.support_email, candidate.email]
         messageBody = merge_template(mailCampaign.message_template.body, {'candidate': candidate, 'job': job, 'site': site, 'siteDetail': siteDetail})
         messageSubject = merge_template(mailCampaign.message_template.subject, {'candidate': candidate, 'job': job, 'site': site, 'siteDetail': siteDetail})
