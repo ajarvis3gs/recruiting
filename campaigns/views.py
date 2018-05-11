@@ -24,7 +24,7 @@ def start_candidate_campaign(request, campaign_id):
     # send to contacts
     for candidate in mailCampaign.candidates.all():
         job = mailCampaign.job
-        if job is None:
+        if job is None and candidate.applications.count() > 0:
             job = candidate.applications.all()[0].job
 
         emailAddresses = [siteDetail.support_email, candidate.email]
