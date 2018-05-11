@@ -32,7 +32,7 @@ class JobDocumentsInline(admin.StackedInline):
 
 
 class JobAdmin(admin.ModelAdmin):
-    def job_actions(self):
+    def publish(self):
         if self.is_featured:
             return "<a href='/jobs/%s/unpublish'>unpublish</a>" % self.id
         else:
@@ -44,14 +44,14 @@ class JobAdmin(admin.ModelAdmin):
         else:
             return u'<img src="/static/admin/img/icon-no.svg" alt="False">'
 
-    def applications_count(self):
+    def apps(self):
         return self.applications.count()
 
     inlines = (JobMandatoryQualificationsInline, JobRequestedQualificationsInline, JobAdditionalInformationRequestsInline, JobDocumentsInline, )
-    list_display = ('id', 'employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, applications_count, job_actions)
+    list_display = ('id', 'employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, apps, publish)
     list_filter = ('employer', 'agency', 'submission_date', 'is_featured')
     search_fields = ('title', 'agency', 'preferred_software')
-    job_actions.allow_tags = True
+    publish.allow_tags = True
     is_open.allow_tags = True
 
 
