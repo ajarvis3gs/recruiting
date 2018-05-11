@@ -4,7 +4,7 @@ from .models import InterviewRequest, InterviewInvitation, Availability
 
 class InterviewRequestAdmin(admin.ModelAdmin):
     def job_listing(self):
-        return "%s - %s" % (self.job.id, self.job.title)
+        return "%s: %s" % (self.job.id, self.job.title)
 
     list_display = ('candidate', 'candidate_accepted', job_listing, 'employer_accepted')
     search_fields = ('candidate__user__username', 'candidate__user__email',

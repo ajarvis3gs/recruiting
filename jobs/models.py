@@ -36,7 +36,7 @@ class Job(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     def __str__(self):
-        return "%s: %s" % (self.employer.code, self.title)
+        return "%s: %s" % (self.id, self.title)
 
 class JobMandatoryQualification(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='mandatoryQualifications')
