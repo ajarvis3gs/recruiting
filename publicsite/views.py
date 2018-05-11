@@ -141,6 +141,14 @@ def career_response_form(request, job_id, candidate_id):
             candidate.response_form_completed_date = datetime.now()
             candidate.save()
 
+            send_mail(
+                '%s %s has completed the candidate response form for job %s - %s' % (candidate.first_name, candidate.last_name, job.id, cgi.escape(job.title)),
+                'Please login to the portal for details',
+                siteDetail.support_email,
+                [siteDetail.support_email],
+                fail_silently=True
+            )
+
             return render(request, 'career_response_form.html', {'response': candidateResponse, 'job': job, 'candidate': candidate, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
 
     return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step1', 'site': site, 'siteDetail': siteDetail})
@@ -198,7 +206,7 @@ def career_apply(request, job_id):
                     [siteDetail.support_email],
                     fail_silently=True
                 )
-                return render(request, 'career_apply.html', {'job': job, 'status': 'error', 'site': site, 'siteDetail': siteDetail})
+                return render(request, 'career_apply.html', {'job': job, 'status': 'error', 'site': site, 'siteDetail': siteDetail, 'errorMessage': e.message})
 
         return render(request, 'career_apply.html', {'job': job, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
     else:

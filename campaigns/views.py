@@ -100,15 +100,16 @@ def candidate_campaign(site, siteDetail, mailCampaign):
 
 
 def initial_contact_campaign(job, candidate):
-    messageTemplate = MessageTemplate.objects.get(name__exact='	Initial Candidate Contact')
+    messageTemplate = MessageTemplate.objects.get(name__exact='Initial Candidate Contact')
 
     campaign = MailCampaign(
         name = '%s %s Initial Contact Campaign' % (candidate.first_name, candidate.last_name),
         job = job,
-        candidates = [candidate],
         message_template = messageTemplate
     )
     campaign.save()
+
+    campaign.candidates.add(candidate)
 
     return campaign
 
@@ -119,9 +120,10 @@ def response_form_campaign(job, candidate):
     campaign = MailCampaign(
         name = '%s %s Candidate Response Campaign' % (candidate.first_name, candidate.last_name),
         job = job,
-        candidates = [candidate],
         message_template = messageTemplate
     )
     campaign.save()
+
+    campaign.candidates.add(candidate)
 
     return campaign
