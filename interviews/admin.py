@@ -3,7 +3,10 @@ from django.contrib import admin
 from .models import InterviewRequest, InterviewInvitation, Availability
 
 class InterviewRequestAdmin(admin.ModelAdmin):
-    list_display = ('candidate', 'candidate_accepted', 'job', 'employer_accepted')
+    def job_listing(self):
+        return "%s - %s" % (self.job.id, self.job.title)
+
+    list_display = ('candidate', 'candidate_accepted', job_listing, 'employer_accepted')
     search_fields = ('candidate__user__username', 'candidate__user__email',
         'candidate__user__first_name', 'candidate__user__last_name',
         'job__employer__user__username', 'job__employer__user__email',

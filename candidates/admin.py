@@ -25,7 +25,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
     def applied_to_job(obj):
         if (obj.applications.count() > 0):
-            return '%s' % obj.applications.all()[0].job.title
+            return '%s - %s' % (obj.applications.all()[0].job.id, obj.applications.all()[0].job.title)
         else:
             return ''
 
