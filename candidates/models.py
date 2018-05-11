@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.conf import settings
 from vendors.models import Vendor
 from recruiting.choices import *
-from jobs.models import Job
+from jobs.models import Job, JobMandatoryQualification, JobRequestedQualification
 
 
 class Candidate(models.Model):
@@ -21,13 +21,17 @@ class Candidate(models.Model):
         choices=EDUCATION_CHOICES,
     )
     education_major = models.CharField(max_length=250, blank=True)
+    work_status = models.CharField(max_length=100, blank=True)
+    referral_method = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField(blank=True, max_length=50)
-    preferred_communication_method = models.CharField(max_length=100, blank=True)
+    preferred_communication_method = models.CharField(verbose_name='Communication', max_length=100, blank=True)
     best_contact_time = models.CharField(max_length=250, blank=True)
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
-    initial_contact_date = models.DateTimeField(auto_now_add=False, auto_now=False, blank=True, null=True)
+    initial_contact_date = models.DateTimeField(verbose_name='Contacted', auto_now_add=False, auto_now=False, blank=True, null=True)
+    response_form_sent_date = models.DateTimeField(verbose_name='Form Sent', auto_now_add=False, auto_now=False, blank=True, null=True)
+    response_form_completed_date = models.DateTimeField(verbose_name='Form Completed', auto_now_add=False, auto_now=False, blank=True, null=True)
 
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
@@ -42,6 +46,27 @@ class CandidateApplication(models.Model):
     def __str__(self):
         return '%s %s Application' % (self.candidate.first_name, self.candidate.last_name)
 
+
+class CandidateResponse(models.Model):
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name='responses')
+    job = models.ForeignKey(Job, related_name='responses')
+    last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+    def __str__(self):
+        return '%s %s Response Form' % (self.candidate.first_name, self.candidate.last_name)
+
+
+class CandidateResponseMandatoryQualification(models.Model):
+    candidateResponse = models.ForeignKey(CandidateResponse, on_delete=models.CASCADE, related_name='mandatoryQualifications')
+    mandatoryQualification = models.ForeignKey(JobMandatoryQualification, on_delete=models.CASCADE, related_name='candidateResponses')
+    responseText = models.TextField(null=True, blank=True)
+
+
+class CandidateResponseRequestedQualification(models.Model):
+    candidateResponse = models.ForeignKey(CandidateResponse, on_delete=models.CASCADE, related_name='requestedQualifications')
+    requestedQualification = models.ForeignKey(JobRequestedQualification, on_delete=models.CASCADE, related_name='candidateResponses')
+    responseText = models.TextField(null=True, blank=True)
 
 
 class CandidateDocument(models.Model):

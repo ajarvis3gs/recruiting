@@ -2969,14 +2969,14 @@ html.ie8 .careers-txt-mod{
     }
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #efefef;
+    color: lightgrey;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-    color: #efefef;
+    color: lightgrey;
 }
 :-ms-input-placeholder { /* IE 10+ */
-    color: #efefef;
+    color: lightgrey;
 }
 :-moz-placeholder { /* Firefox 18- */
-    color: #efefef;
+    color: lightgrey;
 }

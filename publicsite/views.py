@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from jobs.models import Job
-from candidates.models import Candidate, CandidateDocument, CandidateApplication
+from candidates.models import Candidate, CandidateDocument, CandidateApplication, CandidateResponse, CandidateResponseRequestedQualification, CandidateResponseMandatoryQualification
 from interviews.models import InterviewRequest
 from accounts.models import UserProfile
 from datetime import date, datetime
@@ -95,11 +95,50 @@ def career_response_form(request, job_id, candidate_id):
     if request.method == 'POST':
         step = request.POST['step']
         if step == '1':
-            return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step2', 'site': site, 'siteDetail': siteDetail})
+            candidate.first_name = request.POST['firstName']
+            candidate.last_name = request.POST['lastName']
+            candidate.email = request.POST['email']
+            candidate.phone_number = request.POST['phone']
+            candidate.work_status = request.POST['workStatus']
+            candidate.referral_method = request.POST['referralMethod']
+            candidate.save()
+
+            candidateResponse = CandidateResponse()
+            candidateResponse.job = job
+            candidateResponse.candidate = candidate
+            candidateResponse.save()
+
+            return render(request, 'career_response_form.html', {'response': candidateResponse, 'job': job, 'candidate': candidate, 'status': 'step2', 'site': site, 'siteDetail': siteDetail})
         if step == '2':
-            return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step3', 'site': site, 'siteDetail': siteDetail})
+            candidateResponse = CandidateResponse.objects.get(id=request.POST['responseId'])
+            # loop over each mandatory qualification
+            for qualification in job.mandatoryQualifications.all():
+                if ('mandatoryQualification_%s_response' % qualification.id) in request.POST:
+                    qualificationResponse = CandidateResponseMandatoryQualification()
+                    qualificationResponse.candidateResponse = candidateResponse
+                    qualificationResponse.mandatoryQualification = qualification
+                    qualificationResponse.responseText = request.POST['mandatoryQualification_%s_response' % qualification.id]
+                    qualificationResponse.save()
+
+            # save responses
+
+            return render(request, 'career_response_form.html', {'response': candidateResponse, 'job': job, 'candidate': candidate, 'status': 'step3', 'site': site, 'siteDetail': siteDetail})
         if step == '3':
-            return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
+            candidateResponse = CandidateResponse.objects.get(id=request.POST['responseId'])
+
+            # loop over each requested qualification
+            for qualification in job.requestedQualifications.all():
+                if ('requestedQualification_%s_response' % qualification.id) in request.POST:
+                    qualificationResponse = CandidateResponseRequestedQualification()
+                    qualificationResponse.candidateResponse = candidateResponse
+                    qualificationResponse.requestedQualification = qualification
+                    qualificationResponse.responseText = request.POST['requestedQualification_%s_response' % qualification.id]
+                    qualificationResponse.save()
+
+            # save responses
+            candidate.response_form_completed_date = datetime.now()
+            candidate.save()
+            return render(request, 'career_response_form.html', {'response': candidateResponse, 'job': job, 'candidate': candidate, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
 
     return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step1', 'site': site, 'siteDetail': siteDetail})
 

@@ -1,7 +1,16 @@
 from django.contrib import admin
 
-from .models import CandidateDocument, Candidate, CandidateApplication
+from .models import CandidateDocument, Candidate, CandidateApplication, CandidateResponse, CandidateResponseMandatoryQualification, CandidateResponseRequestedQualification
 from interviews.models import InterviewRequest
+
+class CandidateResponseMandatoryQualificationInline(admin.StackedInline):
+    model = CandidateResponseMandatoryQualification
+    extra = 1
+
+
+class CandidateResponseRequestedQualificationInline(admin.StackedInline):
+    model = CandidateResponseRequestedQualification
+    extra = 1
 
 
 class InterviewRequestInline(admin.StackedInline):
@@ -38,8 +47,8 @@ class CandidateAdmin(admin.ModelAdmin):
     resume.allow_tags = True
 
 
-    list_filter = ('initial_contact_date',)
-    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'initial_contact_date', applied_to_job, resume)
+    list_filter = ('initial_contact_date', 'response_form_sent_date', 'response_form_completed_date')
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'initial_contact_date', 'response_form_sent_date', 'response_form_completed_date', applied_to_job, resume)
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
     search_fields = ('date_of_birth', 'user__email', 'user__first_name', 'user__last_name',)
@@ -50,5 +59,12 @@ class CandidateApplicationAdmin(admin.ModelAdmin):
     search_fields = ('created',)
 
 
+class CandidateResponseAdmin(admin.ModelAdmin):
+    list_filter = ('created',)
+    search_fields = ('created',)
+    inlines = (CandidateResponseMandatoryQualificationInline, CandidateResponseRequestedQualificationInline)
+
+
 admin.site.register(Candidate, CandidateAdmin)
 admin.site.register(CandidateApplication, CandidateApplicationAdmin)
+admin.site.register(CandidateResponse, CandidateResponseAdmin)
