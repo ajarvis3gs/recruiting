@@ -12,6 +12,8 @@ from models import SiteDetail, SiteArticle
 from django.core.mail import send_mail
 import cgi
 from django.shortcuts import redirect
+from django_mailbox.models import MessageAttachment
+from campaigns.views import initial_contact_campaign, candidate_campaign, response_form_campaign
 
 def home(request):
     site = Site.objects.get_current()
@@ -138,6 +140,7 @@ def career_response_form(request, job_id, candidate_id):
             # save responses
             candidate.response_form_completed_date = datetime.now()
             candidate.save()
+
             return render(request, 'career_response_form.html', {'response': candidateResponse, 'job': job, 'candidate': candidate, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
 
     return render(request, 'career_response_form.html', {'job': job, 'candidate': candidate, 'status': 'step1', 'site': site, 'siteDetail': siteDetail})
@@ -177,19 +180,12 @@ def career_apply(request, job_id):
                     doc.candidate = candidate
                     doc.save()
 
-                send_mail(
-                    'New Job Application for job %s - %s' % (job.id, cgi.escape(job.title)),
-                    '%s %s (%s) has submitted new application for job %s - %s.  Please login to the portal to view the application detail.' % (
-                        form.cleaned_data['firstName'],
-                        form.cleaned_data['lastName'],
-                        form.cleaned_data['email'],
-                        job.id,
-                        cgi.escape(job.title)
-                    ),
-                    siteDetail.jobs_email,
-                    [siteDetail.jobs_email],
-                    fail_silently=True
-                )
+                # create the initial contact campaign
+                campaign = initial_contact_campaign(job, candidate)
+                candidate_campaign(site, siteDetail, campaign)
+
+                # create the response form campaign but don't start it just yet
+                response_form_campaign(job, candidate)
             except BaseException as e:
                 send_mail(
                     'Error submitting application for job %s - %s' % (job.id, cgi.escape(job.title)),
