@@ -29,17 +29,17 @@ class CandidateAdmin(admin.ModelAdmin):
         else:
             return ''
 
-    def download_link(obj):
+    def resume(obj):
         if obj.documents.count() > 0:
-            return "<a href='%s' download='%s'>download</a>" % (obj.documents.all()[0].document.url, obj.documents.all()[0].display_name)
+            return "<a href='%s' download='%s'>download resume</a>" % (obj.documents.all()[0].document.url, obj.documents.all()[0].display_name)
         else:
             return ""
 
-    download_link.allow_tags = True
+    resume.allow_tags = True
 
 
     list_filter = ('initial_contact_date',)
-    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'initial_contact_date', applied_to_job, download_link)
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'initial_contact_date', applied_to_job, resume)
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
     search_fields = ('date_of_birth', 'user__email', 'user__first_name', 'user__last_name',)
