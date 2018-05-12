@@ -67,7 +67,8 @@ def message_received(sender, message, **args):
             job = job,
             message_template = messageTemplate
         )
-        campaign.save()
+        # temporarily disabling campaign creation for vendors
+        # campaign.save()
 
         # associate the attachments
         attachments = MessageAttachment.objects.filter(message_id=message.id)
