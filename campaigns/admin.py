@@ -14,7 +14,7 @@ class MailCampaignAdmin(admin.ModelAdmin):
         return self.vendor_contacts.count()
 
     def email_sent(self):
-        if self.created != self.last_modified
+        if self.created != self.last_modified:
             return self.last_modified
         else:
             return 'Not Sent'
