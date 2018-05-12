@@ -14,7 +14,10 @@ class MailCampaignAdmin(admin.ModelAdmin):
         return self.vendor_contacts.count()
 
     def email_sent(self):
-        return self.created != self.last_modified
+        if self.created != self.last_modified
+            return self.last_modified
+        else:
+            return 'Not Sent'
 
     start_campaign_link.allow_tags = True
     list_display = ('name', 'job', 'message_template', 'is_active', email_sent, start_campaign_link)
