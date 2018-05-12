@@ -25,6 +25,9 @@ def start_candidate_campaign(request, campaign_id):
 
     messageCount = candidate_campaign(site, siteDetail, mailCampaign)
 
+    mailCampaign.last_modified = datetime.now()
+    mailCampaign.save()
+
     messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % messageCount)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -64,6 +67,9 @@ def start_vendor_campaign(request, campaign_id):
     email.send()
 
     messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % len(emailAddresses))
+
+    mailCampaign.last_modified = datetime.now()
+    mailCampaign.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
