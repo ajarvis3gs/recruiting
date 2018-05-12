@@ -68,7 +68,7 @@ def start_vendor_campaign(request, campaign_id):
 
     messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % len(emailAddresses))
 
-    mailCampaign.last_modified = datetime.now()
+    mailCampaign.email_sent_date = datetime.now()
     mailCampaign.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

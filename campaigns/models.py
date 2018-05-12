@@ -26,6 +26,7 @@ class MailCampaign(models.Model):
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    email_sent_date = models.DateTimeField(auto_now_add=False, auto_now=False, null=True)
 
     def __str__(self):
         return "%s" % (self.name)
