@@ -176,7 +176,6 @@ def career_apply(request, job_id):
                 candidate.preferred_communication_method = form.cleaned_data['preferredCommunicationMethod']
                 candidate.best_contact_time = form.cleaned_data['bestContactTime']
                 candidate.phone_number = form.cleaned_data['phone']
-                candidate.initial_contact_date = datetime.now()
                 candidate.save()
 
                 candidateApplication = CandidateApplication()
