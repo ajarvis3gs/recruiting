@@ -25,7 +25,7 @@ def start_candidate_campaign(request, campaign_id):
 
     messageCount = candidate_campaign(site, siteDetail, mailCampaign)
 
-    mailCampaign.last_modified = datetime.now()
+    mailCampaign.email_sent_date = datetime.now()
     mailCampaign.save()
 
     messages.add_message(request, messages.SUCCESS, '%s emails delivered successfully.' % messageCount)
