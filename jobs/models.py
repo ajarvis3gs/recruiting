@@ -30,6 +30,7 @@ class Job(models.Model):
     preferred_software = models.CharField(blank=True, null=True, max_length=500)
     work_hours = models.CharField(blank=True, null=True, max_length=255)
     description = models.TextField(null=True, blank=True,)
+    notes = models.TextField(blank=True, null=True)
     is_featured = models.BooleanField(default=False, verbose_name='Published')
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)

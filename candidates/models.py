@@ -13,6 +13,7 @@ class Candidate(models.Model):
     first_name = models.CharField(max_length=250, blank=True)
     last_name = models.CharField(max_length=250, blank=True)
     email = models.CharField(max_length=250, blank=True)
+    status = models.CharField(choices=CANDIDATE_STATUS_CHOICES, max_length=100, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(choices=(('male', 'Male'), ('female', 'Female'),), max_length=10, blank=True, null=True)
     education = models.CharField(
@@ -26,6 +27,8 @@ class Candidate(models.Model):
     phone_number = models.CharField(blank=True, max_length=50)
     preferred_communication_method = models.CharField(verbose_name='Communication', max_length=100, blank=True)
     best_contact_time = models.CharField(max_length=250, blank=True)
+    skillset = models.CharField(max_length=250, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

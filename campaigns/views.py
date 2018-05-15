@@ -109,10 +109,12 @@ def candidate_campaign(site, siteDetail, mailCampaign):
 
         if mailCampaign.message_template.name == 'Candidate Response Form':
             candidate.response_form_sent_date = datetime.now()
+            candidate.status='Awaiting Response Form'
             candidate.save()
 
         elif mailCampaign.message_template.name == 'Initial Candidate Contact':
             candidate.initial_contact_date = datetime.now()
+            candidate.status='Contacted'
             candidate.save()
 
         mailCampaign.email_sent_date = datetime.now()

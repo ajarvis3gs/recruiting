@@ -140,6 +140,7 @@ def career_response_form(request, job_id, candidate_id):
 
             # save responses
             candidate.response_form_completed_date = datetime.now()
+            candidate.status='Response Form Completed'
             candidate.save()
 
             send_mail(
@@ -176,6 +177,7 @@ def career_apply(request, job_id):
                 candidate.preferred_communication_method = form.cleaned_data['preferredCommunicationMethod']
                 candidate.best_contact_time = form.cleaned_data['bestContactTime']
                 candidate.phone_number = form.cleaned_data['phone']
+                candidate.status='New'
                 candidate.save()
 
                 candidateApplication = CandidateApplication()

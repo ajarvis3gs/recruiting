@@ -8,6 +8,17 @@ TIMEZONE_CHOICES = tuple((choice, choice) for choice in pytz.common_timezones)
 
 COUNTRY_CHOICES = tuple(countries)
 
+CANDIDATE_STATUS_CHOICES = (
+    ('New', 'New'),
+    ('Contacted', 'Contacted'),
+    ('Awaiting Response Form', 'Awaiting Response Form'),
+    ('Response Form Completed', 'Response Form Completed'),
+    ('Awaiting Interview', 'Awaiting Interview'),
+    ('Interview Completed', 'Interview Completed'),
+    ('Not Submitted', 'Not Submitted'),
+    ('Submitted', 'Submitted'),
+)
+
 GENDER_CHOICES = (
     ('', ''),
     ('male', 'Male'),
