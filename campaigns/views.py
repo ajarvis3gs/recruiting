@@ -111,10 +111,18 @@ def candidate_campaign(site, siteDetail, mailCampaign):
             candidate.response_form_sent_date = datetime.now()
             candidate.status='Awaiting Response Form'
             candidate.save()
-
         elif mailCampaign.message_template.name == 'Initial Candidate Contact':
             candidate.initial_contact_date = datetime.now()
             candidate.status='Contacted'
+            candidate.save()
+        elif mailCampaign.message_template.name == 'Inexperienced Candidate Response':
+            candidate.status='Not Submitted'
+            candidate.save()
+        elif mailCampaign.message_template.name == 'Unqualified Candidate Response':
+            candidate.status='Not Submitted'
+            candidate.save()
+        elif mailCampaign.message_template.name == 'Position Filled Response':
+            candidate.status='Not Submitted'
             candidate.save()
 
         mailCampaign.email_sent_date = datetime.now()
