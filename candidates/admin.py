@@ -34,7 +34,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
     def applied_to_job(obj):
         if (obj.applications.count() > 0):
-            return '%s: %s' % (obj.applications.all()[0].job.id, obj.applications.all()[0].job.title)
+            return "<a href='/admin/jobs/job/%s/change'>%s: %s</a>" % (obj.applications.all()[0].job.id, obj.applications.all()[0].job.id, obj.applications.all()[0].job.title)
         else:
             return ''
 
@@ -47,7 +47,7 @@ class CandidateAdmin(admin.ModelAdmin):
     resume.allow_tags = True
 
 
-    list_filter = ('initial_contact_date', 'response_form_sent_date', 'response_form_completed_date', 'status')
+    list_filter = ('status')
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'status', applied_to_job, resume)
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
