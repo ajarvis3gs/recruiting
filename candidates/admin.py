@@ -52,7 +52,7 @@ class CandidateAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'status', applied_to_job, resume)
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
-    search_fields = ('date_of_birth', 'user__email', 'user__first_name', 'user__last_name',)
+    search_fields = ('email', 'first_name', 'last_name', 'phone_number')
 
 
 class CandidateApplicationAdmin(admin.ModelAdmin):
