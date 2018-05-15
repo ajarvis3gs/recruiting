@@ -15,7 +15,10 @@ CANDIDATE_STATUS_CHOICES = (
     ('Response Form Completed', 'Response Form Completed'),
     ('Awaiting Interview', 'Awaiting Interview'),
     ('Interview Completed', 'Interview Completed'),
-    ('Not Submitted', 'Not Submitted'),
+    ('Additional Information Requested', 'Additional Information Requested'),
+    ('Not Submitted - Inexperienced', 'Not Submitted - Inexperienced'),
+    ('Not Submitted - Unqualified', 'Not Submitted - Unqualified'),
+    ('Not Submitted - Position Filled', 'Not Submitted - Position Filled'),
     ('Submitted', 'Submitted'),
 )
 

@@ -116,13 +116,13 @@ def candidate_campaign(site, siteDetail, mailCampaign):
             candidate.status='Contacted'
             candidate.save()
         elif mailCampaign.message_template.name == 'Inexperienced Candidate Response':
-            candidate.status='Not Submitted'
+            candidate.status='Not Submitted - Inexperienced'
             candidate.save()
         elif mailCampaign.message_template.name == 'Unqualified Candidate Response':
-            candidate.status='Not Submitted'
+            candidate.status='Not Submitted - Unqualified'
             candidate.save()
         elif mailCampaign.message_template.name == 'Position Filled Response':
-            candidate.status='Not Submitted'
+            candidate.status='Not Submitted - Position Filled'
             candidate.save()
 
         mailCampaign.email_sent_date = datetime.now()
