@@ -48,7 +48,7 @@ class CandidateAdmin(admin.ModelAdmin):
     resume.allow_tags = True
 
 
-    list_filter = ('status')
+    list_filter = ('status',)
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'status', applied_to_job, resume)
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
