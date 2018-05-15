@@ -44,6 +44,7 @@ class CandidateAdmin(admin.ModelAdmin):
         else:
             return ""
 
+    applied_to_job.allow_tags = True
     resume.allow_tags = True
 
 
