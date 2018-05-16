@@ -43,6 +43,7 @@ class JobMandatoryQualification(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='mandatoryQualifications')
     label = models.TextField(null=True, blank=True)
 
+
 class JobRequestedQualification(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='requestedQualifications')
     qualification_number = models.CharField(null=True, blank=True, max_length=10)
@@ -50,10 +51,12 @@ class JobRequestedQualification(models.Model):
     minimum_points = models.CharField(blank=True, null=True, max_length=10)
     maximum_points = models.CharField(blank=True, null=True, max_length=10)
 
+
 class JobAdditionalInformationRequest(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='additionalInformationRequests')
     label = models.TextField(null=True, blank=True)
     value = models.TextField(null=True, blank=True,)
+
 
 class JobDocument(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='documents')

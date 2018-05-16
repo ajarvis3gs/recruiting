@@ -3,24 +3,24 @@ from django.contrib import admin
 from .models import CandidateDocument, Candidate, CandidateApplication, CandidateResponse, CandidateResponseMandatoryQualification, CandidateResponseRequestedQualification
 from interviews.models import InterviewRequest
 
-class CandidateResponseMandatoryQualificationInline(admin.StackedInline):
+class CandidateResponseMandatoryQualificationInline(admin.TabularInline):
     model = CandidateResponseMandatoryQualification
-    extra = 1
+    extra = 0
 
 
-class CandidateResponseRequestedQualificationInline(admin.StackedInline):
+class CandidateResponseRequestedQualificationInline(admin.TabularInline):
     model = CandidateResponseRequestedQualification
-    extra = 1
+    extra = 0
 
 
-class InterviewRequestInline(admin.StackedInline):
+class InterviewRequestInline(admin.TabularInline):
     model = InterviewRequest
-    extra = 1
+    extra = 0
 
 
-class CandidateDocumentsInline(admin.StackedInline):
+class CandidateDocumentsInline(admin.TabularInline):
     model = CandidateDocument
-    extra = 1
+    extra = 0
 
 
 class CandidateAdmin(admin.ModelAdmin):

@@ -3,32 +3,32 @@ from datetime import date, datetime
 
 from .models import Job, JobAdditionalInformationRequest, JobMandatoryQualification, JobRequestedQualification, JobDocument
 
-class JobMandatoryQualificationsInline(admin.StackedInline):
+class JobMandatoryQualificationsInline(admin.TabularInline):
     model = JobMandatoryQualification
     can_delete = False
     verbose_name_plural = 'Job Mandatory Qualifications'
-    extra = 1
+    extra = 0
 
 
-class JobRequestedQualificationsInline(admin.StackedInline):
+class JobRequestedQualificationsInline(admin.TabularInline):
     model = JobRequestedQualification
     can_delete = False
     verbose_name_plural = 'Job Requested Qualifications'
-    extra = 1
+    extra = 0
 
 
-class JobAdditionalInformationRequestsInline(admin.StackedInline):
+class JobAdditionalInformationRequestsInline(admin.TabularInline):
     model = JobAdditionalInformationRequest
     can_delete = False
     verbose_name_plural = 'Job Additional Information Requests'
-    extra = 1
+    extra = 0
 
 
-class JobDocumentsInline(admin.StackedInline):
+class JobDocumentsInline(admin.TabularInline):
     model = JobDocument
     can_delete = True
     verbose_name_plural = 'Job Documents'
-    extra = 1
+    extra = 0
 
 
 class JobAdmin(admin.ModelAdmin):
