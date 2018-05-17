@@ -5,22 +5,22 @@ from interviews.models import InterviewRequest
 
 class CandidateResponseMandatoryQualificationInline(admin.TabularInline):
     model = CandidateResponseMandatoryQualification
-    extra = 0
+    extra = 1
 
 
 class CandidateResponseRequestedQualificationInline(admin.TabularInline):
     model = CandidateResponseRequestedQualification
-    extra = 0
+    extra = 1
 
 
 class InterviewRequestInline(admin.TabularInline):
     model = InterviewRequest
-    extra = 0
+    extra = 1
 
 
 class CandidateDocumentsInline(admin.TabularInline):
     model = CandidateDocument
-    extra = 0
+    extra = 1
 
 
 class CandidateAdmin(admin.ModelAdmin):

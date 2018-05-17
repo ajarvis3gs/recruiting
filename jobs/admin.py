@@ -7,28 +7,28 @@ class JobMandatoryQualificationsInline(admin.TabularInline):
     model = JobMandatoryQualification
     can_delete = False
     verbose_name_plural = 'Job Mandatory Qualifications'
-    extra = 0
+    extra = 1
 
 
 class JobRequestedQualificationsInline(admin.TabularInline):
     model = JobRequestedQualification
     can_delete = False
     verbose_name_plural = 'Job Requested Qualifications'
-    extra = 0
+    extra = 1
 
 
 class JobAdditionalInformationRequestsInline(admin.TabularInline):
     model = JobAdditionalInformationRequest
     can_delete = False
     verbose_name_plural = 'Job Additional Information Requests'
-    extra = 0
+    extra = 1
 
 
 class JobDocumentsInline(admin.TabularInline):
     model = JobDocument
     can_delete = True
     verbose_name_plural = 'Job Documents'
-    extra = 0
+    extra = 1
 
 
 class JobAdmin(admin.ModelAdmin):
