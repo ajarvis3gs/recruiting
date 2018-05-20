@@ -40,7 +40,7 @@ class CandidateAdmin(admin.ModelAdmin):
 
     def resume(obj):
         if obj.documents.count() > 0:
-            return "<a href='%s' download='%s'>download resume</a>" % (obj.documents.all()[0].document.url, obj.documents.all()[0].display_name)
+            return "<a href='%s' download='%s'>download resume111</a>" % (obj.documents.all()[0].document.url, obj.documents.all()[0].display_name)
         else:
             return ""
 
