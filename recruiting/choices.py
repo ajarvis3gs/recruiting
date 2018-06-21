@@ -99,6 +99,13 @@ SERVICE_GROUP_CHOICES = (
 
 JOB_TITLE_CHOICES = (
     ('', ''),
+    ('Ansible Specialist', 'Ansible Specialist'),
+    ('Senior Java Developer', 'Senior Java Developer'),
+    ('Python/Django Developer', 'Python/Django Developer'),
+    ('MDE Altassian Product Administrator', 'MDE Altassian Product Administrator'),
+    ('MDE Release Coordinator', 'MDE Release Coordinator'),
+    ('MDE Tools Admin', 'MDE Tools Admin'),
+    ('Senior Cloud Systems/DevOps Engineer', 'Senior Cloud Systems/DevOps Engineer'),
     ('Business Analyst', 'Business Analyst'),
     ('Project Manager', 'Project Manager'),
     ('Tester', 'Tester'),
