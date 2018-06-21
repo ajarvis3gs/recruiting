@@ -92,10 +92,10 @@ def xml_feed(request):
 
     employer3gs = Employer.objects.get(code='3GS')
 
-    jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True)
+    jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True).filter(submission_date__gte=date.today())
 
     if (site.name == '1x3i'):
-        jobs.filter(submission_date__gte=date.today()).exclude(employer_id=employer3gs.id)
+        jobs.exclude(employer_id=employer3gs.id)
 
     jobs.order_by('-id')
     context = {'jobs': jobs, 'site': site, 'siteDetail': siteDetail}
