@@ -12,6 +12,7 @@ from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.template import Context
 import datetime as dt
+from django.db.models import Q
 from datetime import date, datetime
 from django.contrib.sites.models import Site
 from publicsite.models import SiteDetail, SiteArticle
@@ -95,7 +96,7 @@ def xml_feed(request):
     jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True).filter(submission_date__gte=date.today())
 
     if (site.name == '1x3i'):
-        jobs.exclude(employer=employer3gs)
+        jobs.filter(~Q(employer=employer3gs))
 
     jobs.order_by('-id')
     context = {'jobs': jobs, 'site': site, 'siteDetail': siteDetail}
