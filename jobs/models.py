@@ -2,6 +2,7 @@ from django.db import models
 
 from recruiters.models import Recruiter
 from employers.models import Employer, EmployerContact, EmployerPricingSchedule
+from django.contrib.sites.models import Site
 from django.conf import settings
 from recruiting.choices import *
 
@@ -35,6 +36,7 @@ class Job(models.Model):
     is_active = models.BooleanField(default=True)
     last_modified = models.DateTimeField(auto_now_add=False, auto_now=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='jobs', null=True)
 
     def __str__(self):
         return "%s: %s" % (self.id, self.title)

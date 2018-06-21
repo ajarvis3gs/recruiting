@@ -91,14 +91,8 @@ def xml_feed(request):
     site = Site.objects.get_current()
     siteDetail = SiteDetail.objects.get(site=site)
 
-    employer3gs = Employer.objects.get(code='3GS')
+    jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True).filter(submission_date__gte=date.today()).filter(site__id__exact=site.id).order_by('-id')
 
-    jobs = Job.objects.filter(is_active__exact=True).filter(is_featured__exact=True).filter(submission_date__gte=date.today())
-
-    if site.name == '1x3i':
-        jobs.exclude(employer_id__exact=employer3gs.id)
-
-    jobs.order_by('-id')
     context = {'jobs': jobs, 'site': site, 'siteDetail': siteDetail}
 
     template = get_template('jobs/xml_feed.html')
