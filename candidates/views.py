@@ -109,19 +109,20 @@ def apply(request):
 
 	return render(request, 'candidates/apply.html', {'form': form})
 
+
 def apply_success(request):
-	key = request.GET.get('key', None)
-	user = UserProfile.verify_token(key)
+    key = request.GET.get('key', None)
+    user = UserProfile.verify_token(key)
 
-	if not key or not user:
-		messages.add_message(request, messages.ERROR,
-			'A valid application key is required to view this page.')
-	else:
-		jobs_url = reverse('jobs') + '?key=' + key
-		availability_url = reverse('available', args=[user.id]) + '?key=' + key
+    if not key or not user:
+        messages.add_message(request, messages.ERROR,
+                             'A valid application key is required to view this page.')
+    else:
+        jobs_url = reverse('jobs') + '?key=' + key
+        availability_url = reverse('available', args=[user.id]) + '?key=' + key
 
-	return render(request, 'candidates/apply.html', 
-			{'success': 'success',
-			 'jobs_url': jobs_url,
-			 'availability_url': availability_url
-			})
+    return render(request, 'candidates/apply.html',
+                  {'success': 'success',
+                   'jobs_url': jobs_url,
+                   'availability_url': availability_url
+                   })

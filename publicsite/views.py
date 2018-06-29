@@ -15,6 +15,9 @@ import cgi
 from django.shortcuts import redirect
 from django_mailbox.models import MessageAttachment
 from campaigns.views import initial_contact_campaign, candidate_campaign, response_form_campaign
+import xmlrpclib
+import base64
+from django.conf import settings
 
 def home(request):
     site = Site.objects.get_current()
@@ -197,7 +200,11 @@ def career_apply(request, job_id):
 
                 # create the response form campaign but don't start it just yet
                 response_form_campaign(job, candidate)
-            except BaseException as e:
+
+                # send to our crm system
+                sendToOdoo(candidate.id, job)
+            except Exception as e:
+                print(e)
                 send_mail(
                     'Error submitting application for job %s - %s' % (job.id, cgi.escape(job.title)),
                     'Error submitting an application from %s %s (%s). %s' % (
@@ -214,3 +221,49 @@ def career_apply(request, job_id):
         return render(request, 'career_apply.html', {'job': job, 'status': 'success', 'site': site, 'siteDetail': siteDetail})
     else:
         return render(request, 'career_apply.html', {'job': job, 'status': 'new', 'site': site, 'siteDetail': siteDetail})
+
+
+def sendToOdoo(candidate_id, job):
+    candidate = Candidate.objects.get(id=candidate_id)
+
+    # authenticate
+    common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(settings.ODOO_SERVER_URL))
+    uid = common.authenticate(settings.ODOO_SERVER_DATABASE, settings.ODOO_SERVER_USERNAME, settings.ODOO_SERVER_PASSWORD, {})
+
+    models = xmlrpclib.ServerProxy('{}/xmlrpc/2/object'.format(settings.ODOO_SERVER_URL))
+
+    hrJobIds = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.job', 'search',
+                            [[['name', '=', "%s" % (job.title)]]],
+                            {'limit': 1})
+
+    # check to see if this candidate exists already
+    count = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.applicant', 'search_count',
+                              [[['email_from', '=', "%s" % (candidate.email)], ['job_id', '=', hrJobIds[0]]]])
+
+    # create a new candidate
+    if count == 0:
+        id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.applicant', 'create', [{
+            'partner_name': "%s %s" % (candidate.first_name, candidate.last_name),
+            'display_name': "%s %s" % (candidate.first_name, candidate.last_name),
+            'name': "%s %s" % (candidate.first_name, candidate.last_name),
+            'email_from': '%s' % candidate.email,
+            'partner_phone': '%s' % candidate.phone_number,
+            'job_id': hrJobIds[0]
+        }])
+
+        for attachment in candidate.documents.all():
+            file = attachment.document.file
+            file.open(mode='rb')
+            lines = file.read()
+            file.close()
+
+            id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'ir.attachment', 'create', [{
+                'res_model': 'hr.applicant',
+                'res_id': id,
+                'name': "%s" % attachment.display_name,
+                'display_name': "%s" % attachment.display_name,
+                'datas_fname': "%s" % attachment.display_name,
+                'store_fname': "%s" % attachment.display_name,
+                'type': 'binary',
+                'datas': base64.b64encode(lines)
+            }])

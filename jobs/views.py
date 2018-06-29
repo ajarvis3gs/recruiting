@@ -18,6 +18,7 @@ from django.contrib.sites.models import Site
 from publicsite.models import SiteDetail, SiteArticle
 
 
+
 def add_interview_requests(request, user, jobs_ids):
     try:
         candidate = user.candidate
