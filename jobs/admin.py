@@ -32,6 +32,9 @@ class JobDocumentsInline(admin.TabularInline):
 
 
 class JobAdmin(admin.ModelAdmin):
+    def pipeline(self):
+        return "<a href='/jobs/%s/pipeline'>start pipeline</a>" % self.id
+
     def publish(self):
         if self.is_featured:
             return "<a href='/jobs/%s/unpublish'>unpublish</a>" % self.id
@@ -48,11 +51,12 @@ class JobAdmin(admin.ModelAdmin):
         return self.applications.count()
 
     inlines = (JobMandatoryQualificationsInline, JobRequestedQualificationsInline, JobAdditionalInformationRequestsInline, JobDocumentsInline, )
-    list_display = ('id', 'employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, apps, publish)
+    list_display = ('id', 'employer', 'title', 'employer_contact', 'agency', 'submission_date', 'target_rate', 'vendor_rate', is_open, apps, publish, pipeline)
     list_filter = ('employer', 'agency', 'submission_date', 'is_featured')
     search_fields = ('title', 'agency', 'preferred_software')
     publish.allow_tags = True
     is_open.allow_tags = True
+    pipeline.allow_tags = True
 
 
 class JobDocumentAdmin(admin.ModelAdmin):

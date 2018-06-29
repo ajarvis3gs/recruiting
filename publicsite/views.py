@@ -202,9 +202,8 @@ def career_apply(request, job_id):
                 response_form_campaign(job, candidate)
 
                 # send to our crm system
-                sendToOdoo(candidate.id, job)
+                startPipeline(candidate.id, job)
             except Exception as e:
-                print(e)
                 send_mail(
                     'Error submitting application for job %s - %s' % (job.id, cgi.escape(job.title)),
                     'Error submitting an application from %s %s (%s). %s' % (
@@ -223,7 +222,7 @@ def career_apply(request, job_id):
         return render(request, 'career_apply.html', {'job': job, 'status': 'new', 'site': site, 'siteDetail': siteDetail})
 
 
-def sendToOdoo(candidate_id, job):
+def startPipeline(candidate_id, job):
     candidate = Candidate.objects.get(id=candidate_id)
 
     # authenticate
@@ -236,34 +235,35 @@ def sendToOdoo(candidate_id, job):
                             [[['name', '=', "%s" % (job.title)]]],
                             {'limit': 1})
 
-    # check to see if this candidate exists already
-    count = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.applicant', 'search_count',
-                              [[['email_from', '=', "%s" % (candidate.email)], ['job_id', '=', hrJobIds[0]]]])
+    if hrJobIds:
+        # check to see if this candidate exists already
+        count = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.applicant', 'search_count',
+                                  [[['email_from', '=', "%s" % (candidate.email)], ['job_id', '=', hrJobIds[0]]]])
 
-    # create a new candidate
-    if count == 0:
-        id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.applicant', 'create', [{
-            'partner_name': "%s %s" % (candidate.first_name, candidate.last_name),
-            'display_name': "%s %s" % (candidate.first_name, candidate.last_name),
-            'name': "%s %s" % (candidate.first_name, candidate.last_name),
-            'email_from': '%s' % candidate.email,
-            'partner_phone': '%s' % candidate.phone_number,
-            'job_id': hrJobIds[0]
-        }])
-
-        for attachment in candidate.documents.all():
-            file = attachment.document.file
-            file.open(mode='rb')
-            lines = file.read()
-            file.close()
-
-            id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'ir.attachment', 'create', [{
-                'res_model': 'hr.applicant',
-                'res_id': id,
-                'name': "%s" % attachment.display_name,
-                'display_name': "%s" % attachment.display_name,
-                'datas_fname': "%s" % attachment.display_name,
-                'store_fname': "%s" % attachment.display_name,
-                'type': 'binary',
-                'datas': base64.b64encode(lines)
+        # create a new candidate
+        if count == 0:
+            id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.applicant', 'create', [{
+                'partner_name': "%s %s" % (candidate.first_name, candidate.last_name),
+                'display_name': "%s %s" % (candidate.first_name, candidate.last_name),
+                'name': "%s %s" % (candidate.first_name, candidate.last_name),
+                'email_from': '%s' % candidate.email,
+                'partner_phone': '%s' % candidate.phone_number,
+                'job_id': hrJobIds[0]
             }])
+
+            for attachment in candidate.documents.all():
+                file = attachment.document.file
+                file.open(mode='rb')
+                lines = file.read()
+                file.close()
+
+                id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'ir.attachment', 'create', [{
+                    'res_model': 'hr.applicant',
+                    'res_id': id,
+                    'name': "%s" % attachment.display_name,
+                    'display_name': "%s" % attachment.display_name,
+                    'datas_fname': "%s" % attachment.display_name,
+                    'store_fname': "%s" % attachment.display_name,
+                    'type': 'binary',
+                    'datas': base64.b64encode(lines)
+                }])

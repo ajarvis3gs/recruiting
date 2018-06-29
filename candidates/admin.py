@@ -24,8 +24,8 @@ class CandidateDocumentsInline(admin.TabularInline):
 
 
 class CandidateAdmin(admin.ModelAdmin):
-    def odoo(self):
-        return "<a href='/candidates/%s/odoo'>odoo</a>" % self.id
+    def pipeline(self):
+        return "<a href='/candidates/%s/pipeline'>start pipeline</a>" % self.id
 
     def email(obj):
         return ('%s' % (obj.email))
@@ -49,11 +49,11 @@ class CandidateAdmin(admin.ModelAdmin):
 
     applied_to_job.allow_tags = True
     resume.allow_tags = True
-    odoo.allow_tags = True
+    pipeline.allow_tags = True
 
 
     list_filter = ('status',)
-    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'status', applied_to_job, resume, odoo)
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'preferred_communication_method', 'best_contact_time', 'status', applied_to_job, resume, pipeline)
     inlines = (CandidateDocumentsInline, InterviewRequestInline)
     exclude = ('password', 'last_login', 'is_admin',)
     search_fields = ('email', 'first_name', 'last_name', 'phone_number')

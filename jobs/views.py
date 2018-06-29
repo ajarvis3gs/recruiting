@@ -16,6 +16,9 @@ from django.db.models import Q
 from datetime import date, datetime
 from django.contrib.sites.models import Site
 from publicsite.models import SiteDetail, SiteArticle
+import xmlrpclib
+import base64
+from django.conf import settings
 
 
 
@@ -124,4 +127,45 @@ def publish(request, job_id):
     job.is_featured = True
     job.save()
 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def pipeline(request, job_id):
+    job = Job.objects.get(id=job_id)
+
+    # authenticate
+    common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(settings.ODOO_SERVER_URL))
+    uid = common.authenticate(settings.ODOO_SERVER_DATABASE, settings.ODOO_SERVER_USERNAME, settings.ODOO_SERVER_PASSWORD, {})
+
+    models = xmlrpclib.ServerProxy('{}/xmlrpc/2/object'.format(settings.ODOO_SERVER_URL))
+
+    # check to see if this job exists already
+    count = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.job', 'search_count',
+                              [[['name', '=', "%s" % (job.title)]]])
+
+    # create a new job
+    if count == 0:
+        id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'hr.job', 'create', [{
+            'name': "%s" % (job.title),
+            'description': '%s' % job.description
+        }])
+
+        for attachment in job.documents.all():
+            file = attachment.document.file
+            file.open(mode='rb')
+            lines = file.read()
+            file.close()
+
+            id = models.execute_kw(settings.ODOO_SERVER_DATABASE, uid, settings.ODOO_SERVER_PASSWORD, 'ir.attachment', 'create', [{
+                'res_model': 'hr.job',
+                'res_id': id,
+                'name': "%s" % attachment.display_name,
+                'display_name': "%s" % attachment.display_name,
+                'datas_fname': "%s" % attachment.display_name,
+                'store_fname': "%s" % attachment.display_name,
+                'type': 'binary',
+                'datas': base64.b64encode(lines)
+            }])
+
+
+    messages.add_message(request, messages.SUCCESS, 'Job pipeline started successfully.')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

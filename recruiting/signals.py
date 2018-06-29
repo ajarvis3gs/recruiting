@@ -149,13 +149,13 @@ def message_received(sender, message, **args):
                     info.save()
 
         # finally, create the appropriate records in our crm system
-        sendToOdoo(job.id)
+        startPipeline(job.id)
 
         logger.error("message creation complete")
     except:
         logger.error("error processing new message")
 
-def sendToOdoo(job_id):
+def startPipeline(job_id):
     job = Job.objects.get(id=job_id)
 
     # authenticate
