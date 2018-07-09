@@ -7,10 +7,12 @@ from accounts.models import UserProfile
 import xmlrpclib
 import base64
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from .models import Candidate, CandidateDocument
 from .forms import UserApplyStep1Form, UserApplyStep2Form
 
+@login_required
 def view_candidates(request):
     candidates = Candidate.objects.all()
 
