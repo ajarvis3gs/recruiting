@@ -166,7 +166,7 @@ SITE_ID = 1
 ATTACHMENT_UPLOAD_TO='media/%Y/%m/%d/'
 DJANGO_MAILBOX_ATTACHMENT_UPLOAD_TO=ATTACHMENT_UPLOAD_TO
 
-ODOO_SERVER_URL = 'http://ec2-52-207-218-20.compute-1.amazonaws.com'
+ODOO_SERVER_URL = 'http://ec2-35-171-151-43.compute-1.amazonaws.com'
 ODOO_SERVER_DATABASE = 'bitnami_openerp'
-ODOO_SERVER_USERNAME = 'support@3gsllc.com'
-ODOO_SERVER_PASSWORD = 'threegsllc'
+ODOO_SERVER_USERNAME = 'odoosupport@3gsllc.com  '
+ODOO_SERVER_PASSWORD = '2gsin06'
