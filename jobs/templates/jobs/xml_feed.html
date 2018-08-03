@@ -5,7 +5,7 @@
 <lastBuildDate>{% now "r" %}</lastBuildDate>
 {% for job in jobs %}
     <job>
-        <title><![CDATA[{{ job.pricing_schedule.job_title }}]]></title>
+        <title><![CDATA[{{ job.getJobTitle }}]]></title>
         <date><![CDATA[{{ job.created | date:"r" }}]]></date>
         <referencenumber><![CDATA[{{ job.id }}]]></referencenumber>
         <url><![CDATA[http://www.{{ site.domain }}/careers/{{ job.id }}]]></url>

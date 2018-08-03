@@ -41,7 +41,7 @@
                             <article class="team-list-item">
                                 <div class="team-member-mod">
                                     <div class="headline-mod">
-                                        <h2 class="section-h1"><a href="{% url 'career_details' job.id %}">{{ job.pricing_schedule.job_title | title }}</a></h2>
+                                        <h2 class="section-h1"><a href="{% url 'career_details' job.id %}">{{ job.getJobTitle | title }}</a></h2>
                                         <h3 class="person-title">{{ job.location | title }}</h3>
                                     </div>
                                     <article class="txt">
