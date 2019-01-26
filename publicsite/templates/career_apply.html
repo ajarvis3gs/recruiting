@@ -38,6 +38,7 @@
                     <div class="screen-reader-response"></div>
                     {% if status == 'new' %}
                         <form action="{% url "career_apply" job.id  %}" method="post" class="wpcf7-form" enctype="multipart/form-data">
+                            <input type="hidden" name="website" value="">
                             {% csrf_token %}
                             <fieldset><label>First Name</label><span class="wpcf7-form-control-wrap firstName"><input type="text" name="firstName" value="" size="40" maxlength="30" class="required wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
                             <fieldset><label>Last Name</label><span class="wpcf7-form-control-wrap lastName"><input type="text" name="lastName" value="" size="40" maxlength="100" class="required wpcf7-form-control wpcf7-text" aria-required="true" aria-invalid="false"></span> </fieldset>
@@ -108,6 +109,12 @@
 
             if (required > 0) {
                 alert('Please fill in all required fields');
+                e.preventDefault();
+            }
+
+            var $website = $('[name="website"]').val();
+
+            if ($website !== '') {
                 e.preventDefault();
             }
         });

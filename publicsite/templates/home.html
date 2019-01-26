@@ -197,6 +197,7 @@
                     <div role="form" class="wpcf7" id="wpcf7-f44-o1" dir="ltr">
                         <div class="screen-reader-response"></div>
                         <form action="{% url "home" %}" method="post" class="wpcf7-form" novalidate="novalidate">
+                            <input type="hidden" name="website" value="">
                             {% csrf_token %}
                             <fieldset><label>Name (required)</label><span class="wpcf7-form-control-wrap name"><input type="text" name="name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span> </fieldset>
                             <fieldset><label>Email (required)</label><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span> </fieldset>
@@ -219,7 +220,12 @@
         $(document).ready(function() {
             $('#contact_submit').on('click', function(e) {
                 var $name = $('[name="name"]').val(),
-                    $email = $('[name="email"]').val();
+                    $email = $('[name="email"]').val(),
+                    $website = $('[name="website"]').val();
+
+                if ($website !== '') {
+                    e.preventDefault();
+                }
 
                 if ($name === '' || $email === '') {
                     alert('Please fill in all required fields');
