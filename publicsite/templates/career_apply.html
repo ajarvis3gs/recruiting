@@ -114,7 +114,8 @@
 
             var $website = $('[name="website"]').val();
 
-            if ($website !== '') {
+            if ($website.length > 0) {
+                console.log('invalid form submission');
                 e.preventDefault();
             }
         });
