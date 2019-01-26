@@ -202,7 +202,7 @@ def career_apply(request, job_id):
                 response_form_campaign(job, candidate)
 
                 # send to our crm system
-                startPipeline(candidate.id, job)
+                #startPipeline(candidate.id, job)
             except Exception as e:
                 send_mail(
                     'Error submitting application for job %s - %s' % (job.id, cgi.escape(job.title)),
